@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Voting</th>
+      <th>Done</th>
+   <th></th>
+ </tr>
+    {% for voting in votings %}
+    <tr>
+      <td>{{ voting.name }}</td>
+      <td>{{ voting.done }}</td>
+<td>
+<form method="POST" action="{{ url_for('votings_set_done', voting_id=voting.id) }}">
+	  <input type="submit" value="Change status!"/>
+	</form>
+</form>    
+</td>
+</tr>
+    {% endfor %}
+  </table>
+{% endblock %}

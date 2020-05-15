@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Voting application</title>
+  </head>
+
+<body>
+   <ul>
+	<li><a href="{{ url_for('votings_index') }}">List all votings</a></li>
+	<li><a href="{{ url_for('votings_form') }}">Add new voting</a></li>
+      </ul>
+ 
+    {% block body %}
+      <p>
+        Content.
+      </p>
+    {% endblock %}
+  </body>
+</html>
+
