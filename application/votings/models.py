@@ -9,6 +9,7 @@ class Voting(db.Model):
     name = db.Column(db.String(144), nullable=False)
     done = db.Column(db.Boolean, nullable=False)
 
+
     def __init__(self, name):
         self.name = name
         self.done = False
