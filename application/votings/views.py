@@ -1,4 +1,5 @@
 from flask import render_template, request, redirect, url_for
+from flask_login import login_required
 
 from application import app
 from application import  db
@@ -10,10 +11,12 @@ def votings_index():
     return render_template("votings/list.html", votings = Voting.query.all())
 
 @app.route("/votings/new/")
+@login_required
 def votings_form():
     return render_template("votings/new.html", form = VotingForm())
 
 @app.route("/votings/", methods=["POST"])
+@login_required
 def votings_create():
 
     form = VotingForm(request.form)
@@ -30,6 +33,7 @@ def votings_create():
     return redirect(url_for("votings_index"))
 
 @app.route("/votings/<voting_id>/", methods=["POST"])
+@login_required
 def votings_set_done(voting_id):
 
     t = Voting.query.get(voting_id)
