@@ -13,9 +13,18 @@
      <td>{{ voting.done }}</td>
 <td>
        <form method="POST" action="{{ url_for('votings_set_done', voting_id=voting.id) }}">
-	  <input type="submit" value="Vote!"/>
+	  <input type="submit" value="Äänestä!"/>
+  </form>
+</td>
+<td>
+  <form method="POST" action="{{ url_for('votings_ed', voting_id=voting.id) }}">
+    <input type="submit" value="Muokkaa!"/>
+</form>
+</td>
+<td>
+  <form method="POST" action="{{ url_for('votings_delete', voting_id=voting.id) }}">
+    <input type="submit" value="Poista!"/>
 	</form>
-</form>    
 </td>
 </tr>
     {% endfor %}

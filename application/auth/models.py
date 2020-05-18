@@ -13,6 +13,9 @@ class User(db.Model):
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
 
+    votings = db.relationship("Voting", backref='account', lazy=True)
+
+
     def __init__(self, name, username, password):
         self.name = name
         self.username = username
@@ -29,4 +32,14 @@ class User(db.Model):
 
     def is_authenticated(self):
         return True
+
+
+    def username_exists(username):
+
+      stmt = text("SELECT * FROM account WHERE username = :username")
+
+      return stmt is not None
+
+
+
 
