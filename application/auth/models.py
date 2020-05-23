@@ -9,6 +9,8 @@ class User(db.Model):
     date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
                               onupdate=db.func.current_timestamp())
 
+#lisää nimeen unique=True,
+
     name = db.Column(db.String(144), nullable=False)
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
@@ -33,13 +35,8 @@ class User(db.Model):
     def is_authenticated(self):
         return True
 
-
-    def username_exists(username):
-
-      stmt = text("SELECT * FROM account WHERE username = :username")
-
-      return stmt is not None
-
+    def usernameIsRegisteredAlready(self, name):
+        return User.query.filter_by(username=name).scalar() is not None
 
 
 

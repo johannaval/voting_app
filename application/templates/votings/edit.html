@@ -1,14 +1,14 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form method="POST" action="{{ url_for('votings_ed', voting_id=voting.id) }}">
+<form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
     <table>
         <tr>
       <td>
         {{ form.name.label }}
       </td>
       <td>
-        {{ form.name }}
+        {{ form.name }} {{voting.name}}
     </td>
     <td>
         <ul>
@@ -22,8 +22,8 @@
          <td>
           {{ form.option1.label }}
          </td>
-         <td>
-          {{ form.option1 }}
+         <td> 
+            {{ form.option1 }} {{ options[0].name }}
          </td>
         </tr>
        <tr>
@@ -31,7 +31,7 @@
             {{ form.option2.label }}
           </td>
           <td>
-            {{ form.option2 }}
+            {{ form.option2 }} {{ options[1].name }}
           </td>
         </tr>
          <tr>
@@ -39,12 +39,13 @@
             {{ form.option3.label }}
           </td>
           <td>
-            {{ form.option3 }}
+            {{ form.option3 }} {{ options[2].name }}
           </td>
         </tr>
         <tr>
       <td colspan="3">
         <input type="submit" value="Päivitä!"/>
+
       </td>
         </tr>
   </form>

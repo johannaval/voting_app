@@ -15,3 +15,15 @@ class Voting(db.Model):
     def __init__(self, name):
         self.name = name
         self.done = False
+
+
+class Option(db.Model):
+    option_id = db.Column(db.Integer, primary_key=True)
+    voting_id = db.Column(db.Integer)
+    name = db.Column(db.String(144), nullable=False)
+    description = db.Column(db.String(144), nullable=True)
+   
+    def __init__(self, name):
+        self.name = name
+
+

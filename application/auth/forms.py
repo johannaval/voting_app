@@ -7,9 +7,11 @@ class CreateNewForm(FlaskForm):
     createNewUsername = StringField("Käyttäjänimi: ", [validators.Length(min=3, max=20, message="Käyttäjänimessä pitää olla 3-20 merkkiä!")])
     createNewPassword = PasswordField("Salasana: ", [validators.Length(min=3, max=20, message="Salasanassa pitää olla 3-20 merkkiä!")])
 
-    def isThereAlreadyUserWithThisName(form, field):
-        if User.username_exists(field.data):
-            raise ValidationError("Käyttäjänimi varattu")
+    def validate_username(self, username):
+  
+       user = User.query.filter_by(username=createNewName.data).first()
+   #    if user:
+    #      raise ValidationError('That username is taken. Please choose another.')
 
     class Meta:
         csrf = False

@@ -3,8 +3,8 @@
 {% block body %}
   <table>
     <tr>
-      <th>Voting</th>
-      <th>Voted:</th>
+      <th>Äänestys</th>
+      <th>Äänestetty?</th>
    <th></th>
  </tr>
     {% for voting in votings %}
@@ -12,18 +12,18 @@
       <td>{{ voting.name }}</td>
      <td>{{ voting.done }}</td>
 <td>
-       <form method="POST" action="{{ url_for('votings_set_done', voting_id=voting.id) }}">
-	  <input type="submit" value="Äänestä!"/>
-  </form>
-</td>
-<td>
-  <form method="POST" action="{{ url_for('votings_ed', voting_id=voting.id) }}">
+  <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
     <input type="submit" value="Muokkaa!"/>
 </form>
 </td>
 <td>
   <form method="POST" action="{{ url_for('votings_delete', voting_id=voting.id) }}">
     <input type="submit" value="Poista!"/>
+	</form>
+</td>
+<td>
+  <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
+    <input type="submit" value="Tarkastele äänestystä!"/>
 	</form>
 </td>
 </tr>

@@ -8,6 +8,7 @@ from application.auth.forms import CreateNewForm
 
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
+
     if request.method == "GET":
         return render_template("auth/loginform.html", form = LoginForm())
 
@@ -28,6 +29,11 @@ def auth_create():
         return render_template("auth/createnewform.html", form=CreateNewForm())
 
     form = CreateNewForm(request.form)
+
+    user = User.query.filter(User.username==form.createNewUsername.data).first()
+    if user:
+        return render_template("/auth/createnewform.html", form = form, error = "Käyttäjänimi on jo varattu!")
+
 
     if not form.validate():
         return render_template("/auth/createnewform.html", form = form,

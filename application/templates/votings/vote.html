@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form method="POST" action="{{ url_for('votings_vote_this', voting_id=voting.id) }}">
+    <table>
+        <tr>
+            <td name="">{{ voting.name }}</td>
+            <input type="hidden" name="name" value="{{ voting.name }}" />
+        </tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        {% for item in data %}
+        <tr>
+          <td> {{ data.index(item)+1}} {{ item.name }}</td>
+        </tr>
+        {% endfor %}
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>       
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr>
+            <td>
+              {{ form.answer.label }}
+            </td>
+            <td> 
+              {{ form.answer }}
+            </td>
+            <td>
+                <ul>
+                  {% for error in form.answer.errors %}
+                  <li></li>
+                  <tr></tr>
+                  <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              </td>
+          </tr>
+        <tr>
+                <td colspan="4">
+                  <input type="submit" value="Äänestä!"/>
+              </td>
+        </tr>
+  </form>
+  {% endblock %}
