@@ -5,13 +5,7 @@ class User(db.Model):
     __tablename__ = "account"
   
     id = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
-    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
-                              onupdate=db.func.current_timestamp())
-
-#lisää nimeen unique=True,
-
-    name = db.Column(db.String(144), nullable=False)
+    name = db.Column(db.String(144), unique=True, nullable=False)
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
 
@@ -34,9 +28,3 @@ class User(db.Model):
 
     def is_authenticated(self):
         return True
-
-    def usernameIsRegisteredAlready(self, name):
-        return User.query.filter_by(username=name).scalar() is not None
-
-
-
