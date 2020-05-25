@@ -79,7 +79,6 @@ def votings_create():
 
     v = Voting(form.name.data)
     v.done = False
-    #v.starting_time = form['datetimepicker1']
     v.description = form.nameDescription.data
     v.account_id = current_user.id
     db.session().add(v)

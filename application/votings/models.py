@@ -3,6 +3,8 @@ from application.models import Base
 from datetime import datetime
 
 class Voting(Base):
+    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
+    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
     description = db.Column(db.String(144), nullable=True)
     done = db.Column(db.Boolean, nullable=False)
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
