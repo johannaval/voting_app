@@ -1,32 +1,60 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <table>
-    <tr>
-      <th>Äänestys</th>
-      <th>Äänestetty?</th>
-   <th></th>
- </tr>
-    {% for voting in votings %}
-    <tr>
-      <td>{{ voting.name }}</td>
-     <td>{{ voting.done }}</td>
-<td>
-  <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
-    <input type="submit" value="Muokkaa!"/>
-</form>
-</td>
-<td>
-  <form method="POST" action="{{ url_for('votings_delete', voting_id=voting.id) }}">
-    <input type="submit" value="Poista!"/>
-	</form>
-</td>
-<td>
-  <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
-    <input type="submit" value="Tarkastele äänestystä!"/>
-	</form>
-</td>
-</tr>
-    {% endfor %}
-  </table>
+<table>
+  <h1>Äänestykset: </h1>
+
+  {% if current_user.is_authenticated%}
+  {% for voting in votings %}
+  <tr>
+    <td>{{ voting.name }} </td>
+    <td>
+      <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
+        <input type="submit" value="Muokkaa!" />
+      </form>
+    <td>
+      <form method="POST" action="{{ url_for('votings_delete', voting_id=voting.id) }}">
+        <input type="submit" value="Poista!" />
+      </form>
+    </td>
+    <td>
+      <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
+        <input type="submit" value="Äänestä!" />
+      </form>
+    </td>
+    </td>
+  </tr>
+  <br>
+  {% endfor %}
+  <h3> Olet jo äänestänyt äänestyksissä: </h3>
+  {% for vote in voted %}
+  <ul> {{ vote.name }}</ul>
+  {% endfor %}
+  <br>
+
+
+  {% else %}
+  {% for voting in votings%}
+  <tr>
+    <td>{{ voting.name }}</td>
+    <td>
+      <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
+        <input type="submit" value="Muokkaa!" />
+      </form>
+    <td>
+      <form method="POST" action="{{ url_for('votings_delete', voting_id=voting.id) }}">
+        <input type="submit" value="Poista!" />
+      </form>
+    </td>
+    <td>
+      <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
+        <input type="submit" value="Tarkastele äänestystä!" />
+      </form>
+    </td>
+    </td>
+  </tr>
+  {% endfor %}
+  {% endif %}
+</table>
+
 {% endblock %}

@@ -3,15 +3,30 @@ from flask_login import login_required, current_user
 
 from application import app
 from application import  db
-from application.votings.models import Voting, Option
+from application.votings.models import Voting, Option, User_Voted
 from application.votings.forms import VotingForm
 from application.votings.forms import VoteForm
+
 
 
 @app.route("/votings", methods=["GET"])
 def votings_index():
 
-    return render_template("votings/list.html", votings = Voting.query.all())
+    if current_user.is_authenticated:
+      id = current_user.id
+      voted = User_Voted.query.filter(User_Voted.user_id == id).all()
+      votedd = []
+
+      for i in range(len(voted)):
+        index = voted[i].id
+        Voting.query.filter(Voting.id == index).first()
+        name = Voting.query.get(index)
+        votedd.append(name)
+
+    else:
+      votedd = None
+
+    return render_template("votings/list.html", votings = Voting.query.all(), voted = votedd)
 
 
 
@@ -30,7 +45,10 @@ def votings_vote(voting_id):
     v = Voting.query.get(voting_id)
     data = Option.query.filter(Option.voting_id==voting_id).all()
 
-    return render_template("votings/vote.html", voting = v, data=data, form = VoteForm())
+    creator = v.account_id
+    current = current_user.id
+
+    return render_template("votings/vote.html", voting = v, data=data, creator = creator, current = current, form = VoteForm())
 
 
 @app.route("/votings/<voting_id>/vote/this", methods=["GET", "POST"])
@@ -61,26 +79,32 @@ def votings_create():
 
     v = Voting(form.name.data)
     v.done = False
+    #v.starting_time = form['datetimepicker1']
+    v.description = form.nameDescription.data
     v.account_id = current_user.id
     db.session().add(v)
     db.session().commit()
 
     o1 = Option(form.option1.data)
     o1.name = form.option1.data
+    o1.description = form.option1Description.data
     o1.voting_id = v.id
     db.session().add(o1)
 
     o2 = Option(form.option2.data)
     o2.name = form.option2.data
+    o2.description = form.option2Description.data
     o2.voting_id = v.id
     db.session().add(o2)
 
     o3 = Option(form.option3.data)
     o3.name = form.option3.data
+    o3.description = form.option3Description.data
     o3.voting_id = v.id
     db.session().add(o3)
-    db.session().commit()
 
+
+    db.session().commit()
 
     return redirect(url_for("votings_index"))
 
@@ -88,10 +112,13 @@ def votings_create():
 @login_required
 def votings_set_done(voting_id):
 
-    t = Voting.query.get(voting_id)
-    t.done = True
+    user = current_user
+    uv = User_Voted(voting_id)
+    uv.voting_id = voting_id
+    uv.user_id = current_user.id
 
-    db.session().commit()
+    db.session.add(uv)
+    db.session.commit()
   
     return redirect(url_for("votings_index"))
 
@@ -115,18 +142,20 @@ def votings_edit(voting_id):
             v.name = newName
             v.date_modified = default=db.func.current_timestamp()
             db.session.commit()
-  
             
             newOption1 = request.form.get("option1")
             o1.name = newOption1
+            o1.description = request.form.get('option1Description')
             db.session.commit()
 
             newOption2 = request.form.get("option2")
             o2.name = newOption2
+            o2.description = request.form.get('option2Description')
             db.session.commit()
 
             newOption3 = request.form.get("option3")
             o3.name = newOption3
+            o3.description = request.form.get('option3Description')
             db.session.commit()
            
 

@@ -1,51 +1,144 @@
 {% extends "layout.html" %}
-  
+
 {% block body %}
 <form method="POST" action="{{ url_for('votings_create') }}">
   <table>
+    <h1> Luo äänestys: </h1>
+    <td>
       <tr>
-	<td>
-	  {{ form.name.label }}
-	</td>
-	<td>
-	  {{ form.name }}
-  </td>
-  <td>
-	  <ul>
-	    {% for error in form.name.errors %}
-	    <li>{{ error }}</li>
-	    {% endfor %}
-	  </ul>
-	</td>
-      </tr>
- <tr>
-       <td>
-        {{ form.option1.label }}
-       </td>
-       <td>
+        <td>
+          <h3> Kysymys: </h3>
+        </td>
+        <td>
+          {{ form.name }}
+        </td>
+      <tr></tr>
+    <td>
+      {{ form.nameDescription.label }}
+    </td>
+    <td>
+      {{ form.nameDescription }}
+    </td>
+    <td>
+      <ul>
+        {% for error in form.name.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    </td>
+    </tr>
+    <br>
+    <tr>
+    <tr>
+      <td>
+        <br>
+        <h4> Vaihtoehto 1. </h4>
+      </td>
+      <td>
+        <br>
         {{ form.option1 }}
-       </td>
-      </tr>
-     <tr>
-        <td>
-          {{ form.option2.label }}
-        </td>
-        <td>
-          {{ form.option2 }}
-        </td>
-      </tr>
-       <tr>
-        <td>
-          {{ form.option3.label }}
-        </td>
-        <td>
-          {{ form.option3 }}
-        </td>
-      </tr>
+      </td>
+    <tr></tr>
+    <td>
+      {{ form.option1Description.label }}
+    </td>
+    <td>
+      {{ form.option1Description }}
+    </td>
+    </tr>
+    <tr>
+      <td>
+        <br>
+        <h4> Vaihtoehto 2. </h4>
+      </td>
+      <td>
+        <br>
+        {{ form.option2 }}
+      </td>
+    <tr></tr>
+    <td>
+      {{ form.option2Description.label }}
+    </td>
+    <td>
+      {{ form.option2Description }}
+    </td>
+    </tr>
+    <tr>
+      <td>
+        <br>
+        <h4> Vaihtoehto 3. </h4>
+      </td>
+      <td>
+        <br>
+        {{ form.option3 }}
+      </td>
+    <tr></tr>
+    <td>
+      {{ form.option3Description.label }}
+    </td>
+    <td>
+      {{ form.option3Description }}
+    </td>
+    </tr>
+    </td>
+  </table>
+  <tr>
+    <br>
+    <h4> Mitä tuloksia haluat, että muut näkevät?</h4>
+    {{ form.results }}
+  </tr>
+  <tr>
+    <br>
+    <h4> Äänestys vain kirjautuneille käyttäjille?</h4>
+    {{ form.anonymous }}
+  </tr>
+  <p> Editointivaiheessa -></p>
+  <h4> Valitse aloituspäivä: </h4>
+  <div class="container">
+    <div class="row">
+      <div class='col-sm-6'>
+        <div class="form-group">
+          <div class='input-group date' id='datetimepicker1'>
+            <input type='text' class="form-control" />
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        $(function () {
+          $('#datetimepicker1').datetimepicker();
+        });
+      </script>
+    </div>
+  </div>
+  <h4> Valitse lopetuspäivä: </h4>
+  <div class="container">
+    <div class="row">
+      <div class='col-sm-6'>
+        <div class="form-group">
+          <div class='input-group date' id='datetimepicker1'>
+            <input type='text' class="form-control" />
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        $(function () {
+          $('#datetimepicker1').datetimepicker();
+        });
+      </script>
+    </div>
+  </div>
+  <p>
+    <-- </p>
       <tr>
-	<td colspan="3">
-	  <input type="submit" value="Lisää!"/>
-	</td>
+        <td colspan="3">
+          <input type="submit" value="Lisää!" />
+        </td>
       </tr>
 </form>
 {% endblock %}

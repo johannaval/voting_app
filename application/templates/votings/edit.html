@@ -3,51 +3,143 @@
 {% block body %}
 <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
     <table>
+        <table>
+            <h1> Muokkaa äänestystä: </h1>
+            <td>
+                <tr>
+                    <td>
+                        <h3> Kysymys: </h3>
+                    </td>
+                    <td>
+                        {{ form.name }} {{ voting.name}}
+                        <ul>
+                    </td>
+                    {% for error in form.name.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                <tr></tr>
+            <td>
+                {{ form.nameDescription.label }}
+            </td>
+            <td>
+                {{ form.nameDescription }} {{ voting.description}}
+            </td>
+            <td>
+            </td>
+            </tr>
+            <br>
+            <tr>
+            <tr>
+                <td>
+                    <br>
+                    <h4> Vaihtoehto 1. </h4>
+                </td>
+                <td>
+                    <br>
+                    {{ form.option1 }} {{ options[0].name}}
+                </td>
+            <tr></tr>
+            <td>
+                {{ form.option1Description.label }}
+            </td>
+            <td>
+                {{ form.option1Description }} {{ options[0].description}}
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    <h4> Vaihtoehto 2. </h4>
+                </td>
+                <td>
+                    <br>
+                    {{ form.option2 }} {{ options[1].name }}
+                </td>
+            <tr></tr>
+            <td>
+                {{ form.option2Description.label }}
+            </td>
+            <td>
+                {{ form.option2Description }} {{ options[1].description}}
+            </td>
+            </tr>
+            <tr>
+                <td>
+                    <br>
+                    <h4> Vaihtoehto 3. </h4>
+                </td>
+                <td>
+                    <br>
+                    {{ form.option3 }} {{ options[2].name }}
+                </td>
+            <tr></tr>
+            <td>
+                {{ form.option3Description.label }}
+            </td>
+            <td>
+                {{ form.option3Description }} {{ options[2].description}}
+            </td>
+            </tr>
+            </td>
+        </table>
         <tr>
-      <td>
-        {{ form.name.label }}
-      </td>
-      <td>
-        {{ form.name }} {{voting.name}}
-    </td>
-    <td>
-        <ul>
-          {% for error in form.name.errors %}
-          <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
-      </td>
-        </tr>
-   <tr>
-         <td>
-          {{ form.option1.label }}
-         </td>
-         <td> 
-            {{ form.option1 }} {{ options[0].name }}
-         </td>
-        </tr>
-       <tr>
-          <td>
-            {{ form.option2.label }}
-          </td>
-          <td>
-            {{ form.option2 }} {{ options[1].name }}
-          </td>
-        </tr>
-         <tr>
-          <td>
-            {{ form.option3.label }}
-          </td>
-          <td>
-            {{ form.option3 }} {{ options[2].name }}
-          </td>
+            <br>
+            <h4> Mitä tuloksia haluat, että muut näkevät?</h4>
+            {{ form.results }}
         </tr>
         <tr>
-      <td colspan="3">
-        <input type="submit" value="Päivitä!"/>
-
-      </td>
+            <br>
+            <h4> Äänestys vain kirjautuneille käyttäjille?</h4>
+            {{ form.anonymous }}
         </tr>
-  </form>
-  {% endblock %}
-  
+        <p> Editointivaiheessa -></p>
+        <h4> Valitse aloituspäivä: </h4>
+        <div class="container">
+            <div class="row">
+                <div class='col-sm-6'>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input type='text' class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(function () {
+                        $('#datetimepicker1').datetimepicker();
+                    });
+                </script>
+            </div>
+        </div>
+        <h4> Valitse lopetuspäivä: </h4>
+        <div class="container">
+            <div class="row">
+                <div class='col-sm-6'>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input type='text' class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(function () {
+                        $('#datetimepicker1').datetimepicker();
+                    });
+                </script>
+            </div>
+        </div>
+        <p>
+            <-- </p>
+                <tr>
+                    <td colspan="3">
+                        <input type="submit" value="Lisää!" />
+                    </td>
+                </tr>
+</form>
+{% endblock %}
