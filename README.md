@@ -7,6 +7,11 @@ Testitunnukset:
 
     käyttäjänimi: tero
     salasana: testaaja
+    
+    käyttäjänimi: tiina
+    salasana: testaaja
+    
+ (Koska äänestyksen tekijä ei voi itse äänestää omassa äänestyksessä, voi toiminnallisuutta testata molemmilla käyttäjillä)
 
 [Sovellus (Heroku)](https://tsoha-voting-app.herokuapp.com/)
 
