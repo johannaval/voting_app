@@ -1,17 +1,17 @@
 from application import db
 from application.models import Base
 from datetime import datetime
+from sqlalchemy.sql import text
 
 class Voting(Base):
     date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
     date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
     description = db.Column(db.String(144), nullable=True)
-    done = db.Column(db.Boolean, nullable=False)
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
     starting_time = db.Column(db.DateTime)
     ending_time = db.Column(db.DateTime())
     show_result = db.Column(db.Integer)
-    anonymous = db.Column(db.Boolean)
+    anonymous = db.Column(db.Integer)
 
     def __init__(self, name):
         self.name = name
@@ -28,7 +28,7 @@ class Option(db.Model):
         self.name = name
 
 
-class User_Voted(db.Model):
+class UserVoted(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
     voting_id = db.Column(db.Integer)
@@ -36,4 +36,68 @@ class User_Voted(db.Model):
     def __init__(self, user_id):
         self.user_id = user_id
 
+
+
+    @staticmethod
+    def getVotedVotings(user_id):
+
+        stmt = text("SELECT name FROM Voting "
+        "LEFT JOIN User_Voted ON User_Voted.voting_id = Voting.id "
+        "WHERE User_Voted.user_id =:user_id "
+        "GROUP BY Voting.name").params(user_id=user_id)
+
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append(row[0])
+
+        return response
+
+
+
+    @staticmethod
+    def count_votes(u_id, v_id):
+
+        stmt = text("SELECT count(user_id) FROM User_Voted "
+        "WHERE user_id = :u_id AND voting_id = :v_id").params(u_id=u_id, v_id=v_id)
+
+        data = db.engine.execute(stmt)
+        response = []
+
+        for row in data:
+            response.append(row[0])
+
+        return response
+
+class Vote(db.Model):
+    vote_id = db.Column(db.Integer, primary_key=True)
+    voting_id = db.Column(db.Integer)
+    option_id = db.Column(db.Integer)
+    time = db.Column(db.DateTime, default=db.func.current_timestamp())
+   
+    def __init__(self, voting_id):
+        self.voting_id = voting_id
+
+
+    @staticmethod
+    def return_top_3_votes_in_vote(id): 
+         
+        stmt = text("SELECT Option.name, COUNT(Vote.option_id) FROM Option "
+        "LEFT JOIN Vote ON Vote.option_id = Option.option_id "
+        "WHERE Option.voting_id = :id "
+        "GROUP BY option.name " 
+        "ORDER BY count(Vote.option_id) DESC").params(id=id)
+
+        res = db.engine.execute(stmt)
+        response = []
+        line = ""
+  
+        for row in res:
+            line = row[0] , row[1]
+            result = " ".join(str(x) for x in line)
+            response.append(result)
+
+        return response
+          
 

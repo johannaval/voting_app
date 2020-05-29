@@ -3,31 +3,61 @@
 {% block body %}
 <form method="POST" action="{{ url_for('votings_vote_this', voting_id=voting.id) }}">
     <table>
-        <tr>
-            <h3>{{ voting.name }} </h3>
-        </tr>
-        <tr></tr>
-        {% for item in data %}
-        <tr>
-            <td> {{ data.index(item)+1}}. {{ item.name }} {{ item.description}}</td>
-        </tr>
-        {% endfor %}
-        <tr></tr>
-        <tr></tr>
-        <tr>
-            <td>
-                <br>
-                {% if creator != current %}
-                {{ form.answer.label }} {{ form.answer }}
-        <tr></tr>
+        <td>
+            <tr>
+                <h3>{{ voting.name }} </h3>
+            </tr>
+            <tr></tr>
+            {% for item in data %}
+            <tr>
+                <td> {{ data.index(item)+1}}. {{ item.name }} {{ item.description}}</td>
+            </tr>
+            {% endfor %}
+            <tr></tr>
+            <tr></tr>
+            <tr>
+                <td>
+                    <br>
+                    {% if creator != current and res == 0 %}
+                    {{ form.answer.label }} {{ form.answer }}
+            <tr></tr>
         <td colspan="4">
             <input type="submit" value="Äänestä!" />
         </td>
-        {% else %}
+        {% elif res > 0 %}
+        <h4>Olet jo äänestänyt tässä äänestyksessä!</h4>
+
+        {% elif creator == current %}
         <br>
         <h4>Olet luonut tämän äänestyksen, joten et voi äänestää siinä!</h4>
         <br>
-        {% endif %}
+        </td>
         </tr>
+        </tr>
+        {% endif %}
+        </td>
 </form>
+<td>
+    {%for t in teksti%}
+    <br>
+    <tr>
+    <tr>
+    <tr></tr>
+    </tr>
+<td>
+    <h4>{{t}}</h4>
+</td>
+</tr>
+{%endfor%}
+<td>
+    <h5>Vaihtoehto: Äänet:</h5>
+    {%for x in list%}
+    <tr>
+        <td>
+            <h5>{{x}}</h5>
+        </td>
+    </tr>
+    {%endfor%}
+</td>
+</td>
 {% endblock %}

@@ -7,13 +7,17 @@ class User(Base):
   
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False, nullable=False)
+
+
     votings = db.relationship("Voting", backref='account', lazy=True)
 
 
-    def __init__(self, name, username, password):
+    def __init__(self, name, username, password, is_admin):
         self.name = name
         self.username = username
         self.password = password
+        self.is_admin = is_admin
   
     def get_id(self):
         return self.id
@@ -26,3 +30,6 @@ class User(Base):
 
     def is_authenticated(self):
         return True
+
+    def roles(self):
+        return ["ADMIN"]

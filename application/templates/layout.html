@@ -23,6 +23,13 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('votings_form') }} ">Lisää uusi äänestys</a>
         </li>
+        {% if current_user.is_authenticated%}
+        {% if current_user.roles %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('auth_listall') }} ">Näytä käyttäjät</a>
+        </li>
+        {% endif %}
+        {% endif %}
       </ul>
       <div class="form-inline mt-2 mt-md-0">
         {% if current_user.is_authenticated %}

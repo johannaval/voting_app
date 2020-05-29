@@ -39,8 +39,15 @@ def auth_create():
         return render_template("/auth/createnewform.html", form = form,
                                 error = "Käyttäjän luominen ei onnistunut")
 
-    user = User(form.createNewName.data, form.createNewUsername.data, form.createNewPassword.data)
+    users = User.query.all()
+    user_count = len(users)
 
+    is_admin = False
+
+    if user_count == 0:
+        is_admin = True
+
+    user = User(form.createNewName.data, form.createNewUsername.data, form.createNewPassword.data, is_admin)
     db.session().add(user)
     db.session().commit()
 
@@ -52,3 +59,14 @@ def auth_create():
 def auth_logout():
     logout_user()
     return redirect(url_for("index"))    
+
+
+@app.route("/auth/list_all")
+def auth_listall():
+    data = User.query.all()
+
+    return render_template("/auth/listall.html", data = data)  
+
+
+
+
