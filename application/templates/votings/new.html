@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
-
 {% block body %}
+{{ error }}
 <form method="POST" action="{{ url_for('votings_create') }}">
   <table>
     <h1> Luo äänestys: </h1>

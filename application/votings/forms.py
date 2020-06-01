@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, validators, IntegerField, RadioField, DateTimeField, BooleanField
 from datetime import datetime
+from application.votings.models import Voting
 
 class VotingForm(FlaskForm):
     name = StringField("Kysymys:", [validators.Length(min=3)])

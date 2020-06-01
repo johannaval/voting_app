@@ -27,9 +27,10 @@
   <br>
   {% endfor %}
   <h3> Olet jo äänestänyt äänestyksissä: </h3>
-  {% for vote in voted %}
-  <ul> {{ vote }}</ul>
+  <ul>{% for vote in voted %}
+  <li> {{ vote }}</li>
   {% endfor %}
+  </ul>
   <br>
 
 
