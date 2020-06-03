@@ -24,9 +24,16 @@
           <a class="nav-link" href="{{ url_for('votings_form') }} ">Lisää uusi äänestys</a>
         </li>
         {% if current_user.is_authenticated%}
-        {% if current_user.roles %}
+        {% if current_user.roles()=="ADMIN"%}
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('auth_listall') }} ">Näytä käyttäjät</a>
+        </li>
+        {% endif %}
+        {% endif %}
+        {% if current_user.is_authenticated%}
+        {% if current_user.roles()=="ADMIN"%}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('votings_listAllVotings') }} ">Näytä äänestykset</a>
         </li>
         {% endif %}
         {% endif %}

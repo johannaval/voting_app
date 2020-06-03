@@ -32,4 +32,8 @@ class User(Base):
         return True
 
     def roles(self):
-        return ["ADMIN"]
+        if (self.is_admin == True):
+            print ("!!!!!!!!!!!!!!!!!!!!!!!!!!! ON ADMIN WELCOME!!!!!!!")
+            return "ADMIN"
+        else:
+            return "ANY"

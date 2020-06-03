@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form method="POST" action="{{ url_for('votings_vote_this', voting_id=voting.id) }}">
+<form method="GET" action="{{ url_for('votings_vote_this', voting_id=voting.id) }}">
     <table>
         <td>
             <tr>

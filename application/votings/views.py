@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_required, current_user
+from flask_login import current_user
 
 from application import app, db, login_required
 from application.votings.models import Voting, UserVoted, Vote, Option
@@ -11,27 +11,33 @@ from application.votings.forms import VoteForm
 def votings_index():
 
     votedVotings = []
+    createdVotings = []
+    votingsToVote = []
+    votingsForAnonymousUsers = []
+
+    votingsForAnonymousUsers = Voting.query.filter(Voting.anonymous == 2).all()
 
     if current_user.is_authenticated:
         user_id = current_user.id
         votedVotings = UserVoted.getVotedVotings(user_id)
-    return render_template("votings/list.html", votings=Voting.query.all(), voted=votedVotings)
+        createdVotings = Voting.query.filter(Voting.account_id == user_id).all()
+        user_id = current_user.id
+        votingsToVote = Voting.getVotingsThatCanbeVoted(user_id)
+    
+
+    return render_template("votings/list.html", votingsToVote=votingsToVote, voted=votedVotings, createdVotings=createdVotings, votingsForAnonymousUsers=votingsForAnonymousUsers)
 
 
 @app.route("/votings/new/")
-@login_required
 def votings_form():
 
     return render_template("votings/new.html", form=VotingForm())
 
 
 @app.route("/votings/vote/<voting_id>", methods=["POST"])
-@login_required
 def votings_vote(voting_id):
 
-    v = Voting.query.get(voting_id)
     data = Option.query.filter(Option.voting_id == voting_id).all()
-
     result = []
 
     v = Voting.query.get(voting_id)
@@ -55,15 +61,59 @@ def votings_vote(voting_id):
         l.replace(" ", "   ")
 
     creator = v.account_id
-    current = current_user.id
+    current = 999
+
+    if current_user.is_authenticated:
+        current = current_user.id
 
     user_has_voted = UserVoted.has_voted(current, voting_id)
 
     return render_template("votings/vote.html", voting=v, data=data, creator=creator, current=current, list=list, teksti=teksti, user_has_voted=user_has_voted, form=VoteForm())
 
 
+@app.route("/votings/<voting_id>/show", methods=["GET"])
+def voting_show_this(voting_id):
+
+    v = Voting.query.get(voting_id)
+    data = Option.query.filter(Option.voting_id == voting_id).all()
+
+
+    result = []
+    teksti = []
+    list = []
+
+    if v.show_result == 2:
+        teksti.append("Kolme eniten ääniä saanutta vaihtoehtoa: : ")
+        list = Vote.return_top_3_votes_in_vote(voting_id)
+
+    elif v.show_result == 1:
+        teksti.append("")
+
+    elif v.show_result == 3:
+        teksti.append("Kaikki äänet: ")
+        list = Vote.return_top_3_votes_in_vote(voting_id)
+
+    for l in list:
+        l.replace("'", "")
+        l.replace(" ", "   ")
+
+    creator = v.account_id
+
+    current = 999
+
+    if current_user.is_authenticated:
+        current = current_user.id
+
+
+    name = Voting.query.get(voting_id)
+    tekija = Voting.query.get(voting_id).account_id
+
+    user_has_voted = UserVoted.has_voted(current, voting_id)
+
+    return render_template("votings/showVotingResults.html", voting=v, data=data, creator=creator, current=current, list=list, teksti=teksti, user_has_voted=user_has_voted, form=VoteForm())
+
+
 @app.route("/votings/vote/<voting_id>/", methods=["GET", "POST"])
-@login_required
 def votings_vote_this(voting_id):
 
     v_id = voting_id
@@ -76,12 +126,13 @@ def votings_vote_this(voting_id):
     if not form.validate():
         return render_template("votings/vote.html", voting=v, data=data, form=form)
 
-    user = current_user
-    user_vote = UserVoted(voting_id)
-    user_vote.voting_id = voting_id
-    user_vote.user_id = current_user.id
-    db.session.add(user_vote)
-    db.session.commit()
+    if current_user.is_authenticated:
+        user = current_user
+        user_vote = UserVoted(voting_id)
+        user_vote.voting_id = voting_id
+        user_vote.user_id = current_user.id
+        db.session.add(user_vote)
+        db.session.commit()
 
     uv = form.answer.data
     index = int(uv)-1
@@ -157,7 +208,7 @@ def votings_create():
     return redirect(url_for("votings_index"))
 
 
-@app.route("/votings/edit/<voting_id>/", methods=["GET", "POST"])
+@app.route("/votings/<voting_id>/edit", methods=["GET", "POST"])
 @login_required
 def votings_edit(voting_id):
 
@@ -201,7 +252,7 @@ def votings_edit(voting_id):
         return render_template("votings/edit.html", voting=v, options=options, form=form)
 
 
-@app.route("/votings/<voting_id>/delete", methods=["POST"])
+@app.route("/votings/<voting_id>/del", methods=["POST", "GET"])
 @login_required
 def votings_delete(voting_id):
 
@@ -210,3 +261,12 @@ def votings_delete(voting_id):
     db.session().commit()
 
     return redirect(url_for("votings_index"))
+
+
+@app.route("/votings/all")
+@login_required
+def votings_listAllVotings():
+
+    votings = Voting.query.all()
+
+    return render_template("votings/listAllVotings.html", votings=votings)

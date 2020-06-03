@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{{ error }}
+<form method="POST" action="{{ url_for('auth_edit', user_id = user.id) }}">
+    <table>
+        <tr>
+            <td>
+                {{ form.createNewName.label}}
+            </td>
+            <td>
+                {{ form.createNewName}} {{data[0]}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form.createNewUsername.label }}
+            </td>
+            <td>
+                {{ form.createNewUsername }} {{data[1]}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form.createNewPassword.label }}
+            </td>
+            <td>
+                {{ form.createNewPassword }} {{data[2]}}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="submit" value="Päivitä!" />
+            </td>
+        </tr>
+</form>
+{% endblock %}

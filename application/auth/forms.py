@@ -17,3 +17,4 @@ class LoginForm(FlaskForm):
   
     class Meta:
         csrf = False
+

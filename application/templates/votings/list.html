@@ -3,59 +3,120 @@
 {% block body %}
 <table>
   <h1>Äänestykset: </h1>
-
   {% if current_user.is_authenticated%}
-  {% for voting in votings %}
-  <tr>
-    <td>{{ voting.name }} </td>
-    <td>
-      <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
-        <input type="submit" value="Muokkaa!" />
-      </form>
-    <td>
-      <form method="POST" action="{{ url_for('votings_delete', voting_id=voting.id) }}">
-        <input type="submit" value="Poista!" />
-      </form>
-    </td>
-    <td>
-      <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
-        <input type="submit" value="Äänestä!" />
-      </form>
-    </td>
-    </td>
+  <td>
+    <h4>Omat äänestyksesi: </h4>
+    {% if createdVotings|length > 0 %}
+    {% for voting in createdVotings%}
+    <tr>
+      <td>{{ voting.name }}</td>
+      <td>
+        <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
+          <input type="submit" value="Muokkaa!" />
+        </form>
+      <td>
+        <form method="POST" action="{{ url_for('votings_delete', voting_id=voting.id) }}">
+          <input type="submit" value="Poista!" />
+        </form>
+      </td>
+      <td>
+        <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
+          <input type="submit" value="Tarkastele äänestystä!" />
+        </form>
+      </td>
+  </td>
   </tr>
-  <br>
   {% endfor %}
-  <h3> Olet jo äänestänyt äänestyksissä: </h3>
-  <ul>{% for vote in voted %}
-  <li> {{ vote }}</li>
-  {% endfor %}
-  </ul>
-  <br>
-
-
   {% else %}
-  {% for voting in votings%}
+  <td>
+    <tr>
+    <tr>
+      <td>
+    <tr>
+    </tr>
+  </td>
+  </tr>
+  </tr>
+  </td>
+  {% endif %}
+  </td>
+  {% endif %}
+  {% if current_user.is_authenticated%}
+  <td>
+    <h4>Äänestykset missä et ole vielä äänestänyt:</h4>
+    <br>
+    {% if votingsToVote|length > 0 %}
+    {% for vote in votingsToVote %}
+    <tr>
+      <td>{{ vote.name }} </td>
+      <td>
+        <form method="POST" action="{{ url_for('votings_vote', voting_id=vote.id) }}">
+          <input type="submit" value="Äänestä!" />
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <br>
+    <tr>
+    </tr>
+    <br>
+    {% endif %}
+  </td>
   <tr>
-    <td>{{ voting.name }}</td>
     <td>
-      <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
-        <input type="submit" value="Muokkaa!" />
-      </form>
-    <td>
-      <form method="POST" action="{{ url_for('votings_delete', voting_id=voting.id) }}">
-        <input type="submit" value="Poista!" />
-      </form>
-    </td>
-    <td>
-      <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
-        <input type="submit" value="Tarkastele äänestystä!" />
-      </form>
-    </td>
     </td>
   </tr>
-  {% endfor %}
+  <br>
+  <br>
+  <td>
+    <h4> Olet jo äänestänyt äänestyksissä: </h4>
+    <br>
+    {% if voted|length > 0 %}
+    {% for f in voted %}
+    <tr>
+      <td> {{ f.name }}</td>
+      <td>
+        <form method="GET" action="{{ url_for('voting_show_this', voting_id=f.id) }}">
+          <input type="submit" value="Tarkastele äänijakaumaa!" />
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <br>
+    <tr>
+      <td>
+      </td>
+    </tr>
+    <br>
+    {% endif %}
+  </td>
   {% endif %}
-</table>
 
+  {% if not current_user.is_authenticated%}
+  <td>
+    {% if votingsForAnonymousUsers |length > 0 %}
+    <h4>Äänestykset, jotka eivät vaadi kirjautumista:</h4>
+  <td>
+    {% for voting in votingsForAnonymousUsers%}
+    <tr>
+      <td>{{ voting.name }}</td>
+      <td>
+        <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
+          <input type="submit" value="Äänestä!" />
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <h4>Valitettavasti yhtään äänestystä joka sallii äänestämisen ilman kirjautumista ei ole käynnissä,
+      luo tunnus tai kirjaudu sisään nähdäksesi äänestyksiä.</h4>
+  </td>
+  </td>
+  {% endif %}
+  {% endif %}
+  </td>
+  </tr>
+</table>
 {% endblock %}

@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<table>
+    <h1>Äänestykset: </h1>
+    {% if current_user.is_authenticated%}
+    {% if current_user.roles()=="ADMIN"%}
+    <h4>Hei admin! Tässä lista äänestyksistä:</h4>
+    {% for voting in votings%}
+    <tr>
+        <td>{{ voting.name }}</td>
+        <td>
+            <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
+                <input type="submit" value="Muokkaa" />
+            </form>
+        <td>
+            <form method="POST" action="{{ url_for('votings_delete', voting_id=voting.id) }}">
+                <input type="submit" value="Poista" />
+            </form>
+        </td>
+        <td>
+            <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
+                <input type="submit" value="Tarkastele äänestystä" />
+            </form>
+        </td>
+        </td>
+    </tr>
+    </td>
+    <tr>
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+</table>
+{% endblock %}

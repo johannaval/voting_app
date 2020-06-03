@@ -6,6 +6,7 @@ from application.auth.models import User
 from application.auth.forms import LoginForm
 from application.auth.forms import CreateNewForm
 
+
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
 
@@ -51,6 +52,11 @@ def auth_create():
     db.session().add(user)
     db.session().commit()
 
+    print ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    User.roles(user)
+    print (User.roles(user))
+    print ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
     login_user(user)
     return redirect(url_for("index"))
 
@@ -63,9 +69,53 @@ def auth_logout():
 
 @app.route("/auth/list_all")
 def auth_listall():
+    
     data = User.query.all()
 
     return render_template("/auth/listall.html", data = data)  
+
+
+@app.route("/auth/edit/<user_id>", methods=["POST","GET"])
+def auth_edit(user_id):
+
+    form = CreateNewForm(request.form)
+    user = User.query.get(user_id)
+
+    data = []
+
+    oldName = user.query.get(user_id).name
+    data.append(oldName)
+    oldUsername = user.query.get(user_id).username
+    data.append(oldUsername)
+    oldPassword = user.query.get(user_id).password
+    data.append(oldPassword)
+
+    if request.method == "POST" and form.validate():
+
+        newName = request.form.get("createNewName")
+        user.name = newName
+        newUserName = request.form.get("createNewUsername")
+        user.username = newUserName
+        newPassword = request.form.get("createNewPassword")
+        user.password = newPassword
+
+        db.session.commit()
+
+        return redirect(url_for("auth_listall"))
+
+    else:
+
+        return render_template("auth/editUser.html", user=user, data=data, form=form)
+
+
+@app.route("/votings/del/<user_id>", methods=["POST", "GET"])
+def auth_delete(user_id):
+
+    user = User.query.get(user_id)
+    db.session.delete(user)
+    db.session().commit()
+
+    return redirect(url_for("auth_listall"))
 
 
 
