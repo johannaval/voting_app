@@ -4,12 +4,24 @@
 {{ error }}
 <form method="POST" action="{{ url_for('auth_create') }}">
     <table>
+        <br>
+        <br>
+        <br>
+        <br>
         <tr>
             <td>
                 {{ form.createNewName.label}}
             </td>
             <td>
-                {{ form.createNewName}}
+                {% if not form.createNewName.errors %}
+                {{ form.createNewName(class="form-control", placeholder="Nimi")}}
+                {% else %}
+                {{ form.createNewName(class="form-control is-invalid", placeholder="Nimi") }}
+                {% for error in form.createNewName.errors %} {{ error }}
+                {% endfor %}
+                {% endif %}
+                <br>
+                </div>
             </td>
         </tr>
         <tr>
@@ -17,7 +29,14 @@
                 {{ form.createNewUsername.label }}
             </td>
             <td>
-                {{ form.createNewUsername }}
+                {% if not form.createNewUsername.errors %}
+                {{ form.createNewUsername(class="form-control", placeholder="Käyttäjänimi")}}
+                {% else %}
+                {{ form.createNewUsername(class="form-control is-invalid", placeholder="Käyttäjänimi") }}
+                {% for error in form.createNewUsername.errors %} {{ error }}
+                {% endfor %}
+                {% endif %}
+                <br>
             </td>
         </tr>
         <tr>
@@ -25,11 +44,35 @@
                 {{ form.createNewPassword.label }}
             </td>
             <td>
-                {{ form.createNewPassword }}
+                {% if not form.createNewPassword.errors %}
+                {{ form.createNewPassword(class="form-control", placeholder="Salasana") }}
+                {% else %}
+                {{ form.createNewPassword(class="form-control is-invalid", placeholder="Salasana") }}
+                {% for error in form.createNewPassword.errors %} {{ error }}
+                {% endfor %}
+                {% endif %}
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form.createNewPassword_again.label }} &nbsp;&nbsp;
+            </td>
+            <td>
+                {% if not form.createNewPassword.errors %}
+                {{ form.createNewPassword_again(class="form-control", placeholder="Salasana") }}
+                {% else %}
+                {{ form.createNewPassword_again(class="form-control is-invalid", placeholder="Salasana") }}
+                {% for error in form.createNewPassword_again.errors %} {{ error }}
+                {% endfor %}
+                {% endif %}
+                </div>
+                <br>
             </td>
         </tr>
         <tr>
             <td colspan="3">
+                <br>
                 <input type="submit" value="Luo käyttäjä!" />
             </td>
         </tr>

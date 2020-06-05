@@ -33,7 +33,6 @@ class User(Base):
 
     def roles(self):
         if (self.is_admin == True):
-            print ("!!!!!!!!!!!!!!!!!!!!!!!!!!! ON ADMIN WELCOME!!!!!!!")
             return "ADMIN"
         else:
             return "ANY"
