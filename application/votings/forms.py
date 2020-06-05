@@ -5,7 +5,7 @@ from application.votings.models import Voting
 from wtforms.validators import InputRequired
 
 class VotingForm(FlaskForm):
-    name = StringField("Kysymys:", [validators.Length(min=3, max=30, message='Kysymyksessä pitää olla 3-30 merkkiä!')])
+    name = StringField("Kysymys:", [validators.Length(min=3, max=50, message='Kysymyksessä pitää olla 3-50 merkkiä!')])
     nameDescription = StringField("Kuvaus: (vapaaehtoinen)")
     option1 = StringField("vaihtoehto 1:", [validators.Length(min=1, max=30, message='Vaihtoehdossa pitää olla 1-30 merkkiä!')])
     option1Description = StringField("Kuvaus: (vapaaehtoinen)")

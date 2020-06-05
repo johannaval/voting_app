@@ -1,26 +1,29 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<br>
+<br>
+<div class="jumbotron">
+    <h1 class="display-3"> Äänestykset: </h1>
 <table>
-    <h1>Äänestykset: </h1>
     {% if current_user.is_authenticated%}
     {% if current_user.roles()=="ADMIN"%}
-    <h4>Hei admin! Tässä lista äänestyksistä:</h4>
+    <h4>Hei admin! Tässä lista äänestyksistä: &nbsp;&nbsp; </td></h4>
     {% for voting in votings%}
     <tr>
         <td>{{ voting.name }}</td>
         <td>
             <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
-                <input type="submit" value="Muokkaa" />
+                <input type="submit" , class ="btn btn-outline-warning", value="Muokkaa" />&nbsp;&nbsp;
             </form>
         <td>
             <form method="POST" action="{{ url_for('votings_delete', voting_id=voting.id) }}">
-                <input type="submit" value="Poista" />
+                <input type="submit" , class ="btn btn-outline-danger", value="Poista" />&nbsp;&nbsp;
             </form>
         </td>
         <td>
-            <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
-                <input type="submit" value="Tarkastele äänestystä" />
+            <form method="GET" action="{{ url_for('votings_show_this', voting_id=voting.id) }}">
+                <input type="submit" , class ="btn btn-outline-primary", value="Tarkastele ääniä" />
             </form>
         </td>
         </td>
@@ -31,4 +34,5 @@
         {% endif %}
         {% endif %}
 </table>
+</div>
 {% endblock %}

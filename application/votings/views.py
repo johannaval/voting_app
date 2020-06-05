@@ -202,11 +202,32 @@ def votings_edit(voting_id):
     form = VotingForm(formdata=request.form)
     v = Voting.query.get(voting_id)
 
+    error = ""
+
+    name = form.name.data
+
+    list = []
+    list.append(form.option1.data)
+    list.append(form.option2.data)
+    list.append(form.option3.data)
+
     options = Option.query.filter(Option.voting_id == voting_id).all()
 
     o1 = options[0]
     o2 = options[1]
     o3 = options[2]
+
+    if(Voting.isOptionsDifferent(list) == False):
+        error = "Jokainen vaihtoehto pitää olla eri!"
+        return render_template("votings/edit.html", form=form, error=error, voting=v, options = options)
+
+    if Voting.isVotingNameUnique(name) == False:
+        error = "Tällä nimellä on jo äänestys!"
+        return render_template("votings/edit.html", form=form, error=error, voting = v, options = options)
+
+    if not form.validate():
+        return render_template("votings/edit.html", form=form, error= error, voting= v, options= options)
+
 
     if request.method == 'POST' and form.validate():
 

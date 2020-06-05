@@ -1,29 +1,38 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<table>
-    <h1>Listaa käyttäjät: </h1>
-
+<br>
+<br>
+<div class="jumbotron">
+  <h1 class="display-3">Listaa käyttäjät:</h1>
+  <table>
+    {% if current_user.is_authenticated%}
+    {% if current_user.roles()=="ADMIN"%}
+    <h4>Hei admin! Tässä lista käyttäjistä: &nbsp;&nbsp; </td>
+    </h4>
     {% for user in data %}
     <tr>
-        <td>{{ user.username }} </td>
-        <td>
-            <form method="POST" action="{{ url_for('auth_edit', user_id=user.id) }}">
-              <input type="submit" value="Muokkaa käyttäjänimeä" />
-            </form>
-          <td>
-            <form method="POST" action="{{ url_for('auth_delete', user_id=user.id) }}">
-              <input type="submit" value="Poista käyttäjä" />
-            </form>
-          </td>
-          <td>
-            <form method="POST" action="{{ url_for('auth_edit', user_id=user.id) }}">
-              <input type="submit" value="Tarkastele käyttäjän äänestyksiä (tulossa)" />
-            </form>
-          </td>
-          </td>
+      <td>{{ user.username }} </td>
+      <td>
+        <form method="POST" action="{{ url_for('auth_edit', user_id=user.id) }}">
+          <input type="submit" , class="btn btn-outline-warning" , value="Muokkaa käyttäjän tietoja" />&nbsp;&nbsp;
+        </form>
+      <td>
+        <form method="POST" action="{{ url_for('auth_delete', user_id=user.id) }}">
+          <input type="submit" , class="btn btn-outline-danger" , value="Poista käyttäjä" />&nbsp;&nbsp;
+        </form>
+      </td>
+      <td>
+        <form method="POST" action="{{ url_for('auth_edit', user_id=user.id) }}">
+          <input type="submit" , class="btn btn-outline-primary" , value="Tarkastele käyttäjän äänestyksiä (coming)" />
+        </form>
+      </td>
+      </td>
     </tr>
     {%endfor%}
-</table>
+    {% endif %}
+    {% endif %}
+  </table>
+</div>
 
 {% endblock %}

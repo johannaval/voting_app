@@ -16,13 +16,13 @@
                     </td>
                     <td>
                         {% if error == "Tällä nimellä on jo äänestys!" %}
-                        {{ form.name(class="form-control is-invalid", placeholder="Kysymys") }}
+                        {{ form.name(class="form-control is-invalid", placeholder=voting.name) }}
                         {% for e in error %} {{ e }}
                         {% endfor %}
                         {% else %}
 
                         {% if not form.name.errors %}
-                        {{ form.name(class="form-control", placeholder="Kysymys")}}
+                        {{ form.name(class="form-control", placeholder=voting.name)}}
                         {% else %}
                         {{ form.name(class="form-control is-invalid", placeholder= voting.name ) }}
                         {% for error in form.name.errors %}
@@ -129,7 +129,7 @@
                     {% if not form.option3.errors %}
                     {{ form.option3(class="form-control", placeholder=options[2].name) }}
                     {% else %}
-                    {{ form.option1(class="form-control is-invalid", placeholder=options[2].name) }}
+                    {{ form.option3(class="form-control is-invalid", placeholder=options[2].name) }}
                     {% for error in form.option3.errors %}
                     {{ error }}
                     {% endfor %}

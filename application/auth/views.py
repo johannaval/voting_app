@@ -19,22 +19,29 @@ def auth_login():
     passwordError = ""
 
     user = User.query.filter_by(
-        username=form.username.data, password=form.password.data).first()
+        username=form.username.data).first()
 
     if (user == None):
 
-        u = User.query.filter_by(username=form.username.data).first()
-        if (u == None):
-            usernameError = "Kyseisellä nimellä ei ole käyttäjää!"
-            return render_template("auth/loginform.html", form=form, usernameError=usernameError, passwordError = passwordError)
+        usernameError = "Kyseisellä nimellä ei ole käyttäjää!"
+        return render_template("auth/loginform.html", form=form, usernameError=usernameError, passwordError = passwordError)
 
-        else:
+    else:
+
+        password = form.password.data
+        pw = user.password
+
+        if (bcrypt.check_password_hash(pw, password)):
+
+            login_user(user)
+            return redirect(url_for("index"))
+
+        else :
+            
             passwordError = "Salasana väärin!"
-            return render_template("auth/loginform.html", form=form, usernameError = usernameError, passwordError=passwordError)
+    
+    return render_template("auth/loginform.html", form=form, usernameError = usernameError, passwordError=passwordError)
 
-    login_user(user)
-
-    return redirect(url_for("index"))
 
 
 @app.route("/auth/create", methods=["GET", "POST"])
@@ -60,11 +67,11 @@ def auth_create():
 
     if user_count == 0:
         is_admin = True
-    password_hash = bcrypt.generate_password_hash(
-        form.createNewPassword.data).decode('utf-8')
 
-    user = User(form.createNewName.data, form.createNewUsername.data,
-                password_hash, is_admin)
+    password = form.createNewPassword.data
+    pw_hash = bcrypt.generate_password_hash(password)
+
+    user = User(form.createNewName.data, form.createNewUsername.data, pw_hash, is_admin)
 
     db.session().add(user)
     db.session().commit()
