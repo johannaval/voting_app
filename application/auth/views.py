@@ -69,7 +69,7 @@ def auth_create():
         is_admin = True
 
     password = form.createNewPassword.data
-    pw_hash = bcrypt.generate_password_hash(password)
+    pw_hash = bcrypt.generate_password_hash(password).decode('utf-8')
 
     user = User(form.createNewName.data, form.createNewUsername.data, pw_hash, is_admin)
 
@@ -101,6 +101,8 @@ def auth_edit(user_id):
     user = User.query.get(user_id)
 
     data = []
+
+    # tänne myös pw_hash hommat
 
     oldName = user.query.get(user_id).name
     data.append(oldName)
