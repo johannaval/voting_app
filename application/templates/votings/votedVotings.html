@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<br>
+<br>
+<div class="jumbotron">
+    <h5 class="display-4">Olet jo äänestänyt äänestyksissä:</h5>
+<table>
+    <br>
+    {% if votings|length > 0 %}
+    {% for voting in votings %}
+    <tr>
+        <td> {{ voting.name }} &nbsp;&nbsp;</td>
+        <td>
+            <form method="GET" action="{{ url_for('votings_show_this', voting_id=voting.id) }}">
+                <input type="submit" , class ="btn btn-primary", value="Tarkastele äänijakaumaa!" />
+            </form>
+            <br>
+        </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <br>
+    <tr>
+        <td>
+        </td>
+    </tr>
+    <br>
+    {% endif %}
+    </td>
+</table>
+</div>
+{% endblock %}

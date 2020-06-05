@@ -10,25 +10,17 @@ from application.votings.forms import VoteForm
 @app.route("/votings", methods=["GET"])
 def votings_index():
 
-    votedVotings = []
-    createdVotings = []
-    votingsToVote = []
-    votingsForAnonymousUsers = []
-
     votingsForAnonymousUsers = Voting.query.filter(Voting.anonymous == 2).all()
 
     if current_user.is_authenticated:
-        user_id = current_user.id
-        votedVotings = UserVoted.getVotedVotings(user_id)
-        createdVotings = Voting.query.filter(Voting.account_id == user_id).all()
-        user_id = current_user.id
-        votingsToVote = Voting.getVotingsThatCanbeVoted(user_id)
-    
+            votingsForAnonymousUsers = []
 
-    return render_template("votings/list.html", votingsToVote=votingsToVote, voted=votedVotings, createdVotings=createdVotings, votingsForAnonymousUsers=votingsForAnonymousUsers)
+
+    return render_template("votings/list.html", votingsForAnonymousUsers=votingsForAnonymousUsers)
 
 
 @app.route("/votings/new/")
+@login_required
 def votings_form():
 
     return render_template("votings/new.html", form=VotingForm())
@@ -45,17 +37,6 @@ def votings_vote(voting_id):
     teksti = []
     list = []
 
-    if v.show_result == 2:
-        teksti.append("Kolme eniten ääniä saanutta vaihtoehtoa: : ")
-        list = Vote.return_top_3_votes_in_vote(voting_id)
-
-    elif v.show_result == 1:
-        teksti.append("")
-
-    elif v.show_result == 3:
-        teksti.append("Kaikki äänet: ")
-        list = Vote.return_top_3_votes_in_vote(voting_id)
-
     for l in list:
         l.replace("'", "")
         l.replace(" ", "   ")
@@ -68,11 +49,11 @@ def votings_vote(voting_id):
 
     user_has_voted = UserVoted.has_voted(current, voting_id)
 
-    return render_template("votings/vote.html", voting=v, data=data, creator=creator, current=current, list=list, teksti=teksti, user_has_voted=user_has_voted, form=VoteForm())
+    return render_template("votings/vote.html", voting=v, data=data, creator=creator, current=current, user_has_voted=user_has_voted, form=VoteForm())
 
 
 @app.route("/votings/<voting_id>/show", methods=["GET"])
-def voting_show_this(voting_id):
+def votings_show_this(voting_id):
 
     v = Voting.query.get(voting_id)
     data = Option.query.filter(Option.voting_id == voting_id).all()
@@ -140,12 +121,18 @@ def votings_vote_this(voting_id):
 
     new_vote = Vote(voting_id)
     new_vote.voting_id = int(voting_id)+3
+
+    # mikä ihmeen 3
+
     new_vote.option_id = op.option_id
 
     db.session.add(new_vote)
     db.session.commit()
 
-    return redirect(url_for("votings_index"))
+    if not current_user.is_authenticated:
+        return redirect(url_for("votings_index"))
+
+    return redirect(url_for("votings_notVoted"))
 
 
 @app.route("/votings/", methods=["POST", "GET"])
@@ -174,7 +161,7 @@ def votings_create():
         return render_template("votings/new.html", form=form, error=error)
 
     if not form.validate():
-        return render_template("votings/new.html", form=form, error=error)
+        return render_template("votings/new.html", form=form, error= error)
 
     v = Voting(form.name.data)
     v.done = False
@@ -270,3 +257,39 @@ def votings_listAllVotings():
     votings = Voting.query.all()
 
     return render_template("votings/listAllVotings.html", votings=votings)
+
+
+@app.route("/votings/own")
+@login_required
+def votings_own():
+
+    user_id = current_user.id
+
+    votings = Voting.query.filter(Voting.account_id == user_id).all()
+
+    return render_template("votings/ownVotings.html", votings=votings)
+
+
+@app.route("/votings/notVoted")
+@login_required
+def votings_notVoted():
+
+    user_id = current_user.id
+    votings = Voting.getVotingsThatCanbeVoted(user_id)
+
+    return render_template("votings/votingsToVote.html", votings=votings)
+
+
+@app.route("/votings/voted")
+@login_required
+def votings_voted():
+
+    user_id = current_user.id
+    votings = UserVoted.getVotedVotings(user_id)
+
+    return render_template("votings/votedVotings.html", votings=votings)
+
+
+
+
+

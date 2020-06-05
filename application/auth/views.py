@@ -26,11 +26,11 @@ def auth_login():
         u = User.query.filter_by(username=form.username.data).first()
         if (u == None):
             usernameError = "Kyseisellä nimellä ei ole käyttäjää!"
-            return render_template("auth/loginform.html", form=form, usernameError=usernameError)
+            return render_template("auth/loginform.html", form=form, usernameError=usernameError, passwordError = passwordError)
 
         else:
             passwordError = "Salasana väärin!"
-            return render_template("auth/loginform.html", form=form, passwordError=passwordError)
+            return render_template("auth/loginform.html", form=form, usernameError = usernameError, passwordError=passwordError)
 
     login_user(user)
 

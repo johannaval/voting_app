@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<br>
+<br>
+<div class="jumbotron">
+    <h5 class="display-4">Äänestykset missä et ole vielä äänestänyt</h5>
+<table>  
+<br>
+{% if votings|length > 0 %}
+{% for vote in votings %}
+<tr>
+  <td>{{ vote.name }} &nbsp;&nbsp;</td>
+  <td>
+    <form method="POST" action="{{ url_for('votings_vote', voting_id=vote.id) }}">
+      <input type="submit" , class ="btn btn-primary", value="Äänestä!" />
+    </form>
+    <br>
+  </td>
+</tr>
+{% endfor %}
+{% else %}
+<br>
+<tr>
+</tr>
+<br>
+{% endif %}
+</table>
+</div>
+{% endblock %}

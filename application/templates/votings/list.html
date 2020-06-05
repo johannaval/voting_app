@@ -1,122 +1,54 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<br>
+<br>
+<div class="jumbotron">
 <table>
-  <h1>Äänestykset: </h1>
-  {% if current_user.is_authenticated%}
-  <td>
-    <h4>Omat äänestyksesi: </h4>
-    {% if createdVotings|length > 0 %}
-    {% for voting in createdVotings%}
-    <tr>
-      <td>{{ voting.name }}</td>
-      <td>
-        <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
-          <input type="submit" value="Muokkaa!" />
-        </form>
-      <td>
-        <form method="POST" action="{{ url_for('votings_delete', voting_id=voting.id) }}">
-          <input type="submit" value="Poista!" />
-        </form>
-      </td>
-      <td>
-        <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
-          <input type="submit" value="Tarkastele äänestystä!" />
-        </form>
-      </td>
-  </td>
-  </tr>
-  {% endfor %}
-  {% else %}
-  <td>
-    <tr>
-    <tr>
-      <td>
-    <tr>
-    </tr>
-  </td>
-  </tr>
-  </tr>
-  </td>
-  {% endif %}
-  </td>
-  {% endif %}
-  {% if current_user.is_authenticated%}
-  <td>
-    <h4>Äänestykset missä et ole vielä äänestänyt:</h4>
-    <br>
-    {% if votingsToVote|length > 0 %}
-    {% for vote in votingsToVote %}
-    <tr>
-      <td>{{ vote.name }} </td>
-      <td>
-        <form method="POST" action="{{ url_for('votings_vote', voting_id=vote.id) }}">
-          <input type="submit" value="Äänestä!" />
-        </form>
-      </td>
-    </tr>
-    {% endfor %}
-    {% else %}
-    <br>
-    <tr>
-    </tr>
-    <br>
-    {% endif %}
-  </td>
-  <tr>
-    <td>
-    </td>
-  </tr>
-  <br>
-  <br>
-  <td>
-    <h4> Olet jo äänestänyt äänestyksissä: </h4>
-    <br>
-    {% if voted|length > 0 %}
-    {% for f in voted %}
-    <tr>
-      <td> {{ f.name }}</td>
-      <td>
-        <form method="GET" action="{{ url_for('voting_show_this', voting_id=f.id) }}">
-          <input type="submit" value="Tarkastele äänijakaumaa!" />
-        </form>
-      </td>
-    </tr>
-    {% endfor %}
-    {% else %}
-    <br>
-    <tr>
-      <td>
-      </td>
-    </tr>
-    <br>
-    {% endif %}
-  </td>
-  {% endif %}
-
   {% if not current_user.is_authenticated%}
+  <h1 class="display-5"> Äänestykset, jotka eivät vaadi sisäänkirjautumista: </h1>
+  <br>
   <td>
     {% if votingsForAnonymousUsers |length > 0 %}
-    <h4>Äänestykset, jotka eivät vaadi kirjautumista:</h4>
   <td>
     {% for voting in votingsForAnonymousUsers%}
     <tr>
-      <td>{{ voting.name }}</td>
+      <td>{{ voting.name }}&nbsp;&nbsp; </td>
       <td>
         <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
-          <input type="submit" value="Äänestä!" />
+          <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
         </form>
+        <br>
       </td>
     </tr>
     {% endfor %}
+    </h4>
     {% else %}
     <h4>Valitettavasti yhtään äänestystä joka sallii äänestämisen ilman kirjautumista ei ole käynnissä,
       luo tunnus tai kirjaudu sisään nähdäksesi äänestyksiä.</h4>
   </td>
   </td>
   {% endif %}
+  <div class="card border-primary mb-3" style="max-width: 20rem;">
+    <div class="card-header">Rekisteröitymällä saat esimerkiksi:</div>
+      <div class="form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" type="checkbox" value="" checked="">
+        Luoda huikeita äänestyksiä</label>
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" value="" checked="">
+        Nähdä äänestyksien mielenkiintoisia tuloksia </label>
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" value="" checked="">
+        Äänestää muiden hulppeissa äänestyksissä</label>
+      </div>
+    </div>
+    <br>
+  {% else %}
+  <h4>Tervetuloa! </h4>
   {% endif %}
   </td>
   </tr>
 </table>
+</div>
 {% endblock %}

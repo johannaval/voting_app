@@ -1,6 +1,11 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<br>
+<br>
+<div class="jumbotron">
+      <h1 class="display-3">Kirjaudu sisään!!</h1>
+
 <form method="POST" action="{{ url_for('auth_login') }}">
       <table>
             <br>
@@ -12,11 +17,12 @@
                         {{ form.username.label }} &nbsp;&nbsp;
                   </td>
                   <td>
-                        {% if not form.username.errors %}
+                        {% if usernameError|length == 0 %}
+
                         {{ form.username(class="form-control", placeholder="Käyttäjänimi")}}
                         {% else %}
                         {{ form.username(class="form-control is-invalid", placeholder="Käyttäjänimi") }}
-                        {% for error in form.username.errors %} {{ error }}
+                        {% for error in usernameError %} {{ error }}
                         {% endfor %}
                         {% endif %}
                         <br>
@@ -28,11 +34,11 @@
                         {{ form.password.label }} &nbsp;&nbsp;
                   </td>
                   <td>
-                        {% if not form.password.errors %}
+                        {% if passwordError|length == 0 %}
                         {{ form.password(class="form-control", placeholder="Salasana")}}
                         {% else %}
                         {{ form.password(class="form-control is-invalid", placeholder="Salasana") }}
-                        {% for error in form.password.errors %} {{ error }}
+                        {% for error in passwordError %} {{ error }}
                         {% endfor %}
                         {% endif %}
                         <br>
@@ -42,8 +48,10 @@
             <tr>
                   <td colspan="2">
                         <br>
-                        <input type="submit" value="Kirjaudu sisään!" />
+                        <input type="submit" , class ="btn btn-primary", value="Kirjaudu sisään!" />
                   </td>
             </tr>
 </form>
+</div>
+
 {% endblock %}

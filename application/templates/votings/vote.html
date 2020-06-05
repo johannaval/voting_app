@@ -1,62 +1,54 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form method="POST" action="{{ url_for('votings_vote_this', voting_id=voting.id) }}">
-    <table>
-        <td>
-            <tr>
-                <h3>{{ voting.name }} </h3>
-            </tr>
-            <tr></tr>
-            {% for item in data %}
-            <tr>
-                <td> {{ data.index(item)+1}}. {{ item.name }} {{ item.description}}</td>
-            </tr>
-            {% endfor %}
-            <tr></tr>
-            <tr>
-                <td>
-                    <br>
-                    {% if creator != current and user_has_voted == False %}
-                    {{ form.answer.label }} {{ form.answer }}
-            <tr></tr>
-        <td colspan="4">
-            <input type="submit" value="Äänestä!" />
-        </td>
-        {% endif %}
-
-        {% if user_has_voted == True %}
-        <h4>Olet jo äänestänyt tässä äänestyksessä!</h4>
-        {% endif %}
-
-        {% if creator == current %}
-        <h4>Olet luonut tämän äänestyksen, joten et voi äänestää siinä!</h4>
-        {% endif %}
-
-        
-        </td>
-        </tr>
-        </tr>
-        </td>
-</form>
-<td>
-    {%for t in teksti%}
+<br>
+<br>
+<div class="jumbotron">
+    {% if creator == current %}
+    <h4>Olet luonut äänestyksen: </h4>
+    {% endif %}
     <br>
-    </tr>
-<td>
-    <h4>{{t}}</h4>
-</td>
-</tr>
-{%endfor%}
-<td>
-    <h5>Vaihtoehto: Äänet:</h5>
-    {%for x in list%}
-    <tr>
-        <td>
-            <h5>{{x}}</h5>
-        </td>
-    </tr>
-    {%endfor%}
-</td>
-</td>
+    <h1 class="display-3"> {{ voting.name }} </h1>
+
+
+    <form method="POST" action="{{ url_for('votings_vote_this', voting_id=voting.id) }}">
+        <table>
+            <td>
+                <tr>
+                </tr>
+                <tr></tr>
+        
+                <br>
+                {% for item in data %}
+                <tr>
+                    <td> {{ data.index(item)+1}}. {{ item.name }} {{ item.description}}</td>
+                </tr>
+                {% endfor %}
+                <tr></tr>
+                <tr>
+                    <td>
+                        <br>
+                        {% if creator != current and user_has_voted == False %}
+                        {{ form.answer.label }} {{ form.answer }}
+                <tr></tr>
+            <td colspan="4">
+                <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
+            </td>
+            {% endif %}
+
+            {% if user_has_voted == True %}
+            <h4>Olet jo äänestänyt tässä äänestyksessä!</h4>
+            {% endif %}
+
+            </td>
+            </tr>
+            </tr>
+            </td>
+    </form>
+    <td>
+    </td>
+    </td>
+</div>
+
+
 {% endblock %}

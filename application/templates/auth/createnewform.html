@@ -1,7 +1,11 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ error }}
+<br>
+<br>
+<div class="jumbotron">
+    <h1 class="display-3">Luo käyttäjä!</h1>
+
 <form method="POST" action="{{ url_for('auth_create') }}">
     <table>
         <br>
@@ -29,12 +33,17 @@
                 {{ form.createNewUsername.label }}
             </td>
             <td>
+                {% if error|length != 0%}
+                {{ form.createNewName(class="form-control is-invalid", placeholder="Nimi") }}
+                {{error}}
+                {% else %}
                 {% if not form.createNewUsername.errors %}
                 {{ form.createNewUsername(class="form-control", placeholder="Käyttäjänimi")}}
                 {% else %}
                 {{ form.createNewUsername(class="form-control is-invalid", placeholder="Käyttäjänimi") }}
                 {% for error in form.createNewUsername.errors %} {{ error }}
                 {% endfor %}
+                {% endif %}
                 {% endif %}
                 <br>
             </td>
@@ -73,8 +82,10 @@
         <tr>
             <td colspan="3">
                 <br>
-                <input type="submit" value="Luo käyttäjä!" />
+                <input type="submit" , class ="btn btn-primary", value="Luo käyttäjä!" />
+
             </td>
         </tr>
 </form>
+</div>
 {% endblock %}
