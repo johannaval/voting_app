@@ -49,7 +49,7 @@ class Voting(Base):
     def getVotingsThatCanbeVoted(user_id):
 
         voted = text(
-            "SELECT * FROM User_Voted WHERE user_id = :user_id GROUP BY voting_id").params(user_id=user_id)
+            "SELECT * FROM User_Voted WHERE user_id = :user_id GROUP BY voting_id, id, user_id").params(user_id=user_id)
 
         res2 = db.engine.execute(voted)
         response2 = []
@@ -121,7 +121,7 @@ class UserVoted(db.Model):
     @staticmethod
     def getVotedVotings(user_id):
         voted = text(
-            "SELECT * FROM User_Voted WHERE user_id = :user_id GROUP BY voting_id").params(user_id=user_id)
+            "SELECT * FROM User_Voted WHERE user_id = :user_id GROUP BY voting_id, is, user_id").params(user_id=user_id)
 
         res2 = db.engine.execute(voted)
         response2 = []
