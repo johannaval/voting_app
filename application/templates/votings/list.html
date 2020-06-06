@@ -4,51 +4,30 @@
 <br>
 <br>
 <div class="jumbotron">
-<table>
-  {% if not current_user.is_authenticated%}
-  <h1 class="display-5"> Äänestykset, jotka eivät vaadi sisäänkirjautumista: </h1>
-  <br>
-  <td>
+  <table>
+    {% if not current_user.is_authenticated%}
+    <h1 class="display-5"> Äänestykset, jotka eivät vaadi sisäänkirjautumista: </h1>
+    <br>
     {% if votingsForAnonymousUsers |length > 0 %}
-  <td>
     {% for voting in votingsForAnonymousUsers%}
     <tr>
-      <td>{{ voting.name }}&nbsp;&nbsp; </td>
-      <td>
+      <th>{{ voting.name }}&nbsp;&nbsp; </th>
+
+      <th>
         <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
           <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
         </form>
-        <br>
-      </td>
+      </th>
+      <br>
     </tr>
     {% endfor %}
-    </h4>
     {% else %}
     <h4>Valitettavasti yhtään äänestystä joka sallii äänestämisen ilman kirjautumista ei ole käynnissä,
       luo tunnus tai kirjaudu sisään nähdäksesi äänestyksiä!</h4>
-  </td>
-  </td>
-  {% endif %}
-  <div class="card border-primary mb-3" style="max-width: 20rem;">
-    <div class="card-header">Rekisteröitymällä saat esimerkiksi:</div>
-      <div class="form-check">
-          <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" value="" checked="">
-        Luoda huikeita äänestyksiä</label>
-        <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" value="" checked="">
-        Nähdä äänestyksien mielenkiintoisia tuloksia </label>
-        <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" value="" checked="">
-        Äänestää muiden hulppeissa äänestyksissä</label>
-      </div>
-    </div>
-    <br>
-  {% else %}
-  <h4>Tervetuloa! </h4>
-  {% endif %}
-  </td>
-  </tr>
-</table>
+    {% endif %}
+    {% else %}
+    <h4>Tervetuloa! </h4>
+    {% endif %}
+  </table>
 </div>
 {% endblock %}

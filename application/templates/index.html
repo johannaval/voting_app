@@ -1,7 +1,30 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<p>
-<h1>Tervetuloa!</h1>
-</p>
+<br>
+<br>
+<br>
+<div class="jumbotron">
+    <h1 class="display-4">Tervetuloa äänestys-sovellukseen! </h1>
+    <p>
+    <div class="card border-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Rekisteröitymällä tai kirjautumalla sisään saat esimerkiksi:</div>
+        <div class="form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" value="" checked="">
+                Luoda huikeita äänestyksiä</label>
+            <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" value="" checked="">
+                Nähdä äänestyksien mielenkiintoisia tuloksia </label>
+            <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" value="" checked="">
+                Äänestää muiden hulppeissa äänestyksissä</label>
+        </div>
+    </div>
+    <p>Mutta ei hätää! Sovellus tarjoaa myös mahdollisuuden luoda anonyymejä äänestyksiä, jolloin äänestäminen onnistuu
+        myös ilman tunnuksia!</p>
+
+    <a class="btn btn-primary" role="button" href="{{ url_for('votings_index') }} "> Aloitetaan!</a>
+    </p>
+</div>
 {% endblock %}

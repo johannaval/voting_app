@@ -4,50 +4,47 @@
 <br>
 <br>
 <div class="jumbotron">
-    {% if creator == current %}
-    <h4>Olet luonut äänestyksen: </h4>
-    {% endif %}
-    <br>
-    <h1 class="display-3"> {{ voting.name }} </h1>
-
-
     <form method="POST" action="{{ url_for('votings_vote_this', voting_id=voting.id) }}">
         <table>
-            <td>
-                <tr>
-                </tr>
-                <tr></tr>
-        
-                <br>
-                {% for item in data %}
-                <tr>
-                    <td> {{ data.index(item)+1}}. {{ item.name }} {{ item.description}}</td>
-                </tr>
-                {% endfor %}
-                <tr></tr>
-                <tr>
-                    <td>
-                        <br>
-                        {% if creator != current and user_has_voted == False %}
-                        {{ form.answer.label }} {{ form.answer }}
-                <tr></tr>
-            <td colspan="4">
-                <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
-            </td>
+            <h1 class="display-3"> {{ voting.name }} </h1>
+
+            {% if creator == current %}
+            <h4>Olet luonut äänestyksen: </h4>
+            {% endif %}
+
+            <tr>
+                <th>{% for item in data %} </th>
+            <tr>
+                <th> {{ data.index(item)+1}}. {{ item.name }} {{ item.description}}</th>
+            </tr>
+            {% endfor %}
+            </tr>
+
+            <tr>
+                <p></p>
+                <th>
+                    <p>&nbsp;</p>
+                </th>
+                <p></p>
+            </tr>
+
+            {% if creator != current and user_has_voted == False %}
+            <tr>
+
+                <th>{{ form.answer.label }} {{ form.answer }}</th>
+
+                <td colspan="4">
+                    <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
+                </td>
+            </tr>
             {% endif %}
 
             {% if user_has_voted == True %}
             <h4>Olet jo äänestänyt tässä äänestyksessä!</h4>
             {% endif %}
 
-            </td>
-            </tr>
-            </tr>
-            </td>
+        </table>
     </form>
-    <td>
-    </td>
-    </td>
 </div>
 
 

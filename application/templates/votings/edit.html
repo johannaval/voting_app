@@ -9,168 +9,165 @@
 
     <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
         <table>
-            <td>
-                <tr>
-                    <td>
-                        <h3> Kysymys: </h3>
-                    </td>
-                    <td>
-                        {% if error == "Tällä nimellä on jo äänestys!" %}
-                        {{ form.name(class="form-control is-invalid", placeholder=voting.name) }}
-                        {% for e in error %} {{ e }}
-                        {% endfor %}
-                        {% else %}
-
-                        {% if not form.name.errors %}
-                        {{ form.name(class="form-control", placeholder=voting.name)}}
-                        {% else %}
-                        {{ form.name(class="form-control is-invalid", placeholder= voting.name ) }}
-                        {% for error in form.name.errors %}
-                        {{ error }}
-                        {% endfor %}
-                        {% endif %}
-                        {% endif %}
-                        <br>
-                    </td>
-                <tr></tr>
-            <td>
-            </td>
-            <td>
-                {{ form.nameDescription(class="col-form-label col-form-label-sm", placeholder=" Kuvaus (vapaaehtoinen)") }}
-                <br>
-                <br>
-
-            </td>
-            <td>
-
-            </td>
+            <tr>
+                <th>
+                    <h3> Kysymys: &nbsp;&nbsp; </h3>
+                </th>
             </tr>
-            <br>
             <tr>
+                {% if error == "Tällä nimellä on jo äänestys!" %}
+                <th> {{ form.name(class="form-control is-invalid", placeholder=voting.name) }} </th>
+                <th> {% for e in error %} {{ e }}
+                    {% endfor %} </th>
+
+                {% else %}
+                {% if not form.name.errors %}
+                <th> {{ form.name(class="form-control", placeholder=voting.name)}} </th>
+                {% else %}
+                <th> {{ form.name(class="form-control is-invalid", placeholder=voting.name) }} </th>
+                <th> {% for error in form.name.errors %} {{ error }}
+                    {% endfor %} </th>
+                {% endif %}
+                {% endif %}
+            </tr>
+
             <tr>
-                <td>
-                    <br>
+                <th> {{ form.nameDescription(class="col-form-label col-form-label-sm", placeholder=voting.description) }}
+                </th>
+            </tr>
+
+            <tr>
+                <th> &nbsp;
                     <h4> Vaihtoehto 1.&nbsp;&nbsp; </h4>
-                </td>
-                <td>
-                    <br>
-                    {% if error == "Jokainen vaihtoehto pitää olla eri!" %}
-                    {{ form.option1(class="form-control is-invalid", placeholder=options[0].name) }}
-                    {% for e in error %} {{ e }}
-                    {% endfor %}
-                    {% else %}
-
-                    {% if not form.option1.errors %}
-                    {{ form.option1(class="form-control", placeholder=options[0].name)}}
-                    {% else %}
-                    {{ form.option1(class="form-control is-invalid", placeholder=options[0].name) }}
-                    {% for error in form.option1.errors %}
-                    {{ error }}
-                    {% endfor %}
-                    {% endif %}
-                    {% endif %}
-                    <br>
-                </td>
-            <tr></tr>
-            <td>
-            </td>
-            <td>
-                {{ form.option1Description(class="col-form-label col-form-label-sm", placeholder=" Kuvaus (vapaaehtoinen)") }}
-                <br>
-                <br>
-            </td>
+                </th>
             </tr>
+
             <tr>
-                <td>
-                    <br>
+                {% if error == "Jokainen vaihtoehto pitää olla eri!" %}
+                <th> {{ form.option1(class="form-control is-invalid", placeholder=options[0].name) }} </th>
+                <th> {% for e in error %} {{ e }}
+                    {% endfor %} </th>
+
+                {% else %}
+                {% if not form.option1.errors %}
+                <th> {{ form.option1(class="form-control", placeholder=options[0].name)}} </th>
+                {% else %}
+                <th> {{ form.option1(class="form-control is-invalid", placeholder=options[0].name) }} </th>
+                <th> {% for error in form.option1.errors %} {{ error }}
+                    {% endfor %} </th>
+                {% endif %}
+                {% endif %}
+            </tr>
+
+            <tr>
+                <th>
+                    {{ form.option1Description(class="col-form-label col-form-label-sm", placeholder=options[0].description) }}
+                </th>
+            </tr>
+
+            <tr>
+                <th> &nbsp;
                     <h4> Vaihtoehto 2. </h4>
-                </td>
-                <td>
-                    <br>
-                    {% if error == "Jokainen vaihtoehto pitää olla eri!" %}
-                    {{ form.option2(class="form-control is-invalid", placeholder=options[1].name) }}
-                    {% for e in error %} {{ e }}
-                    {% endfor %}
-                    {% else %}
+                </th>
+            </tr>
 
-                    {% if not form.option2.errors %}
-                    {{ form.option2(class="form-control", placeholder=options[1].name)}}
-                    {% else %}
-                    {{ form.option2(class="form-control is-invalid", placeholder=options[1].name) }}
-                    {% for error in form.option2.errors %}
-                    {{ error }}
-                    {% endfor %}
-                    {% endif %}
-                    {% endif %}
-                    <br>
-                </td>
-            <tr></tr>
-            <td>
-            </td>
-            <td>
-                {{ form.option2Description(class="col-form-label col-form-label-sm", placeholder=" Kuvaus (vapaaehtoinen)") }}
-                <br>
-                <br>
-            </td>
+            <tr>
+                {% if error == "Jokainen vaihtoehto pitää olla eri!" %}
+                <th> {{ form.option2(class="form-control is-invalid", placeholder=options[1].name) }} </th>
+                <th> {% for e in error %} {{ e }}
+                    {% endfor %} </th>
+
+                {% else %}
+                {% if not form.option2.errors %}
+                <th> {{ form.option2(class="form-control", placeholder=options[1].name)}} </th>
+                {% else %}
+                <th> {{ form.option2(class="form-control is-invalid", placeholder=options[1].name) }} </th>
+                <th> {% for error in form.option2.errors %} {{ error }}
+                    {% endfor %} </th>
+                {% endif %}
+                {% endif %}
+            </tr>
+
+            <tr>
+                <th>
+                    {{ form.option2Description(class="col-form-label col-form-label-sm", placeholder=options[1].description) }}
+                </th>
             </tr>
             <tr>
-                <td>
-                    <br>
+                <th>
+                    &nbsp;
                     <h4> Vaihtoehto 3. </h4>
-                </td>
-                <td>
-                    <br>
-                    {% if error == "Jokainen vaihtoehto pitää olla eri!" %}
-                    {{ form.option3(class="form-control is-invalid", placeholder=options[2].name) }}
-                    {% for e in error %} {{ e }}
-                    {% endfor %}
-                    {% else %}
-
-                    {% if not form.option3.errors %}
-                    {{ form.option3(class="form-control", placeholder=options[2].name) }}
-                    {% else %}
-                    {{ form.option3(class="form-control is-invalid", placeholder=options[2].name) }}
-                    {% for error in form.option3.errors %}
-                    {{ error }}
-                    {% endfor %}
-                    {% endif %}
-                    {% endif %}
-                    <br>
-                </td>
-            <tr></tr>
-            <td>
-            </td>
-            <td>
-                {{ form.option3Description(class="col-form-label col-form-label-sm", placeholder=" Kuvaus (vapaaehtoinen)") }}
-
-                <br>
-            </td>
+                </th>
             </tr>
-            </td>
-        </table>
-        <hr class="my-4">
-        <tr>
-            <br>
-            <h4> Mitä tuloksia haluat, että muut näkevät?</h4>
-            {{ form.results }}
-            {% for error in form.results.errors %}
-            <div class="alert alert-dismissible alert-danger">
-                </a> Muistathan valita jonkun vaihtoehdoista!
-            </div>
-            {% endfor %}
 
-        </tr>
+            <tr>
+                {% if error == "Jokainen vaihtoehto pitää olla eri!" %}
+                <th>{{ form.option3(class="form-control is-invalid", placeholder=options[2].name) }} </th>
+                <th> {% for e in error %} {{ e }}
+                    {% endfor %} </th>
+
+                {% else %}
+                {% if not form.option3.errors %}
+                <th> {{ form.option3(class="form-control", placeholder=options[2].name)}} </th>
+                {% else %}
+                <th> {{ form.option3(class="form-control is-invalid", placeholder=options[2].name) }} </th>
+                <th> {% for error in form.option3.errors %} {{ error }}
+                    {% endfor %} </th>
+                {% endif %}
+                {% endif %}
+            </tr>
+
+            <tr>
+                <th>
+                    {{ form.option3Description(class="col-form-label col-form-label-sm", placeholder=options[2].description) }}
+                </th>
+            </tr>
+
+
+        </table>
+
+
+
+
+
+
+
         <tr>
             <hr class="my-4">
-            <br>
-            <h4> Äänestys vain kirjautuneille käyttäjille?</h4>
-            {{ form.anonymous }}
-            {% for error in form.anonymous.errors %}
+
+            <h4> Mitä tuloksia haluat, että muut näkevät?</h4>
+
+            <th> {{ form.results }} </th>
+            <th> {% for error in form.results.errors %} </th>
             <div class="alert alert-dismissible alert-danger">
-                </a> Muistathan valita jonkun vaihtoehdoista!
+                <th> </a> Muistathan valita jonkun vaihtoehdoista! </th>
             </div>
             {% endfor %}
         </tr>
+
+
+        <tr>
+            <hr class="my-4">
+
+
+            <th>
+                <h4> Äänestys vain kirjautuneille käyttäjille?</h4>
+            </th>
+        </tr>
+        <tr>
+
+            <th> {{ form.anonymous }} </th>
+            <th> {% for error in form.anonymous.errors %} </th>
+            <div class="alert alert-dismissible alert-danger">
+                <th> </a> Muistathan valita jonkun vaihtoehdoista! </th>
+            </div>
+            {% endfor %}
+        </tr>
+
+
+
+
+
         <hr class="my-4">
         <p> Editointivaiheessa -></p>
         <h4> Valitse aloituspäivä: </h4>
@@ -215,12 +212,12 @@
         </div>
         <p>
             <-- </p>
-                <tr>
-                    <td colspan="3">
-                        <input type="submit" , class="btn btn-primary" , value="Lisää!" />
 
-                    </td>
-                </tr>
+
+                <td colspan="3">
+                    <input type="submit" , class="btn btn-primary" , value="Lisää!" />
+                </td>
+
     </form>
 </div>
 {% endblock %}

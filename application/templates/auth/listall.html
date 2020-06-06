@@ -8,28 +8,30 @@
   <table>
     {% if current_user.is_authenticated%}
     {% if current_user.roles()=="ADMIN"%}
-    <h4>Hei admin! Tässä lista käyttäjistä: &nbsp;&nbsp; </td>
-    </h4>
+    <h4>Hei admin! Tässä lista käyttäjistä: &nbsp;&nbsp; </h4>
     {% for user in data %}
     <tr>
-      <td>{{ user.username }} </td>
-      <td>
+      <th>{{ user.username }}&nbsp;&nbsp; </th>
+      <th>
         <form method="POST" action="{{ url_for('auth_edit', user_id=user.id) }}">
           <input type="submit" , class="btn btn-outline-warning" , value="Muokkaa käyttäjän tietoja" />&nbsp;&nbsp;
         </form>
-      <td>
+      </th>
+
+      <th>
         <form method="POST" action="{{ url_for('auth_delete', user_id=user.id) }}">
           <input type="submit" , class="btn btn-outline-danger" , value="Poista käyttäjä" />&nbsp;&nbsp;
         </form>
-      </td>
-      <td>
+      </th>
+
+      <th>
         <form method="POST" action="{{ url_for('auth_edit', user_id=user.id) }}">
           <input type="submit" , class="btn btn-outline-primary" , value="Tarkastele käyttäjän äänestyksiä (coming)" />
         </form>
-      </td>
-      </td>
+      </th>
     </tr>
     {%endfor%}
+
     {% endif %}
     {% endif %}
   </table>

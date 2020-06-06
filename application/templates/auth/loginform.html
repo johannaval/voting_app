@@ -5,53 +5,41 @@
 <br>
 <div class="jumbotron">
       <h1 class="display-3">Kirjaudu sisään!!</h1>
-
-<form method="POST" action="{{ url_for('auth_login') }}">
       <table>
-            <br>
-            <br>
-            <br>
-            <br>
-            <tr>
-                  <td>
-                        {{ form.username.label }} &nbsp;&nbsp;
-                  </td>
-                  <td>
+
+            <form method="POST" action="{{ url_for('auth_login') }}">
+                  <br>
+                  <tr>
+                        <th> {{ form.username.label }} &nbsp;&nbsp; </th>
                         {% if usernameError|length == 0 %}
-
-                        {{ form.username(class="form-control", placeholder="Käyttäjänimi")}}
+                        <th> {{ form.username(class="form-control", placeholder="Käyttäjänimi")}} </th>
                         {% else %}
-                        {{ form.username(class="form-control is-invalid", placeholder="Käyttäjänimi") }}
-                        {% for error in usernameError %} {{ error }}
-                        {% endfor %}
+                        <th> {{ form.username(class="form-control is-invalid", placeholder="Käyttäjänimi") }} </th>
+                        <th> {% for error in usernameError %} {{ error }}
+                              {% endfor %}
+                        </th>
                         {% endif %}
-                        <br>
-                        </div>
-                  </td>
-            </tr>
-            <tr>
-                  <td>
-                        {{ form.password.label }} &nbsp;&nbsp;
-                  </td>
-                  <td>
+                  </tr>
+
+                  <tr>
+                        <th> {{ form.password.label }} &nbsp;&nbsp; </th>
                         {% if passwordError|length == 0 %}
-                        {{ form.password(class="form-control", placeholder="Salasana")}}
+                        <th> {{ form.password(class="form-control", placeholder="Salasana")}} </th>
                         {% else %}
-                        {{ form.password(class="form-control is-invalid", placeholder="Salasana") }}
-                        {% for error in passwordError %} {{ error }}
-                        {% endfor %}
+                        <th> {{ form.password(class="form-control is-invalid", placeholder="Salasana") }} </th>
+                        <th> {% for error in passwordError %} {{ error }}
+                              {% endfor %}
+                        </th>
                         {% endif %}
-                        <br>
-                        </div>            
-                  </td>
-            </tr>
-            <tr>
-                  <td colspan="2">
-                        <br>
-                        <input type="submit" , class ="btn btn-primary", value="Kirjaudu sisään!" />
-                  </td>
-            </tr>
-</form>
-</div>
+                  </tr>
+                  <tr>
 
+                        <td colspan="2">
+                              <br>
+                              <input type="submit" , class="btn btn-primary" , value="Kirjaudu sisään!" />
+                        </td>
+                  </tr>
+            </form>
+      </table>
+</div>
 {% endblock %}

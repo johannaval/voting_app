@@ -29,32 +29,33 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
             aria-expanded="false">Äänestykset</a>
-          <div class="dropdown-menu" >
+          <div class="dropdown-menu">
             <a class="dropdown-item" href="{{ url_for('votings_own') }} ">Omat äänestykset</a>
 
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ url_for('votings_notVoted') }} ">Äänestykset, missä et ole vielä äänestänyt</a>
+            <a class="dropdown-item" href="{{ url_for('votings_notVoted') }} ">Äänestykset, missä et ole vielä
+              äänestänyt</a>
 
-          <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ url_for('votings_voted') }} ">Tarkastele äänestämiesi äänestyksien tuloksia</a>
-    </div>
-    </li>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ url_for('votings_voted') }} ">Tarkastele äänestämiesi äänestyksien
+              tuloksia</a>
+          </div>
+        </li>
 
-
-    {% if current_user.is_authenticated%}
-    {% if current_user.roles()=="ADMIN"%}
-    <li class="nav-item">
-      <a class="nav-link" href="{{ url_for('auth_listall') }} ">Näytä käyttäjät</a>
-    </li>
-    {% endif %}
-    {% endif %}
-    {% if current_user.is_authenticated%}
-    {% if current_user.roles()=="ADMIN"%}
-    <li class="nav-item">
-      <a class="nav-link" href="{{ url_for('votings_listAllVotings') }} ">Näytä äänestykset</a>
-    </li>
-    {% endif %}
-    {% endif %}
+        {% if current_user.is_authenticated%}
+        {% if current_user.roles()=="ADMIN"%}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('auth_listall') }} ">Näytä käyttäjät</a>
+        </li>
+        {% endif %}
+        {% endif %}
+        {% if current_user.is_authenticated%}
+        {% if current_user.roles()=="ADMIN"%}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('votings_listAllVotings') }} ">Näytä äänestykset</a>
+        </li>
+        {% endif %}
+        {% endif %}
     </div>
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav ml-auto">
@@ -74,7 +75,7 @@
         {% endif %}
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Hae">
+        <input class="form-control mr-sm-2" type="text" placeholder="Ei toimi vielä">
         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
       </form>
     </div>

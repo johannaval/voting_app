@@ -6,35 +6,29 @@
 <br>
 <div class="jumbotron">
     <h1 class="display-3">Äänestyksesi:</h1>
-<table>
-    {% for voting in votings%}
-    <tr>
-        <td>{{ voting.name  }} &nbsp;&nbsp;</td>
-        <td>
-            <br>
-            <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
-                <input type="submit" , class ="btn btn-outline-warning", value="Muokkaa" />&nbsp;&nbsp;
-                <br>
-            </form>
-        <td>
-            <br>
-            <form method="POST" action="{{ url_for('votings_delete', voting_id=voting.id) }}">
-                <input type="submit" , class ="btn btn-outline-danger", value="Poista" />&nbsp;&nbsp;
-                <br>
-            </form>
-        </td>
-        <td>
-            <br>
-            <form method="GET" action="{{ url_for('votings_show_this', voting_id=voting.id) }}">
-                <input type="submit" , class ="btn btn-outline-primary", value="Tarkastele ääniä" />
-                <br>
-            </form>
-        </td>
-        </td>
-    </tr>
-    </td>
-    <tr>
+    <table>
+        {% for voting in votings%}
+        <tr>
+            <th>{{ voting.name  }} &nbsp;&nbsp; </th>
+            <th>
+                <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
+                    <input type="submit" , class="btn btn-outline-warning" , value="Muokkaa" />&nbsp;&nbsp;
+                </form>
+            </th>
+
+            <th>
+                <form method="POST" action="{{ url_for('votings_delete', voting_id=voting.id) }}">
+                    <input type="submit" , class="btn btn-outline-danger" , value="Poista" />&nbsp;&nbsp;
+                </form>
+            </th>
+
+            <th>
+                <form method="GET" action="{{ url_for('votings_show_this', voting_id=voting.id) }}">
+                    <input type="submit" , class="btn btn-outline-primary" , value="Tarkastele ääniä" />
+                </form>
+            </th>
+        </tr>
         {% endfor %}
-</table>
+    </table>
 </div>
 {% endblock %}

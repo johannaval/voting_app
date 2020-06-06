@@ -31,10 +31,11 @@ def auth_login():
         password = form.password.data
         pw = user.password
 
+
         if (bcrypt.check_password_hash(pw, password)):
 
             login_user(user)
-            return redirect(url_for("index"))
+            return redirect(url_for("votings_index"))
 
         else :
             
@@ -77,7 +78,7 @@ def auth_create():
     db.session().commit()
 
     login_user(user)
-    return redirect(url_for("index"))
+    return redirect(url_for("votings_index"))
 
 
 @app.route("/auth/logout")
@@ -102,14 +103,21 @@ def auth_edit(user_id):
 
     data = []
 
-    # tänne myös pw_hash hommat
-
     oldName = user.query.get(user_id).name
     data.append(oldName)
     oldUsername = user.query.get(user_id).username
     data.append(oldUsername)
     oldPassword = user.query.get(user_id).password
     data.append(oldPassword)
+
+    u = User.query.filter(
+        User.username == request.form.get("createNewUsername")).first()
+
+    this = User.query.get(user_id)
+
+    if u != None and u.username != this.username:
+        return render_template("auth/editUser.html", user=this, data=data, form=form, error = "Käyttäjänimi on jo käytössä!")
+
 
     if request.method == "POST" and form.validate():
 
@@ -118,7 +126,9 @@ def auth_edit(user_id):
         newUserName = request.form.get("createNewUsername")
         user.username = newUserName
         newPassword = request.form.get("createNewPassword")
-        user.password = newPassword
+
+        pw_hash = bcrypt.generate_password_hash(newPassword).decode('utf-8')
+        user.password = pw_hash
 
         db.session.commit()
 
