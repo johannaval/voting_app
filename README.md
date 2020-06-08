@@ -21,26 +21,26 @@ Testitunnukset:
 [Tietokantakaavio:](https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-05-13%2016-03-35.png)
 
 
-Asennusohje:
+## Asennusohje:
 
 - Asenna Python-virtuaaliympäristö samaan hakemistoon, missä sovellus on, komennolla:
 
-´´´ python -m venv venv ´´´
+``` python -m venv venv ```
 
 
 - Virtuaaliympäristön saa käyttöön:
 
-´´´ source venv/bin/activate ´´´
+``` source venv/bin/activate ```
 
 
 - Asenna tarvittavat riippuvuudet:
 
-´´´ pip install -r requirements.txt ´´´
+``` pip install -r requirements.txt ```
 
 
 - Käynnistä ohjelma:
 
-´´´ python run.py ´´´
+``` python run.py ```
 
 
 Ja nyt ohjelmaa voi käyttää osoitteessa http://localhost:5000/ sekä http://127.0.0.1:5000/
@@ -48,7 +48,7 @@ Ja nyt ohjelmaa voi käyttää osoitteessa http://localhost:5000/ sekä http://1
 
 
 
-Käyttöohje:
+## Käyttöohje:
 
 - Jos et halua kirjautua tai tehdä tunnusta, pääset selaamaan äänestyksiä, jotka eivät vaadi tunnusta painamalla "Aloitetaan!"-napista, joka löytyy heti kun avaat ohjelman. 
 - Painamalla "Äänestä" pääset näkemään äänestyksen vaihtoehdot. Valitse sinulle sopivin vaihtoehto ja ruksita sitä vastaava numero. Sen jälkeen voit painaa "Äänestä", jolloin valintasi tallennetaan. 
