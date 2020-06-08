@@ -172,6 +172,8 @@
         <meta charset="utf-8">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
           rel="stylesheet" />
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootsrap.min.css" rel="stylesheet">
+        <link href="jquery.datetimepicker.min.css" rel="stylesheet">
       </head>
 
       <body>
@@ -188,18 +190,22 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="jquery.datetimepicker.full.min.js"></script>
         <script
           src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
         <script>
           $('#starting_picker').datetimepicker({
             constrainInput: true,
+            showClear: true,
             timepicker: true,
             datepicker: true,
-            format: 'Y-m-d H:m:s',
+            format: 'Y-m-d H:i:s',
             hours12: false,
             showOn: 'button',
             autoSize: true,
-            firstDay: 1,
+            step: 1,
+            yearStart: 2020,
+            yearEnd: 2090,
             onShow: function (ct) {
               this.setOptions({
                 minDate: new Date()
@@ -208,13 +214,16 @@
           })
           $('#ending_picker').datetimepicker({
             constrainInput: true,
+            showClear: true,
             timepicker: true,
             datepicker: true,
-            format: 'Y-m-d H:m:s',
+            format: 'Y-m-d H:i:s',
             hours12: false,
             showOn: 'button',
             autoSize: true,
-            firstDay: 1,
+            step: 1,
+            yearStart: 2020,
+            yearEnd: 2090,
             onShow: function (ct) {
               this.setOptions({
                 minDate: $('#starting_picker').val() ? $('#starting_picker').val() : false
@@ -228,7 +237,7 @@
 
     </tr>
 
-     
+
 
     <td colspan="3">
       <input type="submit" , class="btn btn-primary" , value="Lisää!">

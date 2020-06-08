@@ -65,6 +65,7 @@ class Voting(Base):
         stmt = text("SELECT * FROM VOTING "
                     "WHERE account_id != :user_id "
                     "and starting_time <= :current_time "
+                    "and ending_time > :current_time "
                     "GROUP BY id").params(user_id=user_id, current_time = current_time)
 
         res = db.engine.execute(stmt)
