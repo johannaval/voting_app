@@ -5,7 +5,7 @@
 <br>
 <div class="jumbotron">
   <h1 class="display-3"> Luo äänestys: </h1>
-  <form method="POST" action="{{ url_for('votings_create') }}">
+  <form method="POST" action="{{ url_for('votings_create')}}">
 
     <table>
       <tr>
@@ -74,16 +74,16 @@
       <tr>
         {% if error == "Jokainen vaihtoehto pitää olla eri!" %}
         <th> {{ form.option2(class="form-control is-invalid", placeholder="Vaihtoehto 2.") }} </th>
-        <th> {% for e in error %} {{ e }} 
-        {% endfor %} </th>
+        <th> {% for e in error %} {{ e }}
+          {% endfor %} </th>
 
         {% else %}
         {% if not form.option2.errors %}
         <th> {{ form.option2(class="form-control", placeholder="Vaihtoehto 2.")}} </th>
         {% else %}
         <th> {{ form.option2(class="form-control is-invalid", placeholder="Vaihtoehto 2.") }} </th>
-        <th> {% for error in form.option2.errors %} {{ error }} 
-        {% endfor %} </th>
+        <th> {% for error in form.option2.errors %} {{ error }}
+          {% endfor %} </th>
         {% endif %}
         {% endif %}
       </tr>
@@ -103,16 +103,16 @@
       <tr>
         {% if error == "Jokainen vaihtoehto pitää olla eri!" %}
         <th>{{ form.option3(class="form-control is-invalid", placeholder="Vaihtoehto 3.") }} </th>
-        <th> {% for e in error %} {{ e }} 
-        {% endfor %} </th>
+        <th> {% for e in error %} {{ e }}
+          {% endfor %} </th>
 
         {% else %}
         {% if not form.option3.errors %}
         <th> {{ form.option3(class="form-control", placeholder="Vaihtoehto 3.")}} </th>
         {% else %}
         <th> {{ form.option3(class="form-control is-invalid", placeholder="Vaihtoehto 3.") }} </th>
-        <th> {% for error in form.option3.errors %} {{ error }} 
-        {% endfor %} </th>
+        <th> {% for error in form.option3.errors %} {{ error }}
+          {% endfor %} </th>
         {% endif %}
         {% endif %}
       </tr>
@@ -164,59 +164,76 @@
       {% endfor %}
     </tr>
 
-
-
-
-
     <hr class="my-4">
-    <p> Editointivaiheessa -></p>
-    <h4> Valitse aloituspäivä: </h4>
-    <div class="container">
-      <div class="row">
-        <div class='col-sm-6'>
-          <div class="form-group">
-            <div class='input-group date' id='datetimepicker1'>
-              <input type='text' class="form-control" />
-              <span class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
-              </span>
-            </div>
-          </div>
+
+    <tr>
+
+      <head>
+        <meta charset="utf-8">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
+          rel="stylesheet" />
+      </head>
+
+      <body>
+        <div class="container mt-5 mb-5" style="width: 400px">
+          <h3>Valitse aloituspäivä ja aika: </h3>
+          <th> {{ form.starting_time(class="form-control", id="starting_picker")}} </th>
+          <br>
+          <br>
+          <h3>Valitse lopetuspäivä ja aika: </h3>
+          <th> {{ form.ending_time(class="form-control", id="ending_picker")}} </th>
+
         </div>
-        <script type="text/javascript">
-          $(function () {
-            $('#datetimepicker1').datetimepicker();
-          });
-        </script>
-      </div>
-    </div>
-    <h4> Valitse lopetuspäivä: </h4>
-    <div class="container">
-      <div class="row">
-        <div class='col-sm-6'>
-          <div class="form-group">
-            <div class='input-group date' id='datetimepicker1'>
-              <input type='text' class="form-control" />
-              <span class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <script type="text/javascript">
-          $(function () {
-            $('#datetimepicker1').datetimepicker();
-          });
-        </script>
-      </div>
-    </div>
-    <p>
-      <-- </p>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+        <script>
+          $('#starting_picker').datetimepicker({
+            constrainInput: true,
+            timepicker: true,
+            datepicker: true,
+            format: 'Y-m-d H:m:s',
+            hours12: false,
+            showOn: 'button',
+            autoSize: true,
+            firstDay: 1,
+            onShow: function (ct) {
+              this.setOptions({
+                minDate: new Date()
+              })
+            }
+          })
+          $('#ending_picker').datetimepicker({
+            constrainInput: true,
+            timepicker: true,
+            datepicker: true,
+            format: 'Y-m-d H:m:s',
+            hours12: false,
+            showOn: 'button',
+            autoSize: true,
+            firstDay: 1,
+            onShow: function (ct) {
+              this.setOptions({
+                minDate: $('#starting_picker').val() ? $('#starting_picker').val() : false
+              })
+            }
+          })
 
 
-        <td colspan="3">
-          <input type="submit" , class="btn btn-primary" , value="Lisää!" />
-        </td>
+        </script>
+      </body>
+
+    </tr>
+
+     
+
+    <td colspan="3">
+      <input type="submit" , class="btn btn-primary" , value="Lisää!">
+
+    </td>
 
   </form>
 </div>

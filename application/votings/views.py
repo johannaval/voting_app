@@ -5,6 +5,7 @@ from application import app, db, login_required
 from application.votings.models import Voting, UserVoted, Vote, Option
 from application.votings.forms import VotingForm
 from application.votings.forms import VoteForm
+import datetime
 
 
 @app.route("/votings", methods=["GET"])
@@ -35,21 +36,22 @@ def votings_vote(voting_id):
     v = Voting.query.get(voting_id)
 
     teksti = []
-    list = []
-
-    for l in list:
-        l.replace("'", "")
-        l.replace(" ", "   ")
 
     creator = v.account_id
     current = 999
+
+    current_time = datetime.datetime.now()
+    isOn = False
+    
+    if (v.starting_time < current_time):
+        isOn = True
 
     if current_user.is_authenticated:
         current = current_user.id
 
     user_has_voted = UserVoted.has_voted(current, voting_id)
 
-    return render_template("votings/vote.html", voting=v, data=data, creator=creator, current=current, user_has_voted=user_has_voted, form=VoteForm())
+    return render_template("votings/vote.html", voting=v, data=data, creator=creator, current=current, user_has_voted=user_has_voted, form=VoteForm(), isOn = isOn)
 
 
 @app.route("/votings/<voting_id>/show", methods=["GET"])
@@ -161,6 +163,12 @@ def votings_create():
         return render_template("votings/new.html", form=form, error=error)
 
     if not form.validate():
+
+        v = Voting(form.name.data)
+
+        v.starting_time = form.starting_time.data
+        v.ending_time = form.ending_time.data
+
         return render_template("votings/new.html", form=form, error= error)
 
     v = Voting(form.name.data)
@@ -169,6 +177,16 @@ def votings_create():
     v.account_id = current_user.id
     v.show_result = form.results.data
     v.anonymous = form.anonymous.data
+
+    print ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    print (form.starting_time.data)
+    print (form.ending_time.data)
+
+    print("??????????????????????????????")
+    v.starting_time = form.starting_time.data
+    v.ending_time = form.ending_time.data
+
+
     db.session().add(v)
     db.session().commit()
 
@@ -298,9 +316,11 @@ def votings_own():
 def votings_notVoted():
 
     user_id = current_user.id
-    votings = Voting.getVotingsThatCanbeVoted(user_id)
+    votingsToVoteNow = Voting.getVotingsThatCanbeVotedNow(user_id)
+    votingsToVoteLater = Voting.getVotingsThatCanbeVotedLater(user_id)
 
-    return render_template("votings/votingsToVote.html", votings=votings)
+
+    return render_template("votings/votingsToVote.html", votingsNow=votingsToVoteNow, votingsLater=votingsToVoteLater)
 
 
 @app.route("/votings/voted")

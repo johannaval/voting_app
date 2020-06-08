@@ -7,12 +7,14 @@
     <h5 class="display-4">Äänestykset missä et ole vielä äänestänyt</h5>
     <table>
         <br>
-        {% if votings|length > 0 %}
-        {% for vote in votings %}
         <tr>
-            <th>{{ vote.name }} &nbsp;&nbsp;</th>
+            <p>Käynnissä olevat äänestykset: </p>
+            {% if votingsNow|length > 0 %}
+            {% for voting in votingsNow %}
+        <tr>
+            <th>{{ voting.name }} &nbsp;&nbsp;</th>
             <th>
-                <form method="POST" action="{{ url_for('votings_vote', voting_id=vote.id) }}">
+                <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
                     <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
                 </form>
             </th>
@@ -20,6 +22,30 @@
         {% endfor %}
         {% else %}
         {% endif %}
+        </tr>
     </table>
+
+
+    <table>
+        <tr>
+            <br>
+            <br>
+            <p>Äänestykset, jotka eivät ole vielä alkaneet:</p>
+            {% if votingsLater|length > 0 %}
+            {% for voting in votingsLater %}
+        <tr>
+            <th>{{ voting.name }} &nbsp;&nbsp;</th>
+            <th>
+                <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
+                    <input type="submit" , class="btn btn-primary" , value="Tarkastele äänestystä!" />
+                </form>
+            </th>
+        </tr>
+        {% endfor %}
+        {% else %}
+        {% endif %}
+        </tr>
+    </table>
+
 </div>
 {% endblock %}

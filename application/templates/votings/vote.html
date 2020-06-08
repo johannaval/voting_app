@@ -27,8 +27,13 @@
                 </th>
                 <p></p>
             </tr>
+            {% if not isOn %}
+            <p> Tämä äänestys käynnistyy : ajan päästä!
+            </p>
 
-            {% if creator != current and user_has_voted == False %}
+            {% endif %}
+
+            {% if creator != current and user_has_voted == False and isOn %}
             <tr>
 
                 <th>{{ form.answer.label }} {{ form.answer }}</th>

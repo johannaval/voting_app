@@ -2,6 +2,9 @@ from application import db
 from application.models import Base
 from datetime import datetime
 from sqlalchemy.sql import text
+from datetime import datetime
+
+
 
 
 class Voting(Base):
@@ -46,7 +49,49 @@ class Voting(Base):
             return True
 
     @staticmethod
-    def getVotingsThatCanbeVoted(user_id):
+    def getVotingsThatCanbeVotedNow(user_id):
+
+        voted = text(
+            "SELECT * FROM User_Voted WHERE user_id = :user_id GROUP BY voting_id, id, user_id").params(user_id=user_id)
+
+        res2 = db.engine.execute(voted)
+        response2 = []
+
+        for row in res2:
+            response2.append(row)
+        
+        current_time = datetime.now()
+
+        stmt = text("SELECT * FROM VOTING "
+                    "WHERE account_id != :user_id "
+                    "and starting_time <= :current_time "
+                    "GROUP BY id").params(user_id=user_id, current_time = current_time)
+
+        res = db.engine.execute(stmt)
+        cleanedList = []
+
+        response = []
+
+        for row in res:
+            response.append(row)
+            cleanedList.append(row)
+
+        len1 = len(response)
+        len2 = len(response2)
+
+        uusiIndeksi = 0
+
+        for j in range(len1):
+            for i in range(len2):
+                uusiIndeksi = uusiIndeksi + 1
+                if(response[j].id == response2[i].voting_id):
+                    cleanedList.remove(response[j])
+                    uusiIndeksi = uusiIndeksi - 1
+
+        return cleanedList
+
+    @staticmethod
+    def getVotingsThatCanbeVotedLater(user_id):
 
         voted = text(
             "SELECT * FROM User_Voted WHERE user_id = :user_id GROUP BY voting_id, id, user_id").params(user_id=user_id)
@@ -57,9 +102,14 @@ class Voting(Base):
         for row in res2:
             response2.append(row)
 
+        current_time = datetime.now()
+
+        print(current_time)
+
         stmt = text("SELECT * FROM VOTING "
                     "WHERE account_id != :user_id "
-                    "GROUP BY id").params(user_id=user_id)
+                    "and starting_time > :current_time "
+                    "GROUP BY id").params(user_id=user_id, current_time = current_time)
 
         res = db.engine.execute(stmt)
         cleanedList = []
