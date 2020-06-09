@@ -355,6 +355,7 @@ def votings_notVoted():
 
     user_id = current_user.id
     votingsToVoteNow = Voting.getVotingsThatCanbeVotedNow(user_id)
+
     votingsToVoteLater = Voting.getVotingsThatCanbeVotedLater(user_id)
 
 
