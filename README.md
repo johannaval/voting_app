@@ -1,6 +1,9 @@
 ## Voting_app
 
-// !! tällä hetkellä äänestyksen ajat menee oikein kun käytän ohjelmaa komentokentän kautta, ja äänestyksiä pystyy äänestää silloin, kun ne ovat käynnissä. Jostain syystä HEROKU:ssa tämä ominaisuus ei toimikkaan, eikä sitä kautta tällä hetkellä pysty äänestämään missään sillä ajat eivät täsmää Current timeen.
+// !! tällä hetkellä äänestyksen ajat menee oikein kun käytän ohjelmaa lokaalisesti, ja äänestyksiä pystyy äänestää silloin, kun ne ovat käynnissä. Jostain syystä HEROKU:ssa tämä ominaisuus ei toimikkaan, ilmeisesti käyttää eri aikavyöhykettä? Ja jotta äänestyksen saa heti alkamaan, tulee aloittamisaikaa siirtää muutama tunti oikeaa hetkeä aiemmas!
+
+
+
 
 Sovellus tarjoaa mahdollisuuden luoda äänestyksiä sekä osallistumaan itse muiden äänestyksiin. Äänestyksen tekijä saa itse määritellä, näkyykö äänestyksen tulokset muille. 
 Sovelluksessa on myös mahdollisuus anonyymeille äänestyksille, jotka eivät vaadi kirjautumista.
