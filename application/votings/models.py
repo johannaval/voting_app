@@ -54,10 +54,10 @@ class Voting(Base):
         current_time = datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
-                    "WHERE starting_time <= :current_time "
-                    "and ending_time > :current_time "
+                    "WHERE starting_time <= now()::time "
+                    "and ending_time > now()::time "
                     "and anonymous = 2 "
-                    "GROUP BY id").params(current_time = current_time)
+                    "GROUP BY id")
 
         res = db.engine.execute(stmt)
         listAll = []
@@ -76,9 +76,9 @@ class Voting(Base):
         current_time = datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
-                    "WHERE starting_time > :current_time "
+                    "WHERE starting_time > now()::time "
                     "and anonymous = 2 "
-                    "GROUP BY id").params(current_time = current_time)
+                    "GROUP BY id")
 
         res = db.engine.execute(stmt)
         listAll = []
@@ -106,11 +106,12 @@ class Voting(Base):
         
         current_time = datetime.now()
 
+
         stmt = text("SELECT * FROM VOTING "
                     "WHERE account_id != :user_id "
-                    "and starting_time <= :current_time "
-                    "and ending_time > :current_time "
-                    "GROUP BY id").params(user_id=user_id, current_time = current_time)
+                    "and starting_time <= now()::time "
+                    "and ending_time > now()::time "
+                    "GROUP BY id").params(user_id=user_id)
 
         res = db.engine.execute(stmt)
         cleanedList = []
@@ -153,8 +154,8 @@ class Voting(Base):
 
         stmt = text("SELECT * FROM VOTING "
                     "WHERE account_id != :user_id "
-                    "and starting_time > :current_time "
-                    "GROUP BY id").params(user_id=user_id, current_time = current_time)
+                    "and starting_time > now()::time "
+                    "GROUP BY id").params(user_id=user_id)
 
         res = db.engine.execute(stmt)
         cleanedList = []
