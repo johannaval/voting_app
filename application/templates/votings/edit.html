@@ -165,58 +165,82 @@
         </tr>
 
 
+        <tr>
 
+            <head>
+                <meta charset="utf-8">
+                <link
+                    href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"
+                    rel="stylesheet" />
+                <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootsrap.min.css" rel="stylesheet">
+                <link href="jquery.datetimepicker.min.css" rel="stylesheet">
+            </head>
 
+            <body>
+                <div class="container mt-5 mb-5" style="width: 400px">
+                    <h3>Valitse aloituspäivä ja aika: </h3>
+                    <th> {{ form.starting_time(class="form-control", id="starting_picker")}} </th>
+                    <br>
+                    <br>
+                    <h3>Valitse lopetuspäivä ja aika: </h3>
+                    <th> {{ form.ending_time(class="form-control", id="ending_picker")}} </th>
 
-        <hr class="my-4">
-        <p> Editointivaiheessa -></p>
-        <h4> Valitse aloituspäivä: </h4>
-        <div class="container">
-            <div class="row">
-                <div class='col-sm-6'>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker1'>
-                            <input type='text' class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
                 </div>
-                <script type="text/javascript">
-                    $(function () {
-                        $('#datetimepicker1').datetimepicker();
-                    });
-                </script>
-            </div>
-        </div>
-        <h4> Valitse lopetuspäivä: </h4>
-        <div class="container">
-            <div class="row">
-                <div class='col-sm-6'>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker1'>
-                            <input type='text' class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <script type="text/javascript">
-                    $(function () {
-                        $('#datetimepicker1').datetimepicker();
-                    });
-                </script>
-            </div>
-        </div>
-        <p>
-            <-- </p>
+
+                <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+                <script src="jquery.datetimepicker.full.min.js"></script>
+                <script
+                    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+                <script>
+                    $('#starting_picker').datetimepicker({
+                        constrainInput: true,
+                        showClear: true,
+                        timepicker: true,
+                        datepicker: true,
+                        format: 'Y-m-d H:i:s',
+                        hours12: false,
+                        showOn: 'button',
+                        autoSize: true,
+                        step: 1,
+                        yearStart: 2020,
+                        yearEnd: 2090,
+                        onShow: function (ct) {
+                            this.setOptions({
+                                minDate: new Date()
+                            })
+                        }
+                    })
+                    $('#ending_picker').datetimepicker({
+                        constrainInput: true,
+                        showClear: true,
+                        timepicker: true,
+                        datepicker: true,
+                        format: 'Y-m-d H:i:s',
+                        hours12: false,
+                        showOn: 'button',
+                        autoSize: true,
+                        step: 1,
+                        yearStart: 2020,
+                        yearEnd: 2090,
+                        onShow: function (ct) {
+                            this.setOptions({
+                                minDate: $('#starting_picker').val() ? $('#starting_picker').val() : false
+                            })
+                        }
+                    })
 
 
-                <td colspan="3">
-                    <input type="submit" , class="btn btn-primary" , value="Lisää!" />
-                </td>
+                </script>
+            </body>
+
+        </tr>
+
+
+        <td colspan="3">
+            <input type="submit" , class="btn btn-primary" , value="Lisää!" />
+        </td>
 
     </form>
 </div>

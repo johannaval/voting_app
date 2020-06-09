@@ -17,7 +17,7 @@
             <tr>
                 <th> {{ data.index(item)+1}}. {{ item.name }} {{ item.description}}</th>
             </tr>
-            {% endfor %}
+            {% endfor %} 
             </tr>
 
             <tr>
@@ -28,14 +28,76 @@
                 <p></p>
             </tr>
             {% if not isOn %}
-            <p> Tämä äänestys käynnistyy : ajan päästä!
-            </p>
-
+            <h4>Äänestys avautuu:</h4>
+            {% else %}
+            <h4>Äänestys päättyy:</h4>
             {% endif %}
 
-            {% if creator != current and user_has_voted == False and isOn %}
-            <tr>
+            <input id="1" type="hidden" value={{separated_time[0]}} />
+            <input id="2" type="hidden" value={{separated_time[1]}} />
+            <input id="3" type="hidden" value={{separated_time[2]}} />
+            <input id="4" type="hidden" value={{separated_time[3]}} />
+            <input id="5" type="hidden" value={{separated_time[4]}} />
+            <input id="6" type="hidden" value={{separated_time[5]}} />
 
+            <script>
+
+                var t = document.getElementById("1").value
+                var tt = document.getElementById("2").value
+                var ttt = document.getElementById("3").value
+                var tttt = document.getElementById("4").value
+                var ttttt = document.getElementById("5").value
+                var tttttt = document.getElementById("6").value
+                var formatted = t + " " + tt + ", " + ttt + " " + tttt + ":" + ttttt + ":" + tttttt
+
+                window.onload = function () {
+
+                    countDown(formatted, 'countdown1');
+                }
+
+                function countDown(timeTo, id) {
+                    timeTo = new Date(timeTo).getTime();
+                    var now = new Date(),
+                    timeTo = new Date(timeTo),
+                        difference = (timeTo - now);
+
+                    var secondsPerDay = 60 * 60 * 1000 * 24;
+                    var secondsPerHour = 60 * 60 * 1000;
+
+                    days = Math.floor(difference / (secondsPerDay) * 1);
+                    hours = Math.floor((difference % (secondsPerDay)) / (secondsPerHour) * 1);
+                    mins = Math.floor(((difference % (secondsPerDay)) % (secondsPerHour)) / (60 * 1000) * 1);
+                    secs = Math.floor((((difference % (secondsPerDay)) % (secondsPerHour)) % (60 * 1000)) / 1000 * 1);
+
+                    var showTimeCount = document.getElementById(id);
+                    showTimeCount.getElementsByClassName('days')[0].innerHTML = days;
+                    showTimeCount.getElementsByClassName('hours')[0].innerHTML = hours;
+                    showTimeCount.getElementsByClassName('minutes')[0].innerHTML = mins;
+                    showTimeCount.getElementsByClassName('seconds')[0].innerHTML = secs;
+
+                    clearTimeout(countDown.interval);
+                    countDown.interval = setTimeout(function () { countDown(timeTo, id); }, 1000);
+                }
+            </script>
+
+            <div class="countdown" id="countdown1">
+                <span class="timeel days">00</span>
+                <span class="timeel timeRefDays">päivän</span>
+                <span class="timeel hours">00</span>
+                <span class="timeel timeRefHours">tunnin</span>
+                <span class="timeel minutes">00</span>
+                <span class="timeel timeRefMinutes">minuutin</span>
+                <span class="timeel seconds">00</span>
+                <span class="timeel timeRefSeconds">sekunnin kuluttua!</span>
+            </div>
+
+
+            </p>
+
+            {% if creator != current and user_has_voted == False and isOn %}
+
+            <tr>
+             
                 <th>{{ form.answer.label }} {{ form.answer }}</th>
 
                 <td colspan="4">

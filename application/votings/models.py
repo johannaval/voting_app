@@ -49,6 +49,50 @@ class Voting(Base):
             return True
 
     @staticmethod
+    def getAnonymousVotingsThatCanbeVotedNow():
+
+        current_time = datetime.now()
+
+        stmt = text("SELECT * FROM VOTING "
+                    "WHERE starting_time <= :current_time "
+                    "and ending_time > :current_time "
+                    "and anonymous = 2 "
+                    "GROUP BY id").params(current_time = current_time)
+
+        res = db.engine.execute(stmt)
+        listAll = []
+
+        for row in res:
+            listAll.append(row)
+            print (row)
+            print("!!!!")
+
+        return listAll
+
+
+    @staticmethod
+    def getAnonymousVotingsThatCanbeVotedLater():
+
+        current_time = datetime.now()
+
+        stmt = text("SELECT * FROM VOTING "
+                    "WHERE starting_time > :current_time "
+                    "and anonymous = 2 "
+                    "GROUP BY id").params(current_time = current_time)
+
+        res = db.engine.execute(stmt)
+        listAll = []
+
+        for row in res:
+            listAll.append(row)
+            print(row)
+            print ("!!!")
+
+        return listAll
+
+
+
+    @staticmethod
     def getVotingsThatCanbeVotedNow(user_id):
 
         voted = text(

@@ -5,19 +5,21 @@ from application import app, db, login_required
 from application.votings.models import Voting, UserVoted, Vote, Option
 from application.votings.forms import VotingForm
 from application.votings.forms import VoteForm
-import datetime
-
+from datetime import datetime
 
 @app.route("/votings", methods=["GET"])
 def votings_index():
 
-    votingsForAnonymousUsers = Voting.query.filter(Voting.anonymous == 2).all()
+    votingsToVoteNow =[]
+    votingsToVoteLater=[]
 
-    if current_user.is_authenticated:
-            votingsForAnonymousUsers = []
+    if not current_user.is_authenticated:
+
+       votingsToVoteNow = Voting.getAnonymousVotingsThatCanbeVotedNow()
+       votingsToVoteLater = Voting.getAnonymousVotingsThatCanbeVotedLater()
 
 
-    return render_template("votings/list.html", votingsForAnonymousUsers=votingsForAnonymousUsers)
+    return render_template("votings/list.html", votingsToVoteNow=votingsToVoteNow, votingsToVoteLater = votingsToVoteLater)
 
 
 @app.route("/votings/new/")
@@ -40,7 +42,7 @@ def votings_vote(voting_id):
     creator = v.account_id
     current = 999
 
-    current_time = datetime.datetime.now()
+    current_time = datetime.now()
     isOn = False
     
     if (v.starting_time < current_time):
@@ -51,7 +53,22 @@ def votings_vote(voting_id):
 
     user_has_voted = UserVoted.has_voted(current, voting_id)
 
-    return render_template("votings/vote.html", voting=v, data=data, creator=creator, current=current, user_has_voted=user_has_voted, form=VoteForm(), isOn = isOn)
+    if not isOn:
+       time = v.starting_time
+
+    else:
+        time = v.ending_time
+
+    separated_time=[]
+    separated_time.append(time.strftime("%m"))
+    separated_time.append(time.strftime("%d"))
+    separated_time.append(time.strftime("%Y"))
+    separated_time.append(time.strftime("%H"))
+    separated_time.append(time.strftime("%M"))
+    separated_time.append(time.strftime("%S"))
+
+
+    return render_template("votings/vote.html", voting=v, data=data, creator=creator, current=current, user_has_voted=user_has_voted, form=VoteForm(), isOn = isOn, separated_time = separated_time)
 
 
 @app.route("/votings/<voting_id>/show", methods=["GET"])
@@ -106,8 +123,30 @@ def votings_vote_this(voting_id):
     v = Voting.query.get(voting_id)
     data = Option.query.filter(Option.voting_id == v_id).all()
 
+    time = v.starting_time
+    formatted_time = time.strftime("%m %d, %Y %H:%M:%S")
+    separated_time=[]
+    formatted_time = "06 20,2020 20:06:46"
+    separated_time.append(time.strftime("%m"))
+    separated_time.append(time.strftime("%d"))
+    separated_time.append(time.strftime("%Y"))
+    separated_time.append(time.strftime("%H"))
+    separated_time.append(time.strftime("%M"))
+    separated_time.append(time.strftime("%S"))
+
+    print (separated_time[0])
+    print (separated_time[1])
+    print (separated_time[2])
+    print (separated_time[3])
+    print (separated_time[4])
+    print (separated_time[5])
+
+
+   
+    print (formatted_time)
+
     if not form.validate():
-        return render_template("votings/vote.html", voting=v, data=data, form=form)
+        return render_template("votings/vote.html", voting=v, data=data, form=form, formatted_time = formatted_time, separated_time=separated_time)
 
     if current_user.is_authenticated:
         user = current_user
@@ -130,6 +169,8 @@ def votings_vote_this(voting_id):
 
     db.session.add(new_vote)
     db.session.commit()
+
+
 
     if not current_user.is_authenticated:
         return redirect(url_for("votings_index"))
@@ -162,14 +203,16 @@ def votings_create():
         error = "Tällä nimellä on jo äänestys!"
         return render_template("votings/new.html", form=form, error=error)
 
-    if not form.validate():
+    if not form.validate() or form.starting_time.data >= form.ending_time.data:
 
         v = Voting(form.name.data)
 
-        v.starting_time = form.starting_time.data
-        v.ending_time = form.ending_time.data
+        timeError=""
 
-        return render_template("votings/new.html", form=form, error= error)
+        if(form.starting_time.data >= form.ending_time.data):
+            timeError = "Ops! Valitsethan äänestyksen päättymisajaksi myöhemmän ajan kuin alkamisaika!"
+
+        return render_template("votings/new.html", form=form, error= error, timeError=timeError)
 
     v = Voting(form.name.data)
     v.done = False
@@ -178,11 +221,6 @@ def votings_create():
     v.show_result = form.results.data
     v.anonymous = form.anonymous.data
 
-    print ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    print (form.starting_time.data)
-    print (form.ending_time.data)
-
-    print("??????????????????????????????")
     v.starting_time = form.starting_time.data
     v.ending_time = form.ending_time.data
 
