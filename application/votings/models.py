@@ -2,8 +2,7 @@ from application import db
 from application.models import Base
 from datetime import datetime
 from sqlalchemy.sql import text
-from datetime import datetime
-
+import datetime
 
 
 
@@ -51,13 +50,13 @@ class Voting(Base):
     @staticmethod
     def getAnonymousVotingsThatCanbeVotedNow():
 
-        current_time = datetime.now()
+        current_time = datetime.datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
-                    "WHERE starting_time <= now()::time "
-                    "and ending_time > now()::time "
+                    "WHERE starting_time <= :current_time "
+                    "and ending_time > :current_time "
                     "and anonymous = 2 "
-                    "GROUP BY id")
+                    "GROUP BY id").params(current_time = current_time)
 
         res = db.engine.execute(stmt)
         listAll = []
@@ -73,12 +72,12 @@ class Voting(Base):
     @staticmethod
     def getAnonymousVotingsThatCanbeVotedLater():
 
-        current_time = datetime.now()
+        current_time = datetime.datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
-                    "WHERE starting_time > now()::time "
+                    "WHERE starting_time > :current_time "
                     "and anonymous = 2 "
-                    "GROUP BY id")
+                    "GROUP BY id").params(current_time = current_time)
 
         res = db.engine.execute(stmt)
         listAll = []
@@ -104,14 +103,14 @@ class Voting(Base):
         for row in res2:
             response2.append(row)
         
-        current_time = datetime.now()
+        current_time = datetime.datetime.now()
 
 
         stmt = text("SELECT * FROM VOTING "
                     "WHERE account_id != :user_id "
-                    "and starting_time <= now()::time "
-                    "and ending_time > now()::time "
-                    "GROUP BY id").params(user_id=user_id)
+                    "and starting_time <= :current_time "
+                    "and ending_time > :current_time "
+                    "GROUP BY id").params(user_id=user_id, current_time = current_time)
 
         res = db.engine.execute(stmt)
         cleanedList = []
@@ -148,14 +147,14 @@ class Voting(Base):
         for row in res2:
             response2.append(row)
 
-        current_time = datetime.now()
+        current_time = datetime.datetime.now()
 
         print(current_time)
 
         stmt = text("SELECT * FROM VOTING "
                     "WHERE account_id != :user_id "
-                    "and starting_time > now()::time "
-                    "GROUP BY id").params(user_id=user_id)
+                    "and starting_time > :current_time "
+                    "GROUP BY id").params(user_id=user_id, current_time = current_time)
 
         res = db.engine.execute(stmt)
         cleanedList = []
