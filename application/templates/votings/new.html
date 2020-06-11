@@ -8,13 +8,28 @@
   <form method="POST" action="{{ url_for('votings_create')}}">
 
     <table>
-      <tr>
-        <th>
-          <h3> Kysymys: &nbsp;&nbsp; </h3>
-        </th>
-      </tr>
 
       <tr>
+
+        <div class="form-group">
+          <label for="exampleSelect1">Valitse vaihtoehtojen määrä: (ei vielä käytössä)!</label>
+          <select class="form-control" id="exampleSelect1">
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+          </select>
+        </div>
+
+      </tr>
+      <br>
+
+      <tr>
+        <p> Kysymys: </p>
         {% if error == "Tällä nimellä on jo äänestys!" %}
         <th> {{ form.name(class="form-control is-invalid", placeholder="Kysymys") }} </th>
         <th> {% for e in error %} {{ e }}
@@ -38,7 +53,7 @@
 
       <tr>
         <th> &nbsp;
-          <h4> Vaihtoehto 1.&nbsp;&nbsp; </h4>
+          <p> Vaihtoehto 1.&nbsp;&nbsp; </p>
         </th>
       </tr>
 
@@ -67,7 +82,7 @@
 
       <tr>
         <th> &nbsp;
-          <h4> Vaihtoehto 2. </h4>
+          <p> Vaihtoehto 2. </p>
         </th>
       </tr>
 
@@ -96,7 +111,7 @@
       <tr>
         <th>
           &nbsp;
-          <h4> Vaihtoehto 3. </h4>
+          <p> Vaihtoehto 3. </p>
         </th>
       </tr>
 
@@ -135,7 +150,7 @@
     <tr>
       <hr class="my-4">
 
-      <h4> Mitä tuloksia haluat, että muut näkevät?</h4>
+      <p> Mitä tuloksia haluat, että muut näkevät?</p>
 
       <th> {{ form.results }} </th>
       <th> {% for error in form.results.errors %} </th>
@@ -151,7 +166,7 @@
 
 
       <th>
-        <h4> Äänestys vain kirjautuneille käyttäjille?</h4>
+        <p> Äänestys vain kirjautuneille käyttäjille?</p>
       </th>
     </tr>
     <tr>
@@ -178,11 +193,11 @@
 
       <body>
         <div class="container mt-5 mb-5" style="width: 400px">
-          <h3>Valitse aloituspäivä ja aika: </h3>
+          <p>Valitse aloituspäivä ja aika: </p>
           <th> {{ form.starting_time(class="form-control", id="starting_picker")}} </th>
           <br>
           <br>
-          <h3>Valitse lopetuspäivä ja aika: </h3>
+          <p>Valitse lopetuspäivä ja aika: </p>
           <th> {{ form.ending_time(class="form-control", id="ending_picker")}} </th>
 
         </div>
@@ -195,6 +210,8 @@
           src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
         <script>
           $('#starting_picker').datetimepicker({
+            default:'right',
+        
             constrainInput: true,
             showClear: true,
             timepicker: true,
@@ -211,8 +228,10 @@
                 minDate: new Date()
               })
             }
+            
           })
           $('#ending_picker').datetimepicker({
+            pickerPosition:bottom-left,
             constrainInput: true,
             showClear: true,
             timepicker: true,
@@ -224,6 +243,7 @@
             step: 1,
             yearStart: 2020,
             yearEnd: 2090,
+
             onShow: function (ct) {
               this.setOptions({
                 minDate: $('#starting_picker').val() ? $('#starting_picker').val() : false
@@ -231,10 +251,8 @@
             }
           })
 
-
         </script>
       </body>
-
 
       {% if timeError|length > 0%}
       <div class="alert alert-dismissible alert-danger">
@@ -242,11 +260,7 @@
       </div>
       {% endif %}
 
-
     </tr>
-
-
-
     <td colspan="3">
       <input type="submit" , class="btn btn-primary" , value="Lisää!">
 

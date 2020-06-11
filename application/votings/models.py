@@ -7,9 +7,8 @@ import datetime
 
 
 class Voting(Base):
-    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
-    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(
-    ), onupdate=db.func.current_timestamp())
+    date_created = db.Column(db.DateTime, default=db.func.LOCALTIMESTAMP())
+    date_modified = db.Column(db.DateTime, default=db.func.LOCALTIMESTAMP(), onupdate=db.func.LOCALTIMESTAMP())
     description = db.Column(db.String(144), nullable=True)
     account_id = db.Column(db.Integer, db.ForeignKey(
         'account.id'), nullable=False)
@@ -23,7 +22,7 @@ class Voting(Base):
         self.done = False
 
     @staticmethod
-    def isVotingNameUnique(name):
+    def is_voting_name_unique(name):
 
         stmt = text("SELECT Voting.name FROM Voting "
                     "WHERE Voting.name =:name").params(name=name)
@@ -36,7 +35,7 @@ class Voting(Base):
             return False
 
     @staticmethod
-    def isOptionsDifferent(list):
+    def is_options_different(list):
 
         print(list[0])
         print(list[1])
@@ -48,51 +47,47 @@ class Voting(Base):
             return True
 
     @staticmethod
-    def getAnonymousVotingsThatCanbeVotedNow():
+    def get_anonymous_votings_that_can_be_voted_now():
 
-        current_time = datetime.datetime.now()
+        currentTime = datetime.datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
-                    "WHERE starting_time <= :current_time "
-                    "and ending_time > :current_time "
+                    "WHERE starting_time <= :currentTime "
+                    "and ending_time > :currentTime "
                     "and anonymous = 2 "
-                    "GROUP BY id").params(current_time = current_time)
+                    "GROUP BY id").params(currentTime = currentTime)
 
         res = db.engine.execute(stmt)
         listAll = []
 
         for row in res:
             listAll.append(row)
-            print (row)
-            print("!!!!")
 
         return listAll
 
 
     @staticmethod
-    def getAnonymousVotingsThatCanbeVotedLater():
+    def get_anonymous_votings_that_can_be_voted_later():
 
-        current_time = datetime.datetime.now()
+        currentTime = datetime.datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
-                    "WHERE starting_time > :current_time "
+                    "WHERE starting_time > :currentTime "
                     "and anonymous = 2 "
-                    "GROUP BY id").params(current_time = current_time)
+                    "GROUP BY id").params(currentTime = currentTime)
 
         res = db.engine.execute(stmt)
         listAll = []
 
         for row in res:
             listAll.append(row)
-            print(row)
-            print ("!!!")
 
         return listAll
 
 
 
     @staticmethod
-    def getVotingsThatCanbeVotedNow(user_id):
+    def get_votings_that_can_be_voted_now(user_id):
 
         voted = text(
             "SELECT * FROM User_Voted WHERE user_id = :user_id GROUP BY voting_id, id, user_id").params(user_id=user_id)
@@ -103,14 +98,13 @@ class Voting(Base):
         for row in res2:
             response2.append(row)
         
-        current_time = datetime.datetime.now()
-
+        currentTime = datetime.datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
                     "WHERE account_id != :user_id "
-                    "and starting_time <= :current_time "
-                    "and ending_time > :current_time "
-                    "GROUP BY id").params(user_id=user_id, current_time = current_time)
+                    "and starting_time <= :currentTime "
+                    "and ending_time > :currentTime "
+                    "GROUP BY id").params(user_id=user_id, currentTime = currentTime)
 
         res = db.engine.execute(stmt)
         cleanedList = []
@@ -124,19 +118,19 @@ class Voting(Base):
         len1 = len(response)
         len2 = len(response2)
 
-        uusiIndeksi = 0
+        newIndex = 0
 
         for j in range(len1):
             for i in range(len2):
-                uusiIndeksi = uusiIndeksi + 1
+                newIndex = newIndex + 1
                 if(response[j].id == response2[i].voting_id):
                     cleanedList.remove(response[j])
-                    uusiIndeksi = uusiIndeksi - 1
+                    newIndex = newIndex - 1
 
         return cleanedList
 
     @staticmethod
-    def getVotingsThatCanbeVotedLater(user_id):
+    def get_votings_that_can_be_voted_later(user_id):
 
         voted = text(
             "SELECT * FROM User_Voted WHERE user_id = :user_id GROUP BY voting_id, id, user_id").params(user_id=user_id)
@@ -147,14 +141,12 @@ class Voting(Base):
         for row in res2:
             response2.append(row)
 
-        current_time = datetime.datetime.now()
-
-        print(current_time)
+        currentTime = datetime.datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
                     "WHERE account_id != :user_id "
-                    "and starting_time > :current_time "
-                    "GROUP BY id").params(user_id=user_id, current_time = current_time)
+                    "and starting_time > :currentTime "
+                    "GROUP BY id").params(user_id=user_id, currentTime = currentTime)
 
         res = db.engine.execute(stmt)
         cleanedList = []
@@ -168,16 +160,77 @@ class Voting(Base):
         len1 = len(response)
         len2 = len(response2)
 
-        uusiIndeksi = 0
+        newIndex = 0
 
         for j in range(len1):
             for i in range(len2):
-                uusiIndeksi = uusiIndeksi + 1
+                newIndex = newIndex + 1
                 if(response[j].id == response2[i].voting_id):
                     cleanedList.remove(response[j])
-                    uusiIndeksi = uusiIndeksi - 1
+                    newIndex = newIndex - 1
 
         return cleanedList
+ 
+    @staticmethod
+    def get_own_waiting_votings(user_id):
+
+        currentTime = datetime.datetime.now()
+
+        stmt = text("SELECT * FROM VOTING "
+                    "WHERE starting_time > :currentTime "
+                    "and account_id = :user_id "
+                    "GROUP BY id").params(currentTime = currentTime, user_id=user_id)
+
+        res = db.engine.execute(stmt)
+        listAll = []
+
+        for row in res:
+            listAll.append(row)
+
+        return listAll
+
+
+    @staticmethod
+    def get_own_started_votings(user_id):
+
+        currentTime = datetime.datetime.now()
+
+        stmt = text("SELECT * FROM VOTING "
+                    "WHERE starting_time < :currentTime "
+                    "and ending_time > :currentTime "
+                    "and account_id = :user_id "
+                    "GROUP BY id").params(currentTime = currentTime, user_id=user_id)
+
+        res = db.engine.execute(stmt)
+        listAll = []
+
+        for row in res:
+            listAll.append(row)
+
+        return listAll
+
+    @staticmethod
+    def get_own_ended_votings(user_id):
+
+        currentTime = datetime.datetime.now()
+
+        stmt = text("SELECT * FROM VOTING "
+                    "WHERE ending_time < :currentTime "
+                    "and account_id = :user_id "
+                    "GROUP BY id").params(currentTime = currentTime, user_id=user_id)
+
+        res = db.engine.execute(stmt)
+        listAll = []
+
+        for row in res:
+            listAll.append(row)
+
+        return listAll
+
+
+
+
+
 
 
 class Option(db.Model):
@@ -190,7 +243,7 @@ class Option(db.Model):
         self.name = name
 
     @staticmethod
-    def getOptonsFromVoting(voting_id):
+    def get_optons_from_voting(voting_id):
 
         stmt = text("SELECT * FROM Voting LEFT JOIN Option "
                     "ON Voting.id = Option.voting_id "
@@ -205,6 +258,13 @@ class Option(db.Model):
         return response
 
 
+
+
+
+
+
+
+
 class UserVoted(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
@@ -214,7 +274,7 @@ class UserVoted(db.Model):
         self.user_id = user_id
 
     @staticmethod
-    def getVotedVotings(user_id):
+    def get_voted_votings(user_id):
         voted = text(
             "SELECT * FROM User_Voted WHERE user_id = :user_id GROUP BY voting_id, id, user_id").params(user_id=user_id)
 
@@ -260,17 +320,22 @@ class UserVoted(db.Model):
             return True
 
 
+
+
+
+
+
 class Vote(db.Model):
     vote_id = db.Column(db.Integer, primary_key=True)
     voting_id = db.Column(db.Integer)
     option_id = db.Column(db.Integer)
-    time = db.Column(db.DateTime, default=db.func.current_timestamp())
+    time = db.Column(db.DateTime, default=db.func.LOCALTIMESTAMP())
 
     def __init__(self, voting_id):
         self.voting_id = voting_id
 
     @staticmethod
-    def return_top_3_votes_in_vote(id):
+    def return_top_3_votes_in_voting(id):
 
         stmt = text("SELECT Option.name, COUNT(Vote.option_id) FROM Option "
                     "LEFT JOIN Vote ON Vote.option_id = Option.option_id "
@@ -288,3 +353,27 @@ class Vote(db.Model):
             response.append(result)
 
         return response
+
+
+    @staticmethod
+    def get_votes_in_time(voting_id, time_to, time_from):
+
+        stmt = text("SELECT COALESCE(count(vote_id),0) FROM Vote "
+                    "WHERE strftime('%H',time)< :tt "
+                    "and strftime('%H',time)= :tf "
+                    "and voting_id = :voting_id").params(voting_id=voting_id, tt = time_from, tf = time_to)
+
+        res = db.engine.execute(stmt)
+        response = ""
+
+        for row in res:
+            response = str(row)
+
+        x = response.replace("(","")
+        y = x.replace(")","")  
+        z = y.replace(" ","") 
+        w = z.replace(",","") 
+
+        return w
+
+

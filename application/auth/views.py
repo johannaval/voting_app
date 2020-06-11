@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user
 
-from application import bcrypt, app, db
+from application import bcrypt, app, db, login_required
 from application.auth.models import User
 from application.auth.forms import LoginForm
 from application.auth.forms import CreateNewForm
@@ -62,17 +62,17 @@ def auth_create():
         return render_template("/auth/createnewform.html", form=form)
 
     users = User.query.all()
-    user_count = len(users)
+    userCount = len(users)
 
-    is_admin = False
+    isAdmin = False
 
-    if user_count == 0:
-        is_admin = True
+    if userCount == 0:
+        isAdmin = True
 
     password = form.createNewPassword.data
-    pw_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+    pwHash = bcrypt.generate_password_hash(password).decode('utf-8')
 
-    user = User(form.createNewName.data, form.createNewUsername.data, pw_hash, is_admin)
+    user = User(form.createNewName.data, form.createNewUsername.data, pwHash, isAdmin)
 
     db.session().add(user)
     db.session().commit()
@@ -88,14 +88,15 @@ def auth_logout():
 
 
 @app.route("/auth/list_all")
+@login_required
 def auth_listall():
 
     data = User.query.all()
-
     return render_template("/auth/listall.html", data=data)
 
 
 @app.route("/auth/edit/<user_id>", methods=["POST", "GET"])
+@login_required
 def auth_edit(user_id):
 
     form = CreateNewForm(request.form)
@@ -127,8 +128,8 @@ def auth_edit(user_id):
         user.username = newUserName
         newPassword = request.form.get("createNewPassword")
 
-        pw_hash = bcrypt.generate_password_hash(newPassword).decode('utf-8')
-        user.password = pw_hash
+        pwHash = bcrypt.generate_password_hash(newPassword).decode('utf-8')
+        user.password = pwHash
 
         db.session.commit()
 
@@ -140,6 +141,7 @@ def auth_edit(user_id):
 
 
 @app.route("/votings/del/<user_id>", methods=["POST", "GET"])
+@login_required
 def auth_delete(user_id):
 
     user = User.query.get(user_id)

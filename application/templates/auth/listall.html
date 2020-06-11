@@ -4,10 +4,10 @@
 <br>
 <br>
 <div class="jumbotron">
-  <h1 class="display-3">Listaa käyttäjät:</h1>
   <table>
     {% if current_user.is_authenticated%}
     {% if current_user.roles()=="ADMIN"%}
+    <h1 class="display-3">Listaa käyttäjät:</h1>
     <h4>Hei admin! Tässä lista käyttäjistä: &nbsp;&nbsp; </h4>
     {% for user in data %}
     <tr>
@@ -25,8 +25,8 @@
       </th>
 
       <th>
-        <form method="POST" action="{{ url_for('auth_edit', user_id=user.id) }}">
-          <input type="submit" , class="btn btn-outline-primary" , value="Tarkastele käyttäjän äänestyksiä (coming)" />
+        <form method="GET" action="{{ url_for('votings_show_votings_by_id', user_id=user.id) }}">
+          <input type="submit" , class="btn btn-outline-primary" , value="Tarkastele käyttäjän äänestyksiä" />
         </form>
       </th>
     </tr>

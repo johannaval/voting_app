@@ -5,8 +5,8 @@
 <br>
 <br>
 <div class="jumbotron">
+    {% if current_user.roles()=="ADMIN" or creator == current %}
     <h1 class="display-3"> Päivitä äänestystä: </h1>
-
     <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
         <table>
             <tr>
@@ -237,11 +237,18 @@
 
         </tr>
 
+        {% if timeError|length > 0%}
+        <div class="alert alert-dismissible alert-danger">
+            <th> </a>{{ timeError }}</th>
+        </div>
+        {% endif %}
+
 
         <td colspan="3">
             <input type="submit" , class="btn btn-primary" , value="Lisää!" />
         </td>
 
     </form>
+    {%endif%}
 </div>
 {% endblock %}

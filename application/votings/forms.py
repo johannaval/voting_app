@@ -19,6 +19,7 @@ class VotingForm(FlaskForm):
 
     results = RadioField('Mitä tuloksia haluat, että muut näkevät?', choices = [('1','Ei mitään'),('2','Vain kärjen'),('3','Kaikki äänet')], validators=[InputRequired()])
     anonymous = RadioField('Äänestys vain kirjautuneille käyttäjille? ', choices = [('1','Kyllä'),('2','Ei')], validators=[InputRequired()])
+
     
     class Meta:
         csrf = False
@@ -28,7 +29,7 @@ class VoteForm(FlaskForm):
     option1 = StringField("1. ")
     option2 = StringField("2. ")
     option3 = StringField("3. ")
-    answer = RadioField('Mitä äänestät?', choices = [('1','1'),('2','2'),('3','3')])
+    answer = RadioField('Mitä äänestät?', choices = [('1','1'),('2','2'),('3','3')], validators=[InputRequired()])
 
     class Meta:
         csrf = False

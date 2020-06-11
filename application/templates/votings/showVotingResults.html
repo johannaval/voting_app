@@ -6,7 +6,11 @@
 <br>
 <div class="jumbotron">
     <h1 class="display-3"> {{ voting.name }} </h1>
-    <form method="GET" action="{{ url_for('votings_vote_this', voting_id=voting.id) }}">
+
+
+    {% if current_user.roles()=="ADMIN" or user_has_voted == True or current==creator%}
+
+    <form method="GET" action="{{ url_for('votings_show_this', voting_id=voting.id) }}">
         <table>
 
             {% for item in data %}
@@ -19,6 +23,7 @@
                 <p></p>
                 <th>
                     <p>&nbsp;</p>
+                    <hr class="my-4">
                 </th>
                 <p></p>
             </tr>
@@ -45,6 +50,102 @@
             </tr>
             {%endfor%}
         </table>
-    </form>
 
-    {% endblock %}
+        <input id="1" type="hidden" value={{time_count[0]}} />
+        <input id="2" type="hidden" value={{time_count[1]}} />
+        <input id="3" type="hidden" value={{time_count[2]}} />
+        <input id="4" type="hidden" value={{time_count[3]}} />
+        <input id="5" type="hidden" value={{time_count[4]}} />
+        <input id="6" type="hidden" value={{time_count[5]}} />
+        <input id="7" type="hidden" value={{time_count[6]}} />
+        <input id="8" type="hidden" value={{time_count[7]}} />
+        <input id="9" type="hidden" value={{time_count[8]}} />
+        <input id="10" type="hidden" value={{time_count[9]}} />
+        <input id="11" type="hidden" value={{time_count[10]}} />
+        <input id="12" type="hidden" value={{time_count[11]}} />
+        <input id="13" type="hidden" value={{time_count[12]}} />
+        <input id="14" type="hidden" value={{time_count[13]}} />
+        <input id="15" type="hidden" value={{time_count[14]}} />
+        <input id="16" type="hidden" value={{time_count[15]}} />
+        <input id="17" type="hidden" value={{time_count[16]}} />
+        <input id="18" type="hidden" value={{time_count[17]}} />
+        <input id="19" type="hidden" value={{time_count[18]}} />
+        <input id="20" type="hidden" value={{time_count[19]}} />
+        <input id="21" type="hidden" value={{time_count[20]}} />
+        <input id="22" type="hidden" value={{time_count[21]}} />
+        <input id="23" type="hidden" value={{time_count[22]}} />
+        <input id="24" type="hidden" value={{time_count[23]}} />
+
+
+        <tr>
+            <br>
+            <br>
+
+            <hr class="my-4">
+            <br>
+            <br>
+
+
+        </tr>
+        <h3>Annettujen äänien määrän jakautuminen tuntien mukaan</h3>
+
+
+        <script>
+
+            window.onload = function () {
+
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    animationEnabled: true,
+                    theme: "light2", // "light1", "light2", "dark1", "dark2"
+                    title: {
+                        text: ""
+                    },
+                    axisY: {
+                        title: "Äänimäärät:"
+                    },
+                    data: [{
+                        type: "column",
+                        showInLegend: true,
+                        legendMarkerColor: "grey",
+                        legendText: "  ",
+                        dataPoints: [
+                            { y: parseInt(document.getElementById("1").value), label: "00:00" },
+                            { y: parseInt(document.getElementById("2").value), label: "01:00" },
+                            { y: parseInt(document.getElementById("3").value), label: "02:00" },
+                            { y: parseInt(document.getElementById("4").value), label: "03:00" },
+                            { y: parseInt(document.getElementById("5").value), label: "04:00" },
+                            { y: parseInt(document.getElementById("6").value), label: "05:00" },
+                            { y: parseInt(document.getElementById("7").value), label: "06:00" },
+                            { y: parseInt(document.getElementById("8").value), label: "07:00" },
+                            { y: parseInt(document.getElementById("9").value), label: "08:00" },
+                            { y: parseInt(document.getElementById("10").value), label: "09:00" },
+                            { y: parseInt(document.getElementById("11").value), label: "10:00" },
+                            { y: parseInt(document.getElementById("12").value), label: "11:00" },
+                            { y: parseInt(document.getElementById("13").value), label: "12:00" },
+                            { y: parseInt(document.getElementById("14").value), label: "13:00" },
+                            { y: parseInt(document.getElementById("15").value), label: "14:00" },
+                            { y: parseInt(document.getElementById("16").value), label: "15:00" },
+                            { y: parseInt(document.getElementById("17").value), label: "16:00" },
+                            { y: parseInt(document.getElementById("18").value), label: "17:00" },
+                            { y: parseInt(document.getElementById("19").value), label: "18:00" },
+                            { y: parseInt(document.getElementById("20").value), label: "19:00" },
+                            { y: parseInt(document.getElementById("21").value), label: "20:00" },
+                            { y: parseInt(document.getElementById("22").value), label: "21:00" },
+                            { y: parseInt(document.getElementById("23").value), label: "22:00" },
+                            { y: parseInt(document.getElementById("24").value), label: "23:00" }
+                        ]
+                    }]
+                });
+                chart.render();
+
+            }
+        </script>
+
+        <body>
+            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+            <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        </body>
+
+        {%endif %}
+
+        {% endblock %}

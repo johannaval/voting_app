@@ -5,9 +5,19 @@
 <br>
 <br>
 <div class="jumbotron">
+    {% if current_user.roles()=="ADMIN"%}
+    <h1 class="display-3">Käyttäjän äänestykset:</h1>
+    {%endif%}
+    {% if creator == current %}
     <h1 class="display-3">Äänestyksesi:</h1>
+    {%endif%}
+
+
+    {% if current_user.roles()=="ADMIN" or current == creator%}
+
     <table>
-        {% for voting in votings%}
+        <p>Äänestykset, jotka eivät ole vielä alkaneet:</p>
+        {% for voting in waitingVotings%}
         <tr>
             <th>{{ voting.name  }} &nbsp;&nbsp; </th>
             <th>
@@ -29,6 +39,64 @@
             </th>
         </tr>
         {% endfor %}
+    </table>
+    <hr class="my-4">
+    <table>
+
+        <p>Käynnissä olevat äänestykset:</p>
+        {% for voting in startedVotings%}
+        <tr>
+            <th>{{ voting.name  }} &nbsp;&nbsp; </th>
+
+            {% if current_user.roles()=="ADMIN"%}
+            <th>
+                <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
+                    <input type="submit" , class="btn btn-outline-warning" , value="Muokkaa" />&nbsp;&nbsp;
+                </form>
+            </th>
+            {% endif %}
+
+            <th>
+                <form method="POST" action="{{ url_for('votings_delete', voting_id=voting.id) }}">
+                    <input type="submit" , class="btn btn-outline-danger" , value="Poista" />&nbsp;&nbsp;
+                </form>
+            </th>
+
+            <th>
+                <form method="GET" action="{{ url_for('votings_show_this', voting_id=voting.id) }}">
+                    <input type="submit" , class="btn btn-outline-primary" , value="Tarkastele ääniä" />
+                </form>
+            </th>
+        </tr>
+        {% endfor %}
+    </table>
+    <hr class="my-4">
+    <table>
+        <p>Loppuneet äänestykset:</p>
+        {% for voting in endedVotings%}
+        <tr>
+            <th>{{ voting.name  }} &nbsp;&nbsp; </th>
+            {% if current_user.roles()=="ADMIN"%}
+            <th>
+                <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
+                    <input type="submit" , class="btn btn-outline-warning" , value="Muokkaa" />&nbsp;&nbsp;
+                </form>
+            </th>
+            {% endif %}
+            <th>
+                <form method="POST" action="{{ url_for('votings_delete', voting_id=voting.id) }}">
+                    <input type="submit" , class="btn btn-outline-danger" , value="Poista" />&nbsp;&nbsp;
+                </form>
+            </th>
+
+            <th>
+                <form method="GET" action="{{ url_for('votings_show_this', voting_id=voting.id) }}">
+                    <input type="submit" , class="btn btn-outline-primary" , value="Tarkastele ääniä" />
+                </form>
+            </th>
+        </tr>
+        {% endfor %}
+        {% endif %}
     </table>
 </div>
 {% endblock %}

@@ -4,7 +4,7 @@
 <br>
 <br>
 <div class="jumbotron">
-    <form method="POST" action="{{ url_for('votings_vote_this', voting_id=voting.id) }}">
+    <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
         <table>
             <h1 class="display-3"> {{ voting.name }} </h1>
 
@@ -17,7 +17,7 @@
             <tr>
                 <th> {{ data.index(item)+1}}. {{ item.name }} {{ item.description}}</th>
             </tr>
-            {% endfor %} 
+            {% endfor %}
             </tr>
 
             <tr>
@@ -58,7 +58,7 @@
                 function countDown(timeTo, id) {
                     timeTo = new Date(timeTo).getTime();
                     var now = new Date(),
-                    timeTo = new Date(timeTo),
+                        timeTo = new Date(timeTo),
                         difference = (timeTo - now);
 
                     var secondsPerDay = 60 * 60 * 1000 * 24;
@@ -94,14 +94,18 @@
 
             </p>
 
-            {% if creator != current and user_has_voted == False and isOn %}
+            {% if creator != current and user_has_voted == False and isOn == True %}
 
             <tr>
-             
+
                 <th>{{ form.answer.label }} {{ form.answer }}</th>
 
                 <td colspan="4">
                     <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
+
+                <th> {% for e in error %} {{ e }}
+                    {% endfor %} </th>
+
                 </td>
             </tr>
             {% endif %}
