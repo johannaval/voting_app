@@ -367,21 +367,18 @@ class Vote(db.Model):
         res = db.engine.execute(stmt)
         response = []
         i = 0
-        tm = 0
 
-        time_from = time_from 
-        time_to = time_to 
-
-        time_from = int(time_from)
-        time_to = int(time_to)
+        time_from = datetime(2020, 11, 1, time_from, 0, 0)
+        time_to= datetime(2020, 11, 1, time_to, 0, 0)
 
         for row in res:
-            tt = (row.time)
+            tt = row.time
             r = str(tt)
             e = datetime.strptime(r, '%Y-%m-%d %H:%M:%S')
-            if(int(e.strftime("%H"))==time_from and int(e.strftime("%H"))<time_to):  
+            if(e.time()>time_from.time() and e.time()<time_to.time()):  
                   response.append(row)
                   i = i + 1
+
         return i
 
 
