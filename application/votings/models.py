@@ -3,6 +3,8 @@ from application.models import Base
 from datetime import datetime
 from sqlalchemy.sql import text
 import datetime
+from datetime import datetime
+
 
 
 
@@ -49,7 +51,7 @@ class Voting(Base):
     @staticmethod
     def get_anonymous_votings_that_can_be_voted_now():
 
-        currentTime = datetime.datetime.now()
+        currentTime = datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
                     "WHERE starting_time <= :currentTime "
@@ -69,7 +71,7 @@ class Voting(Base):
     @staticmethod
     def get_anonymous_votings_that_can_be_voted_later():
 
-        currentTime = datetime.datetime.now()
+        currentTime = datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
                     "WHERE starting_time > :currentTime "
@@ -98,7 +100,7 @@ class Voting(Base):
         for row in res2:
             response2.append(row)
         
-        currentTime = datetime.datetime.now()
+        currentTime = datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
                     "WHERE account_id != :user_id "
@@ -141,7 +143,7 @@ class Voting(Base):
         for row in res2:
             response2.append(row)
 
-        currentTime = datetime.datetime.now()
+        currentTime = datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
                     "WHERE account_id != :user_id "
@@ -174,7 +176,7 @@ class Voting(Base):
     @staticmethod
     def get_own_waiting_votings(user_id):
 
-        currentTime = datetime.datetime.now()
+        currentTime = datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
                     "WHERE starting_time > :currentTime "
@@ -193,7 +195,7 @@ class Voting(Base):
     @staticmethod
     def get_own_started_votings(user_id):
 
-        currentTime = datetime.datetime.now()
+        currentTime = datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
                     "WHERE starting_time < :currentTime "
@@ -212,7 +214,7 @@ class Voting(Base):
     @staticmethod
     def get_own_ended_votings(user_id):
 
-        currentTime = datetime.datetime.now()
+        currentTime = datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
                     "WHERE ending_time < :currentTime "
@@ -256,7 +258,6 @@ class Option(db.Model):
      #       response.append(row)
 
       #  return response
-
 
 
 
@@ -330,6 +331,8 @@ class Vote(db.Model):
     option_id = db.Column(db.Integer)
     time = db.Column(db.DateTime, default=db.func.LOCALTIMESTAMP())
 
+
+
     def __init__(self, voting_id):
         self.voting_id = voting_id
 
@@ -364,14 +367,15 @@ class Vote(db.Model):
         res = db.engine.execute(stmt)
         response = []
         i = 0
+        tm = 0
 
         for row in res:
-            tm = row.time
-            e = int(tm[11:13])
-            if(e==time_from and e<time_to):  
+            tt = (row.time)
+            e = datetime.strptime(tt, '%Y-%m-%d %H:%M:%S')
+            e = e.strftime("%H")
+            if(int(e)==time_from and int(e)<time_to):  
                   response.append(row)
                   i = i + 1
-
         return i
 
 
