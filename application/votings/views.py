@@ -18,7 +18,6 @@ def votings_index():
        votingsToVoteNow = Voting.get_anonymous_votings_that_can_be_voted_now()
        votingsToVoteLater = Voting.get_anonymous_votings_that_can_be_voted_later()
 
-
     return render_template("votings/list.html", votingsToVoteNow=votingsToVoteNow, votingsToVoteLater = votingsToVoteLater)
 
 
@@ -260,8 +259,6 @@ def votings_edit(voting_id):
 
     form = VotingForm(formdata=request.form)
     v = Voting.query.get(voting_id)
-
-
     current = current_user.id
     creator = v.account_id
 
@@ -411,16 +408,3 @@ def votings_voted():
     votings = UserVoted.get_voted_votings(user_id)
 
     return render_template("votings/votedVotings.html", votings=votings)
-
-
-
-
- 
-
-
-
-
-
-
-
-

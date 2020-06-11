@@ -210,8 +210,6 @@
           src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
         <script>
           $('#starting_picker').datetimepicker({
-            default:'right',
-        
             constrainInput: true,
             showClear: true,
             timepicker: true,
@@ -228,10 +226,8 @@
                 minDate: new Date()
               })
             }
-            
           })
           $('#ending_picker').datetimepicker({
-            pickerPosition:bottom-left,
             constrainInput: true,
             showClear: true,
             timepicker: true,
@@ -243,7 +239,6 @@
             step: 1,
             yearStart: 2020,
             yearEnd: 2090,
-
             onShow: function (ct) {
               this.setOptions({
                 minDate: $('#starting_picker').val() ? $('#starting_picker').val() : false
