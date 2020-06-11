@@ -33,7 +33,7 @@
             <a class="dropdown-item" href="{{ url_for('votings_own') }} ">Omat äänestykset</a>
 
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ url_for('votings_notVoted') }} ">Äänestykset, missä et ole vielä
+            <a class="dropdown-item" href="{{ url_for('votings_not_voted') }} ">Äänestykset, missä et ole vielä
               äänestänyt</a>
 
             <div class="dropdown-divider"></div>
@@ -52,7 +52,7 @@
         {% if current_user.is_authenticated%}
         {% if current_user.roles()=="ADMIN"%}
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('votings_listAllVotings') }} ">Näytä äänestykset</a>
+          <a class="nav-link" href="{{ url_for('votings_list_all_votings') }} ">Näytä äänestykset</a>
         </li>
         {% endif %}
         {% endif %}

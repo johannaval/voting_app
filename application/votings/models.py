@@ -242,21 +242,20 @@ class Option(db.Model):
     def __init__(self, name):
         self.name = name
 
-    @staticmethod
-    def get_optons_from_voting(voting_id):
+  #  @staticmethod
+  #  def get_options_from_voting(voting_id):
 
-        stmt = text("SELECT * FROM Voting LEFT JOIN Option "
-                    "ON Voting.id = Option.voting_id "
-                    "WHERE Option.voting_id =:voting_id").params(voting_id=voting_id)
+   #     stmt = text("SELECT * FROM Voting LEFT JOIN Option "
+   #                 "ON Voting.id = Option.voting_id "
+    #                "WHERE Option.voting_id =:voting_id").params(voting_id=voting_id)
 
-        res = db.engine.execute(stmt)
+   #     res = db.engine.execute(stmt)
 
-        response = []
-        for row in res:
-            response.append(row)
+   #     response = []
+    #    for row in res:
+     #       response.append(row)
 
-        return response
-
+      #  return response
 
 
 
@@ -356,24 +355,23 @@ class Vote(db.Model):
 
 
     @staticmethod
-    def get_votes_in_time(voting_id, time_to, time_from):
+    def get_votes_in_time(voting_id, time_from, time_to):
 
-        stmt = text("SELECT COALESCE(count(vote_id),0) FROM Vote "
-                    "WHERE strftime('%H',time)< :tt "
-                    "and strftime('%H',time)= :tf "
-                    "and voting_id = :voting_id").params(voting_id=voting_id, tt = time_from, tf = time_to)
+        stmt = text("SELECT * FROM Vote "
+                    "WHERE voting_id = :voting_id "
+                    "GROUP BY vote_id").params(voting_id=voting_id)
 
         res = db.engine.execute(stmt)
-        response = ""
+        response = []
+        i = 0
 
         for row in res:
-            response = str(row)
+            tm = row.time
+            e = int(tm[11:13])
+            if(e==time_from and e<time_to):  
+                  response.append(row)
+                  i = i + 1
 
-        x = response.replace("(","")
-        y = x.replace(")","")  
-        z = y.replace(" ","") 
-        w = z.replace(",","") 
-
-        return w
+        return i
 
 

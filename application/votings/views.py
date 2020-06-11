@@ -109,10 +109,10 @@ def votings_vote(voting_id):
             return redirect(url_for("votings_index"))
 
         else:
-            return redirect(url_for("votings_notVoted"))
+            return redirect(url_for("votings_not_voted"))
 
 
-@app.route("/votings/<voting_id>/show", methods=["GET"])
+@app.route("/votings/show/<voting_id>", methods=["GET"])
 @login_required
 def votings_show_this(voting_id):
 
@@ -150,30 +150,30 @@ def votings_show_this(voting_id):
 
     countByHour = []
 
-    countByHour.append(Vote.get_votes_in_time(voting_id, "00", "01"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "01", "02"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "02", "03"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "03", "04"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "04", "05"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "05", "06"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "06", "07"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "07", "08"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "08", "09"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "09", "10"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "10", "11"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "11", "12"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "12", "13"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "13", "14"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "14", "15"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "15", "16"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "16", "17"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "17", "18"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "18", "19"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "19", "20"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "20", "21"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "21", "22"))    
-    countByHour.append(Vote.get_votes_in_time(voting_id, "22", "23"))
-    countByHour.append(Vote.get_votes_in_time(voting_id, "23", "00"))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 19, 23))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 1, 2))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 2, 3))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 3, 4))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 4, 5))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 5, 6))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 6, 7))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 7, 8))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 8, 9))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 9, 10))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 10, 11))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 11, 12))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 12, 13))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 13, 14))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 14, 15))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 15, 16))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 16, 17))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 17, 18))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 18, 19))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 19, 20))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 20, 21))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 21, 22))    
+    countByHour.append(Vote.get_votes_in_time(voting_id, 22, 23))
+    countByHour.append(Vote.get_votes_in_time(voting_id, 23, 00))
 
     return render_template("votings/showVotingResults.html", voting=v, data=data, creator=creator, current=current, list=list, teksti=text, user_has_voted=userHasVoted, form=VoteForm(), time_count=countByHour)
 
@@ -252,7 +252,7 @@ def votings_create():
     return redirect(url_for("votings_index"))
 
 
-@app.route("/votings/<voting_id>/edit", methods=["GET", "POST"])
+@app.route("/votings/edit/<voting_id>", methods=["GET", "POST"])
 @login_required
 def votings_edit(voting_id):
 
@@ -338,7 +338,7 @@ def votings_edit(voting_id):
         return render_template("votings/edit.html", voting=v, options=options, form=form, current = current, creator = creator)
 
 
-@app.route("/votings/<voting_id>/del", methods=["POST", "GET"])
+@app.route("/votings/delete/<voting_id>", methods=["POST", "GET"])
 @login_required
 def votings_delete(voting_id):
 
@@ -351,7 +351,7 @@ def votings_delete(voting_id):
 
 @app.route("/votings/all")
 @login_required
-def votings_listAllVotings():
+def votings_list_all_votings():
 
     votings = Voting.query.all()
 
@@ -388,9 +388,9 @@ def votings_show_votings_by_id(user_id):
     return render_template("votings/ownVotings.html", creator = creator, current = current, waitingVotings = waitingVotings, startedVotings = startedVotings, endedVotings = endedVotings)
 
 
-@app.route("/votings/notVoted")
+@app.route("/votings/not_voted")
 @login_required
-def votings_notVoted():
+def votings_not_voted():
 
     user_id = current_user.id
     votingsToVoteNow = Voting.get_votings_that_can_be_voted_now(user_id)
