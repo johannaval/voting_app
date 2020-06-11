@@ -368,10 +368,13 @@ class Vote(db.Model):
         response = []
         i = 0
 
-        time_from = datetime(2020, 11, 1, time_from, 0, 0)
-        time_to= datetime(2020, 11, 1, time_to, 0, 0)
+        time_from = datetime(2020, 11, 1, time_from, 0,0,0)
+        time_to= datetime(2020, 11, 1, time_to, 0,0,0)
 
         for row in res:
+            print(row.time)
+            print("!!!!!!!!!!!!!!!!!!!!!!!1")
+
             tt = row.time
             r = str(tt)
             e = datetime.strptime(r, '%Y-%m-%d %H:%M:%S')
