@@ -371,7 +371,8 @@ class Vote(db.Model):
 
         for row in res:
             tt = (row.time)
-            e = datetime.strptime(tt, '%Y-%m-%d %H:%M:%S')
+            r = str(tt)
+            e = datetime.strptime(r, '%Y-%m-%d %H:%M:%S')
             e = e.strftime("%H")
             if(int(e)==time_from and int(e)<time_to):  
                   response.append(row)
