@@ -373,11 +373,14 @@ class Vote(db.Model):
 
         for row in res:
             print(row.time)
-            print("!!!!!!!!!!!!!!!!!!!!!!!1")
 
-            tt = row.time + ".0000"
+            tt = row.time
             r = str(tt)
-            e = datetime.strptime(r, '%Y-%m-%d %H:%M:%S.%f')
+            e = datetime.strptime(r, '%Y-%m-%d %H:%M:%S')
+
+            e.strftime('%Y-%m-%d %H:%M:%S.')+(
+           "%0.3f"%(e.microsecond/10**6))[2:]
+
             if(e.time()>time_from.time() and e.time()<time_to.time()):  
                   response.append(row)
                   i = i + 1
