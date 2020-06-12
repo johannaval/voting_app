@@ -4,6 +4,7 @@ from datetime import datetime
 from sqlalchemy.sql import text
 import datetime
 from datetime import datetime
+import os
 
 
 
@@ -360,30 +361,30 @@ class Vote(db.Model):
     @staticmethod
     def get_votes_in_time(voting_id, time_from, time_to):
 
-        stmt = text("SELECT * FROM Vote "
-                    "WHERE voting_id = :voting_id "
-                    "GROUP BY vote_id").params(voting_id=voting_id)
+        
+        if os.environ.get("HEROKU"):
+           
+           stmt = text("SELECT * FROM VOTE "
+                       "WHERE extract(hour from time) < :time_to AND extract(hour from time) = :time_from "
+                       "AND voting_id = :voting_id "
+                       "GROUP BY vote_id").params(voting_id=voting_id, time_to = time_to, time_from = time_from)
+
+        else:
+
+            time_from = str(time_from)
+            time_to = str(time_to)
+
+            stmt = text("SELECT * FROM Vote "
+                    "WHERE strftime('%H',time) < :time_to AND strftime('%H', time) = :time_from "
+                    "AND voting_id = :voting_id "
+                    "GROUP BY vote_id").params(voting_id=voting_id, time_to = time_to, time_from = time_from)
 
         res = db.engine.execute(stmt)
         response = []
         i = 0
 
-        time_from = datetime(2020, 11, 1, time_from, 0,0,0)
-        time_to= datetime(2020, 11, 1, time_to, 0,0,0)
-
-        for row in res:
-            print(row.time)
-
-            tt = row.time
-            r = str(tt)
-            e = datetime.strptime(r, '%Y-%m-%d %H:%M:%S')
-
-            e.strftime('%Y-%m-%d %H:%M:%S.')+(
-           "%0.3f"%(e.microsecond/10**6))[2:]
-
-            if(e.time()>time_from.time() and e.time()<time_to.time()):  
-                  response.append(row)
-                  i = i + 1
+        for row in res:    
+            i = i + 1
 
         return i
 
