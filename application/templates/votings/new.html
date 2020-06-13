@@ -4,42 +4,26 @@
 <br>
 <br>
 <div class="jumbotron">
-  <h1 class="display-3"> Luo äänestys: </h1>
   <form method="POST" action="{{ url_for('votings_create')}}">
+
+    <h1 class="display-3"> Luo äänestys: </h1>
 
     <table>
 
-      <tr>
-
-        <div class="form-group">
-          <label for="exampleSelect1">Valitse vaihtoehtojen määrä: (ei vielä käytössä)!</label>
-          <select class="form-control" id="exampleSelect1">
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-          </select>
-        </div>
-
-      </tr>
       <br>
 
       <tr>
         <p> Kysymys: </p>
         {% if error == "Tällä nimellä on jo äänestys!" %}
-        <th> {{ form.name(class="form-control is-invalid", placeholder="Kysymys") }} </th>
+        <th> {{ form.name(class="form-control is-invalid",style="width: 400px;", placeholder="Kysymys") }} </th>
         <th> {% for e in error %} {{ e }}
           {% endfor %} </th>
 
         {% else %}
         {% if not form.name.errors %}
-        <th> {{ form.name(class="form-control", placeholder="Kysymys")}} </th>
+        <th> {{ form.name(class="form-control",style="width: 400px;", placeholder="Kysymys")}} </th>
         {% else %}
-        <th> {{ form.name(class="form-control is-invalid", placeholder="Kysymys") }} </th>
+        <th> {{ form.name(class="form-control is-invalid",style="width: 400px;", placeholder="Kysymys") }} </th>
         <th> {% for error in form.name.errors %} {{ error }}
           {% endfor %} </th>
         {% endif %}
@@ -47,7 +31,8 @@
       </tr>
 
       <tr>
-        <th> {{ form.nameDescription(class="col-form-label col-form-label-sm", placeholder=" Kuvaus (vapaaehtoinen)") }}
+        <th>
+          {{ form.nameDescription(class="col-form-label col-form-label-sm",style="width: 400px;", placeholder=" Kuvaus (vapaaehtoinen)") }}
         </th>
       </tr>
 
@@ -59,15 +44,17 @@
 
       <tr>
         {% if error == "Jokainen vaihtoehto pitää olla eri!" %}
-        <th> {{ form.option1(class="form-control is-invalid", placeholder="Vaihtoehto 1.") }} </th>
+        <th> {{ form.option1(class="form-control is-invalid",style="width: 300px;", placeholder="Vaihtoehto 1.") }}
+        </th>
         <th> {% for e in error %} {{ e }}
           {% endfor %} </th>
 
         {% else %}
         {% if not form.option1.errors %}
-        <th> {{ form.option1(class="form-control", placeholder="Vaihtoehto 1.")}} </th>
+        <th> {{ form.option1(class="form-control",style="width: 300px;", placeholder="Vaihtoehto 1.")}} </th>
         {% else %}
-        <th> {{ form.option1(class="form-control is-invalid", placeholder="Vaihtoehto 1.") }} </th>
+        <th> {{ form.option1(class="form-control is-invalid",style="width: 300px;", placeholder="Vaihtoehto 1.") }}
+        </th>
         <th> {% for error in form.option1.errors %} {{ error }}
           {% endfor %} </th>
         {% endif %}
@@ -76,7 +63,7 @@
 
       <tr>
         <th>
-          {{ form.option1Description(class="col-form-label col-form-label-sm", placeholder=" Kuvaus (vapaaehtoinen)") }}
+          {{ form.option1Description(class="col-form-label col-form-label-sm",style="width: 300px;", placeholder=" Kuvaus (vapaaehtoinen)") }}
         </th>
       </tr>
 
@@ -88,15 +75,17 @@
 
       <tr>
         {% if error == "Jokainen vaihtoehto pitää olla eri!" %}
-        <th> {{ form.option2(class="form-control is-invalid", placeholder="Vaihtoehto 2.") }} </th>
+        <th> {{ form.option2(class="form-control is-invalid",style="width: 300px;", placeholder="Vaihtoehto 2.") }}
+        </th>
         <th> {% for e in error %} {{ e }}
           {% endfor %} </th>
 
         {% else %}
         {% if not form.option2.errors %}
-        <th> {{ form.option2(class="form-control", placeholder="Vaihtoehto 2.")}} </th>
+        <th> {{ form.option2(class="form-control",style="width: 300px;", placeholder="Vaihtoehto 2.")}} </th>
         {% else %}
-        <th> {{ form.option2(class="form-control is-invalid", placeholder="Vaihtoehto 2.") }} </th>
+        <th> {{ form.option2(class="form-control is-invalid",style="width: 300px;", placeholder="Vaihtoehto 2.") }}
+        </th>
         <th> {% for error in form.option2.errors %} {{ error }}
           {% endfor %} </th>
         {% endif %}
@@ -105,7 +94,7 @@
 
       <tr>
         <th>
-          {{ form.option2Description(class="col-form-label col-form-label-sm", placeholder=" Kuvaus (vapaaehtoinen)") }}
+          {{ form.option2Description(class="col-form-label col-form-label-sm",style="width: 300px;", placeholder=" Kuvaus (vapaaehtoinen)") }}
         </th>
       </tr>
       <tr>
@@ -117,15 +106,16 @@
 
       <tr>
         {% if error == "Jokainen vaihtoehto pitää olla eri!" %}
-        <th>{{ form.option3(class="form-control is-invalid", placeholder="Vaihtoehto 3.") }} </th>
+        <th>{{ form.option3(class="form-control is-invalid",style="width: 300px;", placeholder="Vaihtoehto 3.") }} </th>
         <th> {% for e in error %} {{ e }}
           {% endfor %} </th>
 
         {% else %}
         {% if not form.option3.errors %}
-        <th> {{ form.option3(class="form-control", placeholder="Vaihtoehto 3.")}} </th>
+        <th> {{ form.option3(class="form-control",style="width: 300px;", placeholder="Vaihtoehto 3.")}} </th>
         {% else %}
-        <th> {{ form.option3(class="form-control is-invalid", placeholder="Vaihtoehto 3.") }} </th>
+        <th> {{ form.option3(class="form-control is-invalid",style="width: 300px;", placeholder="Vaihtoehto 3.") }}
+        </th>
         <th> {% for error in form.option3.errors %} {{ error }}
           {% endfor %} </th>
         {% endif %}
@@ -134,12 +124,151 @@
 
       <tr>
         <th>
-          {{ form.option3Description(class="col-form-label col-form-label-sm", placeholder=" Kuvaus (vapaaehtoinen)") }}
+          {{ form.option3Description(class="col-form-label col-form-label-sm",style="width: 300px;", placeholder=" Kuvaus (vapaaehtoinen)") }}
+          <br>
+          <br>
         </th>
       </tr>
 
+    </table>
+
+
+    <table>
+
+      <div id='buttons'> </div>
+      <script type="text/javascript">
+      </script>
+
+      <script type="text/javascript">
+        var answers = 0;
+        function addOption() {
+          write = document.getElementById('buttons');
+          write.innerHTML = write.innerHMTL + " <input type=\"text\" id=\"answer" + answers + "\"";
+          answers = answers + 1;
+        }
+
+
+      </script>
+
+      {%if form.option4.errors %}
+      <button class="btn btn-danger" onclick="addOption(); return false;">uusi vaihtoehto, VIRHE TÄÄLLÄ!</button>
+
+      {%elif form.option5.errors %}
+      <button class="btn btn-danger" onclick="addOption(); return false;">uusi vaihtoehto, VIRHE TÄÄLLÄ!</button>
+
+      {%elif form.option6.errors %}
+      <button class="btn btn-danger" onclick="addOption(); return false;">uusi vaihtoehto, VIRHE TÄÄLLÄ!</button>
+      {%else%}
+      <button class="btn btn-outline-primary" onclick="addOption(); return false;">uusi vaihtoehto</button>
+      {% endif %}
+
+
+      </body>
+
+      <script>
+        var index = 4;
+        var answers = 4;
+
+
+        function addOption() {
+
+          write = document.getElementById('buttons');
+
+          if (index < 5 && index > 3) {
+
+            write.innerHTML += 'Valitse ensin tarvittava määrä vastausvaihtoehtoja, ja kirjoita sitten vaihtoehdot tekstikenttiin';
+            write.innerHTML += ' <br>'
+            write.innerHTML += ' <br>'
+
+
+            write.innerHTML += 'Vaihtoehto 4.';
+
+            write.innerHTML += ' <tr> {% if error == "Jokainen vaihtoehto pitää olla eri!" %} ';
+            write.innerHTML += '<th> {{ form.option4(class="form-control is-invalid", style="width: 300px;",placeholder="Jätä tyhjäksi, jos et haluakkaan vaihtoehtoa") }}</th> ';
+            write.innerHTML += '<th> {% for e in error %} {{ e }}';
+            write.innerHTML += ' {% endfor %} </th> ';
+            write.innerHTML += ' {% else %} ';
+            write.innerHTML += ' {% if not form.option4.errors %}';
+            write.innerHTML += '<th> {{ form.option4(class= "form-control", style="width: 300px;",placeholder ="Jätä tyhjäksi, jos et haluakkaan vaihtoehtoa") }} </th>';
+            write.innerHTML += ' {% else %} ';
+            write.innerHTML += '<th> {{ form.option4(class= "form-control is-invalid",style="width: 300px;", placeholder = "Jätä tyhjäksi, jos et haluakkaan vaihtoehtoa")}}</th>';
+            write.innerHTML += ' <th>{% for error in form.option4.errors %} {{ error }} ';
+            write.innerHTML += '   {% endfor %}</th> ';
+            write.innerHTML += ' {% endif %} ';
+            write.innerHTML += '  {% endif %} ';
+            write.innerHTML += ' </tr>'
+            write.innerHTML += ' <br>'
+
+            write.innerHTML += '<tr> {{ form.option4Description(class= "col-form-label col-form-label-sm",style="width: 300px;", placeholder = " Kuvaus (vapaaehtoinen)") }}</tr>';
+            write.innerHTML += '<br><br><br>';
+
+          }
+
+
+          if (index < 6 && index > 4) {
+
+
+
+            write.innerHTML += 'Vaihtoehto 5.';
+
+            write.innerHTML += ' {% if error == "Jokainen vaihtoehto pitää olla eri!" %} ';
+            write.innerHTML += ' {{ form.option5(class="form-control is-invalid",style="width: 300px;", placeholder="Jätä tyhjäksi, jos et haluakkaan vaihtoehtoa") }} ';
+            write.innerHTML += ' <br>'
+            write.innerHTML += ' {% for e in error %} {{ e }}';
+            write.innerHTML += ' {% endfor %} ';
+            write.innerHTML += ' {% else %} ';
+            write.innerHTML += '{% if not form.option5.errors %}';
+            write.innerHTML += ' {{ form.option5(class= "form-control",style="width: 300px;", placeholder ="Jätä tyhjäksi, jos et haluakkaan vaihtoehtoa")  }} ';
+            write.innerHTML += ' {% else %} ';
+            write.innerHTML += ' {{ form.option5(class= "form-control is-invalid",style="width: 300px;", placeholder = "Jätä tyhjäksi, jos et haluakkaan vaihtoehtoa") }} ';
+            write.innerHTML += ' {% for error in form.option5.errors %} {{ error }} ';
+            write.innerHTML += '   {% endfor %} ';
+            write.innerHTML += ' {% endif %} ';
+            write.innerHTML += '  {% endif %} ';
+            write.innerHTML += ' </tr>'
+            write.innerHTML += ' <br>'
+
+            write.innerHTML += ' <tr>{{ form.option5Description(class= "col-form-label col-form-label-sm",style="width: 300px;", placeholder = " Kuvaus (vapaaehtoinen)") }} </tr>';
+            write.innerHTML += '<br><br><br>';
+
+
+          }
+
+          if (index < 7 && index > 5) {
+
+            write.innerHTML += 'Vaihtoehto 6.';
+
+            write.innerHTML += ' {% if error == "Jokainen vaihtoehto pitää olla eri!" %} ';
+            write.innerHTML += '{{ form.option6(class="form-control is-invalid",style="width: 300px;", placeholder="Jätä tyhjäksi, jos et haluakkaan vaihtoehtoa") }}';
+            write.innerHTML += ' {% for e in error %} {{ e }}';
+            write.innerHTML += ' {% endfor %}';
+            write.innerHTML += ' {% else %} ';
+            write.innerHTML += '{% if not form.option6.errors %}';
+            write.innerHTML += ' {{ form.option6(class= "form-control",style="width: 300px;", placeholder ="Jätä tyhjäksi, jos et haluakkaan vaihtoehtoa")  }}';
+            write.innerHTML += ' {% else %} ';
+            write.innerHTML += ' {{ form.option6(class= "form-control is-invalid",style="width: 300px;", placeholder = "Jätä tyhjäksi, jos et haluakkaan vaihtoehtoa") }} ';
+            write.innerHTML += ' {% for error in form.option6.errors %} {{ error }} ';
+            write.innerHTML += '   {% endfor %} ';
+            write.innerHTML += ' {% endif %} ';
+            write.innerHTML += '  {% endif %} ';
+            write.innerHTML += ' </tr >';
+            write.innerHTML += ' <br>'
+
+
+            write.innerHTML += ' <tr> {{ form.option6Description(class= "col-form-label col-form-label-sm",style="width: 300px;", placeholder = " Kuvaus (vapaaehtoinen)") }} </tr>';
+            write.innerHTML += '<br><br><br>';
+
+          }
+
+          answers++;
+          index++;
+
+        }
+
+      </script>
 
     </table>
+
 
 
 
@@ -247,20 +376,22 @@
           })
 
         </script>
-      </body>
-
-      {% if timeError|length > 0%}
-      <div class="alert alert-dismissible alert-danger">
-        <th> </a>{{ timeError }}</th>
-      </div>
-      {% endif %}
-
     </tr>
+
+
+
+
+
+
+
+
+    </body>
+
     <td colspan="3">
       <input type="submit" , class="btn btn-primary" , value="Lisää!">
-
     </td>
-
   </form>
+
+
 </div>
 {% endblock %}

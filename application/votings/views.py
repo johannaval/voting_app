@@ -68,7 +68,23 @@ def votings_vote(voting_id):
 
     form = VoteForm(request.form)
 
-    if not form.validate():
+    print(len(data))
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1")
+
+    selected = None
+    if (len(data)==3):
+        selected = form.answer.data
+    if (len(data)==4):
+        selected = form.answer4.data
+    if (len(data)==5):
+        selected = form.answer5.data
+    if (len(data)==6):
+        selected = form.answer6.data
+    
+
+    if selected == None:
+
+            print("olen täällä moi")
 
             if (v.starting_time < currentTime):
                isOn = True
@@ -79,8 +95,11 @@ def votings_vote(voting_id):
 
     if request.method=="POST":
 
-        if not form.validate():
-           error = "Valitsethan vaihtoehdon tääl!"
+        print("minä taas olen täällä ")
+
+
+        if selected == None:
+           error = "Oops! Valitsethan vaihtoehdon!"
            return render_template("votings/vote.html", voting=v, data=data, form=form, separated_time=separatedTime, user_has_voted=userHasVoted, isOn = isOn, error=error, current = current, creator = creator)
 
         if current_user.is_authenticated:
@@ -91,18 +110,18 @@ def votings_vote(voting_id):
            db.session.add(userVote)
            db.session.commit()
 
-           voted=""
-           voted = form.answer.data
-           index = int(voted)-1
-           op = data[index]
+        voted=""
+        voted = selected
+        index = int(voted)-1
+        op = data[index]
 
-           newVote = Vote(voting_id)
-           newVote.voting_id = int(voting_id)
+        newVote = Vote(voting_id)
+        newVote.voting_id = int(voting_id)
 
-           newVote.option_id = op.option_id
+        newVote.option_id = op.option_id
 
-           db.session.add(newVote)
-           db.session.commit()
+        db.session.add(newVote)
+        db.session.commit()
 
 
         if not current_user.is_authenticated:
@@ -135,9 +154,7 @@ def votings_show_this(voting_id):
         text.append("Kaikki äänet: ")
         list = Vote.return_top_3_votes_in_voting(voting_id)
 
-    for l in list:
-        l.replace("'", "")
-        l.replace(" ", "   ")
+  
 
     creator = v.account_id
     current = 999
@@ -150,30 +167,11 @@ def votings_show_this(voting_id):
 
     countByHour = []
 
-    countByHour.append(Vote.get_votes_in_time(voting_id, 19, 23))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 1, 2))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 2, 3))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 3, 4))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 4, 5))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 5, 6))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 6, 7))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 7, 8))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 8, 9))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 9, 10))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 10, 11))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 11, 12))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 12, 13))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 13, 14))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 14, 15))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 15, 16))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 16, 17))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 17, 18))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 18, 19))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 19, 20))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 20, 21))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 21, 22))    
-    countByHour.append(Vote.get_votes_in_time(voting_id, 22, 23))
-    countByHour.append(Vote.get_votes_in_time(voting_id, 23, 00))
+    i = 0
+
+    for i in range(24):
+        countByHour.append(Vote.get_votes_in_time(voting_id, i))
+
 
     return render_template("votings/showVotingResults.html", voting=v, data=data, creator=creator, current=current, list=list, teksti=text, user_has_voted=userHasVoted, form=VoteForm(), time_count=countByHour)
 
@@ -182,6 +180,9 @@ def votings_show_this(voting_id):
 @app.route("/votings/", methods=["POST", "GET"])
 @login_required
 def votings_create():
+
+
+    form = VotingForm(request.form)
 
     if request.method == "GET":
         return render_template("votings/new.html", form=VotingForm())
@@ -195,6 +196,17 @@ def votings_create():
     list.append(form.option1.data)
     list.append(form.option2.data)
     list.append(form.option3.data)
+
+    if (len(form.option4.data)>0):
+        list.append(form.option4.data)
+
+    if (len(form.option5.data)>0):
+        list.append(form.option5.data)
+
+    if (len(form.option6.data)>0):
+        list.append(form.option6.data)
+
+
 
     if(Voting.is_options_different(list) == False):
         error = "Jokainen vaihtoehto pitää olla eri!"
@@ -247,6 +259,28 @@ def votings_create():
     o3.voting_id = v.id
     db.session().add(o3)
 
+    if (len(form.option4.data)>0):
+        o4 = Option(form.option4.data)
+        o4.name = form.option4.data
+        o4.description = form.option4Description.data
+        o4.voting_id = v.id
+        db.session().add(o4)
+
+    if (len(form.option5.data)>0):
+        o5 = Option(form.option5.data)
+        o5.name = form.option5.data
+        o5.description = form.option5Description.data
+        o5.voting_id = v.id
+        db.session().add(o5)
+
+    if (len(form.option6.data)>0):
+        o6 = Option(form.option6.data)
+        o6.name = form.option6.data
+        o6.description = form.option6Description.data
+        o6.voting_id = v.id
+        db.session().add(o6)
+
+
     db.session().commit()
 
     return redirect(url_for("votings_index"))
@@ -276,6 +310,7 @@ def votings_edit(voting_id):
     o1 = options[0]
     o2 = options[1]
     o3 = options[2]
+
 
     if request.method=="POST":
 
@@ -330,6 +365,74 @@ def votings_edit(voting_id):
         o3.name = newOption3
         o3.description = request.form.get('option3Description')
         db.session.commit()
+
+        if (len(form.option4.data)>0):
+            if (Option.count_options_from_voting(voting_id)>3):
+                o4 = options[3]
+                newOption4 = request.form.get("option4")
+                o4.name = newOption4
+                o4.description = request.form.get('option4Description')
+            else:
+                o4 = Option(form.option4.data)
+                o4.name = form.option4.data
+                o4.description = form.option4Description.data
+                o4.voting_id = v.id
+                db.session().add(o4)
+               
+            db.session.commit()
+
+        if (len(form.option4.data)==0 and Option.count_options_from_voting(voting_id)>3):
+
+                opt = options[3]
+                db.session.delete(opt)
+                db.session().commit()
+
+
+
+        if (len(form.option5.data)>0):
+            if (Option.count_options_from_voting(voting_id)>4):
+                o5 = options[4]
+                newOption5 = request.form.get("option5")
+                o5.name = newOption5
+                o5.description = request.form.get('option5Description')
+            else:
+                o5 = Option(form.option5.data)
+                o5.name = form.option5.data
+                o5.description = form.option5Description.data
+                o5.voting_id = v.id
+                db.session().add(o5)
+               
+            db.session.commit()
+
+        if (len(form.option5.data)==0 and Option.count_options_from_voting(voting_id)>4):
+
+                opt = options[4]
+                db.session.delete(opt)
+                db.session().commit()
+
+
+
+        if (len(form.option6.data)>0):
+            if  (Option.count_options_from_voting(voting_id)>5):
+                o6 = options[5]
+                newOption5 = request.form.get("option6")
+                o6.name = newOption6
+                o6.description = request.form.get('option6Description')
+            else:
+                o6 = Option(form.option6.data)
+                o6.name = form.option6.data
+                o6.description = form.option6Description.data
+                o6.voting_id = v.id
+                db.session().add(o6)
+               
+            db.session.commit()
+
+        if (len(form.option6.data)==0 and Option.count_options_from_voting(voting_id)>5):
+
+                opt = options[5]
+                db.session.delete(opt)
+                db.session().commit()
+
 
         return redirect(url_for("votings_index"))
 

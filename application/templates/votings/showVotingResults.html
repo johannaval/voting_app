@@ -18,37 +18,40 @@
                 <th>{{ data.index(item)+1}}. {{ item.name }} {{ item.description}} </th>
             </tr>
             {% endfor %}
+        </table>
 
-            <tr>
-                <p></p>
-                <th>
-                    <p>&nbsp;</p>
-                    <hr class="my-4">
-                </th>
-                <p></p>
-            </tr>
 
+        <p>&nbsp;</p>
+        <hr class="my-4">
+
+        <table>
             {%for t in teksti%}
             <tr>
                 <th>
-                    <h4>{{t}}</h4>
+                    <h3>{{t}}</h3>
+                    <br>
                 </th>
-            <tr>
+            </tr>
 
-                {%endfor%}
-
+            {%endfor%}
+        </table>
+        <table>
             <tr>
-                <th>
-                    <h5>Vaihtoehto: Äänet:</h5>
-                </th>
+                <td>
+                    <h5>Vaihtoehto:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </h5>
+                </td>
+                <td>
+                    <h5>Äänet:</h5>
+                </td>
+
             </tr>
             {%for x in list%}
             <tr>
-                <th>
-                    <h5>{{x}}</h5>
-                </th>
+                <td>{{x[0]}}</td>
+                <td>{{x[1]}}</td>
             </tr>
-            {%endfor%}
+            {% endfor %}
         </table>
 
         <input id="1" type="hidden" value={{time_count[0]}} />
@@ -77,18 +80,13 @@
         <input id="24" type="hidden" value={{time_count[23]}} />
 
 
-        <tr>
-            <br>
-            <br>
+        <hr class="my-4">
+        <br>
+        <br>
 
-            <hr class="my-4">
-            <br>
-            <br>
-
-
-        </tr>
         <h3>Annettujen äänien määrän jakautuminen tuntien mukaan</h3>
 
+        <br>
 
         <script>
 

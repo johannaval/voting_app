@@ -40,12 +40,9 @@ class Voting(Base):
     @staticmethod
     def is_options_different(list):
 
-        print(list[0])
-        print(list[1])
-        print(list[2])
-
-        if (list[0] == list[1] or list[0] == list[2] or list[1] == list[2]):
+        if len(list) > len(set(list)):
             return False
+
         else:
             return True
 
@@ -245,26 +242,27 @@ class Option(db.Model):
     def __init__(self, name):
         self.name = name
 
-  #  @staticmethod
-  #  def get_options_from_voting(voting_id):
+    @staticmethod
+    def count_options_from_voting(voting_id):
 
-   #     stmt = text("SELECT * FROM Voting LEFT JOIN Option "
-   #                 "ON Voting.id = Option.voting_id "
-    #                "WHERE Option.voting_id =:voting_id").params(voting_id=voting_id)
+        stmt = text("SELECT * FROM Option "
+                    "WHERE voting_id = :voting_id "
+                    "GROUP BY option_id").params(voting_id=voting_id)
 
-   #     res = db.engine.execute(stmt)
+        res = db.engine.execute(stmt)
+        response = []
+        i = 0
 
-   #     response = []
-    #    for row in res:
-     #       response.append(row)
+        for row in res:    
+            i = i + 1
 
-      #  return response
-
-
-
+        return i
 
 
 
+
+
+ 
 
 class UserVoted(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -351,33 +349,33 @@ class Vote(db.Model):
         line = ""
 
         for row in res:
-            line = row[0], row[1]
-            result = " ".join(str(x) for x in line)
-            response.append(result)
+            response.append(row)
+            print(row)
 
         return response
 
 
     @staticmethod
-    def get_votes_in_time(voting_id, time_from, time_to):
+    def get_votes_in_time(voting_id, time_to):
 
         
         if os.environ.get("HEROKU"):
+
+            time_to = time_to + 3
            
-           stmt = text("SELECT * FROM VOTE "
-                       "WHERE extract(hour from time) < :time_to AND extract(hour from time) = :time_from "
+            stmt = text("SELECT * FROM VOTE "
+                       "WHERE extract(hour from time) = :time_to "
                        "AND voting_id = :voting_id "
-                       "GROUP BY vote_id").params(voting_id=voting_id, time_to = time_to, time_from = time_from)
+                       "GROUP BY vote_id").params(voting_id=voting_id, time_to = time_to)
 
         else:
 
-            time_from = str(time_from)
             time_to = str(time_to)
 
             stmt = text("SELECT * FROM Vote "
-                    "WHERE strftime('%H',time) < :time_to AND strftime('%H', time) = :time_from "
+                    "WHERE strftime('%H', time) = :time_to "
                     "AND voting_id = :voting_id "
-                    "GROUP BY vote_id").params(voting_id=voting_id, time_to = time_to, time_from = time_from)
+                    "GROUP BY vote_id").params(voting_id=voting_id, time_to = time_to)
 
         res = db.engine.execute(stmt)
         response = []

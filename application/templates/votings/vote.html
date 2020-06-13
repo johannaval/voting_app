@@ -98,6 +98,9 @@
 
             <tr>
 
+                {%if data|length==3 %}
+
+
                 <th>{{ form.answer.label }} {{ form.answer }}</th>
 
                 <td colspan="4">
@@ -109,6 +112,85 @@
                 </td>
             </tr>
             {% endif %}
+
+
+
+
+            <tr>
+                {%if data|length==4 %}
+
+                <th>{{ form.answer.label }} {{ form.answer4 }}</th>
+
+                <td colspan="4">
+                    <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
+
+                <th> {% for e in error %} {{ e }}
+                    {% endfor %} </th>
+
+                </td>
+            </tr>
+            {% endif %}
+
+
+
+            <tr>
+                {%if data|length==5 %}
+
+                <th>{{ form.answer.label }} {{ form.answer5 }}</th>
+
+                <td colspan="4">
+                    <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
+
+                <th> {% for e in error %} {{ e }}
+                    {% endfor %} </th>
+
+                </td>
+            </tr>
+            {% endif %}
+
+
+
+            <tr>
+                {%if data|length==6 %}
+
+                <th>{{ form.answer.label }} {{ form.answer6 }}</th>
+
+                <td colspan="4">
+                    <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
+
+                <th> {% for e in error %} {{ e }}
+                    {% endfor %} </th>
+
+                </td>
+            </tr>
+            {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            {% endif %}
+
+
+
+
 
             {% if user_has_voted == True %}
             <h4>Olet jo äänestänyt tässä äänestyksessä!</h4>
