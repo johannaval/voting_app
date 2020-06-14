@@ -107,8 +107,7 @@ Käytössäsi on kaikki samat toiminnallisuudet, kuin tavallisellakin käyttäj�
  <br>
 <br>
 <br> 
-   
- <img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2020-06-55.png"width="900" height="300"> 
+<img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2020-06-55.png"width="900" height="300"> 
  
 - "Tarkastele äänestämiesi äänestysten tuloksia" -kohdassa pääset näkemään niiden äänestysten tuloksia, joissa olet jo äänestänyt. 
 <br>
