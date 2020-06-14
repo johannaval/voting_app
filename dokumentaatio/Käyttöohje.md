@@ -5,7 +5,12 @@ jotka eivät vaadi tunnuksia painamalla "Aloitetaan!"-napista. Painamalla "Ään
 Valitse sinulle sopivin vaihtoehto ja ruksita sitä vastaava numero. Sen jälkeen voit painaa "Äänestä", jolloin valintasi tallennetaan. 
 
 <img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2017-00-40.png" width="900" height="500">
-LISÄ KUVA TULEE ANO ÄÄNESTYKSESTÄ
+
+<img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2018-27-58.png" width="900" height="500">
+
+
+<img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2018-28-13.png" width="900" height="500">
+
 
 
 
@@ -19,8 +24,15 @@ LISÄ KUVA TULEE ANO ÄÄNESTYKSESTÄ
   Sen jälkeen voit painaa napista "Lisää", jolloin äänestyksesi julkaistaan määritellyllä aikavälillä.
   
 SCREENSHOTIT NORMISIVU JA ÄÄNESTYKSEN LUONTI
+
+  <img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2018-28-45.png" width="900" height="400">
   
+ <img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2018-30-27.png" width="900" height="400">
+ 
+ <img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2018-30-52.png" width="900" height="400">
+
   
+
   
 - "Äänestykset"-valikon kautta pääset tutkimaan omia äänestyksiäsi, äänestyksiä joissa et vielä ole äänestänyt, 
   ja äänestyksiä, joissa olet jo äänestänyt.
