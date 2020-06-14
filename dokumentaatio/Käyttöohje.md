@@ -1,5 +1,14 @@
 ## Käyttöohje:
 
+HUOM! Jos käytät sovellusta HEROKUN kautta, Admin- sekä Tero testikäyttäjät ovat siellä valmiiksi, Read.messä annettujen tietojen mukaan. Jos lataat koodisi itsellesi, rekisteröi ensin Admin käyttäjä, sillä kyseisen oikeuden saa automaattisesti, kun on ensimmäinen lisättävä henkilö tietokantataulussa. Sen jälkeen kaikki luomasi käyttäjät ovat tavallisia käyttäjiä.
+
+
+# Käyttöohje Adminille:
+Käytössäsi on kaikki samat toiminnallisuudet, kuin tavallisellakin käyttäjällä. Lisäksi sinulla näkyy ohjelman navigointipalkissa kohdat "Näytä käyttäjät" ja "Näytä äänestykset". Molemmissa näkymissä voit muokata, poistaa ja tarkastella kyseisiä tietoja. Ole kuitenkin varovainen, ettet poista mitään turhaan, varsinkaan itseäsi!
+<br>
+<br>
+
+# Käyttöohje tavalliselle käyttäjälle:
 
 <img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2017-00-40.png" width="900" height="450">
 - Kun avaat sovelluksen, ensimmäisenä aukeaa aloitussivu. Jos et halua kirjautua tai tehdä tunnuksia sovellukseen, pääset selaamaan äänestyksiä, jotka eivät vaadi tunnuksia painamalla "Aloitetaan!"-napista. 
