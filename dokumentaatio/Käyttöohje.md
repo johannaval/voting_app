@@ -6,18 +6,22 @@
 <br>
 <br>
 <br>
+<br>
+<br>
 
 <img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2018-27-58.png" width="900" height="400">
 - Nyt näet kyseiset äänestykset. Painamalla "Äänestä" pääset näkemään äänestyksen vaihtoehdot ja äänestämään. 
 <br>
 <br>
 <br>
+<br>
+<br>
 
 
 <img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2018-28-13.png" width="900" height="350">
-- Valitse sinulle sopivin vaihtoehto ja ruksita sitä vastaava numero. 
-
-- Sen jälkeen voit painaa "Äänestä", jolloin valintasi tallennetaan. 
+- Valitse sinulle sopivin vaihtoehto ja ruksita sitä vastaava numero.  Sen jälkeen voit painaa "Äänestä", jolloin valintasi tallennetaan. 
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -25,9 +29,7 @@
 
 
 <img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2017-38-57.png" width="900" height="300">
-- Jos taas haluat kirjautua sisään tai rekisteröidä käyttäjän, valitse oikeasta yläreunassa haluamasi toiminta. 
-
-- Tässä kirjautumisnäkymä. Jos sinulla on jo tunnukset, syötä tiedot, ja paina "Kirjaudu sisään!"
+- Jos taas haluat kirjautua sisään tai rekisteröidä käyttäjän, valitse oikeasta yläreunassa haluamasi toiminta. Tässä kirjautumisnäkymä. Jos sinulla on jo tunnukset, syötä tiedot, ja paina "Kirjaudu sisään!"
 <br>
 <br>
 <br>
@@ -38,14 +40,16 @@
 <br>
 <br>
 <br>
-
-
+ <br>
 
 
 
   
   <img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2018-28-45.png" width="900" height="200">
-  - Jihuu! Nyt olet kirjautuneena sisään. Pääset lisäämään uuden äänestyksen kohdasta yläreunassa olevan palkin kohdasta "Lisää uusi äänestys" ja täytä tarvittavat tiedot. 
+  - Jihuu! Nyt olet kirjautuneena sisään. Pääset lisäämään uuden äänestyksen yläreunassa olevan palkin kohdasta "Lisää uusi äänestys" ja täytä tarvittavat tiedot. 
+ <br>
+<br>
+<br>
  <br>
 <br>
 <br>
