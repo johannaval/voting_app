@@ -8,42 +8,43 @@
     {% if not current_user.is_authenticated%}
     <h1 class="display-5"> Äänestykset, jotka eivät vaadi sisäänkirjautumista: </h1>
     <br>
-        {% if votingsToVoteNow|length > 0 %}
-        <p>Käynnissä olevat äänestykset: </p>
-        {% for voting in votingsToVoteNow %}
+    {% if votingsToVoteNow|length > 0 %}
+    <p>Käynnissä olevat äänestykset: </p>
+    {% for voting in votingsToVoteNow %}
     <tr>
-        <th>{{ voting.name }} &nbsp;&nbsp;</th>
-        <th>
-            <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
-                <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
-            </form>
-        </th>
+      <th>{{ voting.name }} &nbsp;&nbsp;</th>
+      <th>
+        <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
+          <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
+        </form>
+      </th>
     </tr>
     {% endfor %}
     {% else %}
     <p>Valitettavasti yhtään äänestystä joka sallii äänestämisen ilman kirjautumista ei ole käynnissä,
-      luo tunnus tai kirjaudu sisään nähdäksesi äänestyksiä!<p>
-    {% endif %}
-    </tr>
-</table>
+      luo tunnus tai kirjaudu sisään nähdäksesi äänestyksiä!
+    <p>
+      {% endif %}
+      </tr>
+  </table>
 
 
-<table>
+  <table>
     <tr>
-        <br>
-        <br>
-        <br>
-        {% if votingsToVoteLater|length > 0 %}
-        <p>Äänestykset, jotka eivät ole vielä alkaneet:</p>
+      <br>
+      <br>
+      <br>
+      {% if votingsToVoteLater|length > 0 %}
+      <p>Äänestykset, jotka eivät ole vielä alkaneet:</p>
 
-        {% for voting in votingsToVoteLater %}
+      {% for voting in votingsToVoteLater %}
     <tr>
-        <th>{{ voting.name }} &nbsp;&nbsp;</th>
-        <th>
-            <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
-                <input type="submit" , class="btn btn-primary" , value="Tarkastele äänestystä!" />
-            </form>
-        </th>
+      <th>{{ voting.name }} &nbsp;&nbsp;</th>
+      <th>
+        <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
+          <input type="submit" , class="btn btn-primary" , value="Tarkastele äänestystä!" />
+        </form>
+      </th>
     </tr>
     {% endfor %}
     {% endif %}

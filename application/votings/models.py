@@ -233,6 +233,7 @@ class Voting(Base):
 
 
 
+
 class Option(db.Model):
     option_id = db.Column(db.Integer, primary_key=True)
     voting_id = db.Column(db.Integer)
@@ -257,6 +258,7 @@ class Option(db.Model):
             i = i + 1
 
         return i
+
 
 
 
@@ -336,13 +338,21 @@ class Vote(db.Model):
         self.voting_id = voting_id
 
     @staticmethod
-    def return_top_3_votes_in_voting(id):
+    def return_votes_in_voting(id, count):
 
-        stmt = text("SELECT Option.name, COUNT(Vote.option_id) FROM Option "
-                    "LEFT JOIN Vote ON Vote.option_id = Option.option_id "
-                    "WHERE Option.voting_id = :id "
-                    "GROUP BY option.name "
-                    "ORDER BY count(Vote.option_id) DESC").params(id=id)
+        if (count == "3"):
+
+            stmt = text("SELECT Option.name, COUNT(Vote.option_id) FROM Option "
+                        "LEFT JOIN Vote ON Vote.option_id = Option.option_id "
+                        "WHERE Option.voting_id = :id "
+                        "GROUP BY option.name "
+                        "ORDER BY count(Vote.option_id) DESC LIMIT 3").params(id=id)
+        else:
+            stmt = text("SELECT Option.name, COUNT(Vote.option_id) FROM Option "
+                        "LEFT JOIN Vote ON Vote.option_id = Option.option_id "
+                        "WHERE Option.voting_id = :id "
+                        "GROUP BY option.name "
+                        "ORDER BY count(Vote.option_id) DESC").params(id=id)
 
         res = db.engine.execute(stmt)
         response = []

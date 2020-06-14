@@ -95,72 +95,48 @@
             </p>
 
             {% if creator != current and user_has_voted == False and isOn == True %}
-
             <tr>
-
                 {%if data|length==3 %}
-
-
                 <th>{{ form.answer.label }} {{ form.answer }}</th>
-
                 <td colspan="4">
                     <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
-
                 <th> {% for e in error %} {{ e }}
                     {% endfor %} </th>
-
                 </td>
             </tr>
             {% endif %}
-
-
-
 
             <tr>
                 {%if data|length==4 %}
-
                 <th>{{ form.answer.label }} {{ form.answer4 }}</th>
-
                 <td colspan="4">
                     <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
-
                 <th> {% for e in error %} {{ e }}
                     {% endfor %} </th>
-
                 </td>
             </tr>
             {% endif %}
-
 
 
             <tr>
                 {%if data|length==5 %}
-
                 <th>{{ form.answer.label }} {{ form.answer5 }}</th>
-
                 <td colspan="4">
                     <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
-
                 <th> {% for e in error %} {{ e }}
                     {% endfor %} </th>
-
                 </td>
             </tr>
             {% endif %}
 
 
-
             <tr>
                 {%if data|length==6 %}
-
                 <th>{{ form.answer.label }} {{ form.answer6 }}</th>
-
                 <td colspan="4">
                     <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
-
                 <th> {% for e in error %} {{ e }}
                     {% endfor %} </th>
-
                 </td>
             </tr>
             {% endif %}

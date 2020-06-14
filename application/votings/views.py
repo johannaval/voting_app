@@ -33,10 +33,7 @@ def votings_vote(voting_id):
 
     data = Option.query.filter(Option.voting_id == voting_id).all()
     result = []
-
     v = Voting.query.get(voting_id)
-
-    teksti = []
 
     creator = v.account_id
     current = 999
@@ -68,9 +65,6 @@ def votings_vote(voting_id):
 
     form = VoteForm(request.form)
 
-    print(len(data))
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1")
-
     selected = None
     if (len(data)==3):
         selected = form.answer.data
@@ -84,8 +78,6 @@ def votings_vote(voting_id):
 
     if selected == None:
 
-            print("olen täällä moi")
-
             if (v.starting_time < currentTime):
                isOn = True
 
@@ -94,8 +86,6 @@ def votings_vote(voting_id):
 
 
     if request.method=="POST":
-
-        print("minä taas olen täällä ")
 
 
         if selected == None:
@@ -138,24 +128,24 @@ def votings_show_this(voting_id):
     v = Voting.query.get(voting_id)
     data = Option.query.filter(Option.voting_id == voting_id).all()
 
-
     result = []
     text = []
     list = []
 
-    if v.show_result == 2:
-        text.append("Kolme eniten ääniä saanutta vaihtoehtoa: : ")
-        list = Vote.return_top_3_votes_in_voting(voting_id)
+    if v.show_result == 2 and v.account_id != current_user.id:
+        text.append("Kolme eniten ääniä saanutta vaihtoehtoa: ")
+        count = "3"
+        list = Vote.return_votes_in_voting(voting_id, count)
 
-    elif v.show_result == 1:
+    elif v.show_result == 1 and v.account_id != current_user.id:
         text.append("")
 
-    elif v.show_result == 3:
+    elif v.show_result == 3 or v.account_id == current_user.id:
         text.append("Kaikki äänet: ")
-        list = Vote.return_top_3_votes_in_voting(voting_id)
+        count = "all"
+        list = Vote.return_votes_in_voting(voting_id, count)
 
   
-
     creator = v.account_id
     current = 999
 
@@ -168,12 +158,11 @@ def votings_show_this(voting_id):
     countByHour = []
 
     i = 0
-
     for i in range(24):
         countByHour.append(Vote.get_votes_in_time(voting_id, i))
 
 
-    return render_template("votings/showVotingResults.html", voting=v, data=data, creator=creator, current=current, list=list, teksti=text, user_has_voted=userHasVoted, form=VoteForm(), time_count=countByHour)
+    return render_template("votings/showVotingResults.html", voting=v, data=data, creator=creator, current=current, list=list, text=text, user_has_voted=userHasVoted, form=VoteForm(), time_count=countByHour)
 
 
 
@@ -433,8 +422,11 @@ def votings_edit(voting_id):
                 db.session.delete(opt)
                 db.session().commit()
 
+        if (v.account_id != current_user.id and current_user.role=="ADMIN"):
+           return redirect(url_for("votings_list_all_votings"))
 
-        return redirect(url_for("votings_index"))
+        else:
+            return redirect(url_for("votings_own"))
 
     else:
 
@@ -448,6 +440,12 @@ def votings_delete(voting_id):
     v = Voting.query.get(voting_id)
     db.session.delete(v)
     db.session().commit()
+
+    if (v.account_id != current_user.id and current_user.role=="ADMIN"):
+        return redirect(url_for("votings_list_all_votings"))
+
+    else:
+        return redirect(url_for("votings_own"))
 
     return redirect(url_for("votings_index"))
 
@@ -511,3 +509,38 @@ def votings_voted():
     votings = UserVoted.get_voted_votings(user_id)
 
     return render_template("votings/votedVotings.html", votings=votings)
+
+
+
+
+
+@app.route("/voting_search/")
+@login_required
+def votings_search():
+
+    query = request.args['search']
+
+  #  queryset =[]
+  #  queries = query.split(" ")
+
+    voting = Voting.query.filter(Voting.name == query).first()
+    user_id = current_user.id
+
+    if (voting == None):
+        return redirect(redirect_url())
+
+        #return redirect(url_for("votings_index"))
+
+
+    if (voting.account_id == user_id or UserVoted.has_voted(user_id, voting.id)):
+        return redirect(url_for("votings_show_this", voting_id = voting.id))
+
+
+    return redirect(url_for("votings_vote", voting_id = voting.id))
+
+
+def redirect_url(default='index'):
+    return request.args.get('next') or \
+           request.referrer or \
+           url_for(default)
+

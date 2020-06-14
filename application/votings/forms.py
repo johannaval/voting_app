@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, validators, IntegerField, RadioField, DateTimeField, BooleanField
+from wtforms import StringField, validators, IntegerField, RadioField, DateTimeField, BooleanField, SubmitField
 from datetime import datetime
 from application.votings.models import Voting
 from wtforms.validators import InputRequired
@@ -19,18 +19,14 @@ class VotingForm(FlaskForm):
     option5Description = StringField("Kuvaus: (vapaaehtoinen)")
     option6 = StringField("vaihtoehto 6:", [validators.Length(max=30, message='Vaihtoehdossa ei saa olla yli 30 merkkiä!')])
     option6Description = StringField("Kuvaus: (vapaaehtoinen)")
-    
-
     starting_time = DateTimeField("Aloitusaika:", [validators.InputRequired(message='Valitsethan aloituspäivän ja ajan!')])
     ending_time = DateTimeField("Lopetusaika:", [validators.InputRequired(message='Valitsethan lopetuspäivän ja ajan!')])
-
     results = RadioField('Mitä tuloksia haluat, että muut näkevät?', choices = [('1','Ei mitään'),('2','Vain kärjen'),('3','Kaikki äänet')], validators=[InputRequired()])
     anonymous = RadioField('Äänestys vain kirjautuneille käyttäjille? ', choices = [('1','Kyllä'),('2','Ei')], validators=[InputRequired()])
-
-
     
     class Meta:
         csrf = False
+
 
 class VoteForm(FlaskForm):
     name = StringField("Kysymys:")
@@ -42,8 +38,5 @@ class VoteForm(FlaskForm):
     answer5 = RadioField('Mitä äänestät?', choices = [('1','1'),('2','2'),('3','3'),('4','4'),('5','5')])
     answer6 = RadioField('Mitä äänestät?', choices = [('1','1'),('2','2'),('3','3'),('4','4'),('5','5'),('6','6')])
 
-
-
     class Meta:
         csrf = False
-
