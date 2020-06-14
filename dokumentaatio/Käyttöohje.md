@@ -108,13 +108,20 @@ Käytössäsi on kaikki samat toiminnallisuudet, kuin tavallisellakin käyttäj�
 <br>
 <br> 
    
-   
+ <img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2020-06-55.png"width="900" height="300"> 
 - "Tarkastele äänestämiesi äänestysten tuloksia" -kohdassa pääset näkemään niiden äänestysten tuloksia, joissa olet jo äänestänyt. 
-   Tulokset näkyvät sen mukaan, mitä äänestyksen tekijä on halunnut jakaa.
-   
-   kuvat viel
-   
+<br>
+<br>  
+ <br>
+<br>
+<br>    
+<img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2020-07-15.png"width="900" height="300"> 
+- Tulokset näkyvät sen mukaan, mitä äänestyksen tekijä on halunnut jakaa. Tässä kuvassa tekijä on valinnut, että muut käyttäjät näkevät äänestyksestä 3 eniten ääniä saanutta vaihtoehtoa ja niiden määrät.
+<br>
+<br>  
+ <br>
+<br>
+<br>  
   
-   
- - Pääset kirjautumaan ulos oikeassa yläreunassa olevan "Kirjaudu ulos" -napin kautta
+ Kun olet valmis, pääset kirjautumaan ulos oikeassa yläreunassa olevan "Kirjaudu ulos" -napin kautta
 
