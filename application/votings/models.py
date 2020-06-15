@@ -49,40 +49,40 @@ class Voting(Base):
     @staticmethod
     def get_anonymous_votings_that_can_be_voted_now():
 
-        currentTime = datetime.now()
+        current_time = datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
-                    "WHERE starting_time <= :currentTime "
-                    "and ending_time > :currentTime "
+                    "WHERE starting_time <= :current_time "
+                    "and ending_time > :current_time "
                     "and anonymous = 2 "
-                    "GROUP BY id").params(currentTime = currentTime)
+                    "GROUP BY id").params(current_time = current_time)
 
         res = db.engine.execute(stmt)
-        listAll = []
+        list_all = []
 
         for row in res:
-            listAll.append(row)
+            list_all.append(row)
 
-        return listAll
+        return list_all
 
 
     @staticmethod
     def get_anonymous_votings_that_can_be_voted_later():
 
-        currentTime = datetime.now()
+        current_time = datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
-                    "WHERE starting_time > :currentTime "
+                    "WHERE starting_time > :current_time "
                     "and anonymous = 2 "
-                    "GROUP BY id").params(currentTime = currentTime)
+                    "GROUP BY id").params(current_time = current_time)
 
         res = db.engine.execute(stmt)
-        listAll = []
+        list_all = []
 
         for row in res:
-            listAll.append(row)
+            list_all.append(row)
 
-        return listAll
+        return list_all
 
 
 
@@ -98,36 +98,36 @@ class Voting(Base):
         for row in res2:
             response2.append(row)
         
-        currentTime = datetime.now()
+        current_time = datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
                     "WHERE account_id != :user_id "
-                    "and starting_time <= :currentTime "
-                    "and ending_time > :currentTime "
-                    "GROUP BY id").params(user_id=user_id, currentTime = currentTime)
+                    "and starting_time <= :current_time "
+                    "and ending_time > :current_time "
+                    "GROUP BY id").params(user_id=user_id, current_time = current_time)
 
         res = db.engine.execute(stmt)
-        cleanedList = []
+        cleaned_list = []
 
         response = []
 
         for row in res:
             response.append(row)
-            cleanedList.append(row)
+            cleaned_list.append(row)
 
         len1 = len(response)
         len2 = len(response2)
 
-        newIndex = 0
+        new_index = 0
 
         for j in range(len1):
             for i in range(len2):
-                newIndex = newIndex + 1
+                new_index = new_index + 1
                 if(response[j].id == response2[i].voting_id):
-                    cleanedList.remove(response[j])
-                    newIndex = newIndex - 1
+                    cleaned_list.remove(response[j])
+                    new_index = new_index - 1
 
-        return cleanedList
+        return cleaned_list
 
     @staticmethod
     def get_votings_that_can_be_voted_later(user_id):
@@ -141,91 +141,91 @@ class Voting(Base):
         for row in res2:
             response2.append(row)
 
-        currentTime = datetime.now()
+        current_time = datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
                     "WHERE account_id != :user_id "
-                    "and starting_time > :currentTime "
-                    "GROUP BY id").params(user_id=user_id, currentTime = currentTime)
+                    "and starting_time > :current_time "
+                    "GROUP BY id").params(user_id=user_id, current_time = current_time)
 
         res = db.engine.execute(stmt)
-        cleanedList = []
+        cleaned_list = []
 
         response = []
 
         for row in res:
             response.append(row)
-            cleanedList.append(row)
+            cleaned_list.append(row)
 
         len1 = len(response)
         len2 = len(response2)
 
-        newIndex = 0
+        new_index = 0
 
         for j in range(len1):
             for i in range(len2):
-                newIndex = newIndex + 1
+                new_index = new_index + 1
                 if(response[j].id == response2[i].voting_id):
-                    cleanedList.remove(response[j])
-                    newIndex = newIndex - 1
+                    cleaned_list.remove(response[j])
+                    new_index = new_index - 1
 
-        return cleanedList
+        return cleaned_list
  
     @staticmethod
     def get_own_waiting_votings(user_id):
 
-        currentTime = datetime.now()
+        current_time = datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
-                    "WHERE starting_time > :currentTime "
+                    "WHERE starting_time > :current_time "
                     "and account_id = :user_id "
-                    "GROUP BY id").params(currentTime = currentTime, user_id=user_id)
+                    "GROUP BY id").params(current_time = current_time, user_id=user_id)
 
         res = db.engine.execute(stmt)
-        listAll = []
+        list_all = []
 
         for row in res:
-            listAll.append(row)
+            list_all.append(row)
 
-        return listAll
+        return list_all
 
 
     @staticmethod
     def get_own_started_votings(user_id):
 
-        currentTime = datetime.now()
+        current_time = datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
-                    "WHERE starting_time < :currentTime "
-                    "and ending_time > :currentTime "
+                    "WHERE starting_time < :current_time "
+                    "and ending_time > :current_time "
                     "and account_id = :user_id "
-                    "GROUP BY id").params(currentTime = currentTime, user_id=user_id)
+                    "GROUP BY id").params(current_time = current_time, user_id=user_id)
 
         res = db.engine.execute(stmt)
-        listAll = []
+        list_all = []
 
         for row in res:
-            listAll.append(row)
+            list_all.append(row)
 
-        return listAll
+        return list_all
 
     @staticmethod
     def get_own_ended_votings(user_id):
 
-        currentTime = datetime.now()
+        current_time = datetime.now()
 
         stmt = text("SELECT * FROM VOTING "
-                    "WHERE ending_time < :currentTime "
+                    "WHERE ending_time < :current_time "
                     "and account_id = :user_id "
-                    "GROUP BY id").params(currentTime = currentTime, user_id=user_id)
+                    "GROUP BY id").params(current_time = current_time, user_id=user_id)
 
         res = db.engine.execute(stmt)
-        listAll = []
+        list_all = []
 
         for row in res:
-            listAll.append(row)
+            list_all.append(row)
 
-        return listAll
+        return list_all
 
 
 
@@ -290,7 +290,7 @@ class UserVoted(db.Model):
                     "GROUP BY id").params(user_id=user_id)
 
         res = db.engine.execute(stmt)
-        cleanedList = []
+        cleaned_list = []
 
         response = []
 
@@ -303,9 +303,9 @@ class UserVoted(db.Model):
         for j in range(len1):
             for i in range(len2):
                 if(response[j].id == response2[i].voting_id):
-                    cleanedList.append(response[j])
+                    cleaned_list.append(response[j])
 
-        return cleanedList
+        return cleaned_list
 
     @staticmethod
     def has_voted(u_id, v_id):
@@ -370,6 +370,28 @@ class Vote(db.Model):
 
         
         if os.environ.get("HEROKU"):
+
+            time_to = time_to - 9
+
+            if(time_to==-1):
+                time_to=23
+            if(time_to==-2):
+                time_to=22
+            if(time_to==-3):
+                time_to=21
+            if(time_to==-4):
+                time_to = 20
+            if (time_to==-5):
+                time_to=19
+            if(time_to==-6):
+                time_to=18
+            if(time_to==-7):
+                time_to = 17
+            if (time_to ==-8):
+                time_to= 16
+            if(time_to == -9):
+                time_to = 15
+
 
             time_to = time_to + 3
            

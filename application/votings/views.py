@@ -10,15 +10,15 @@ from datetime import datetime
 @app.route("/votings", methods=["GET"])
 def votings_index():
 
-    votingsToVoteNow =[]
-    votingsToVoteLater=[]
+    votings_to_vote_now =[]
+    votings_to_vote_later=[]
 
     if not current_user.is_authenticated:
 
-       votingsToVoteNow = Voting.get_anonymous_votings_that_can_be_voted_now()
-       votingsToVoteLater = Voting.get_anonymous_votings_that_can_be_voted_later()
+       votings_to_vote_now = Voting.get_anonymous_votings_that_can_be_voted_now()
+       votings_to_vote_later = Voting.get_anonymous_votings_that_can_be_voted_later()
 
-    return render_template("votings/list.html", votingsToVoteNow=votingsToVoteNow, votingsToVoteLater = votingsToVoteLater)
+    return render_template("votings/list.html", votingsToVoteNow=votings_to_vote_now, votingsToVoteLater = votings_to_vote_later)
 
 
 @app.route("/votings/new/")
@@ -38,30 +38,30 @@ def votings_vote(voting_id):
     creator = v.account_id
     current = 999
 
-    currentTime = datetime.now()
-    isOn = False
+    current_time = datetime.now()
+    is_on = False
     
-    if (v.starting_time < currentTime):
-        isOn = True
+    if (v.starting_time < current_time):
+        is_on = True
 
     if current_user.is_authenticated:
         current = current_user.id
 
-    userHasVoted = UserVoted.has_voted(current, voting_id)
+    user_has_voted = UserVoted.has_voted(current, voting_id)
 
-    if not isOn:
+    if not is_on:
        time = v.starting_time
 
     else:
         time = v.ending_time
 
-    separatedTime=[]
-    separatedTime.append(time.strftime("%m"))
-    separatedTime.append(time.strftime("%d"))
-    separatedTime.append(time.strftime("%Y"))
-    separatedTime.append(time.strftime("%H"))
-    separatedTime.append(time.strftime("%M"))
-    separatedTime.append(time.strftime("%S"))
+    separated_time=[]
+    separated_time.append(time.strftime("%m"))
+    separated_time.append(time.strftime("%d"))
+    separated_time.append(time.strftime("%Y"))
+    separated_time.append(time.strftime("%H"))
+    separated_time.append(time.strftime("%M"))
+    separated_time.append(time.strftime("%S"))
 
     form = VoteForm(request.form)
 
@@ -78,11 +78,11 @@ def votings_vote(voting_id):
 
     if selected == None:
 
-            if (v.starting_time < currentTime):
-               isOn = True
+            if (v.starting_time < current_time):
+               is_on = True
 
             error = ""
-            return render_template("votings/vote.html", voting=v, data=data, form=form, separated_time=separatedTime, user_has_voted=userHasVoted, isOn = isOn, error=error, current = current, creator = creator)
+            return render_template("votings/vote.html", voting=v, data=data, form=form, separated_time=separated_time, user_has_voted=user_has_voted, isOn = is_on, error=error, current = current, creator = creator)
 
 
     if request.method=="POST":
@@ -90,14 +90,14 @@ def votings_vote(voting_id):
 
         if selected == None:
            error = "Oops! Valitsethan vaihtoehdon!"
-           return render_template("votings/vote.html", voting=v, data=data, form=form, separated_time=separatedTime, user_has_voted=userHasVoted, isOn = isOn, error=error, current = current, creator = creator)
+           return render_template("votings/vote.html", voting=v, data=data, form=form, separated_time=separated_time, user_has_voted=user_has_voted, isOn = is_on, error=error, current = current, creator = creator)
 
         if current_user.is_authenticated:
            user = current_user
-           userVote = UserVoted(voting_id)
-           userVote.voting_id = voting_id
-           userVote.user_id = current_user.id
-           db.session.add(userVote)
+           user_vote = UserVoted(voting_id)
+           user_vote.voting_id = voting_id
+           user_vote.user_id = current_user.id
+           db.session.add(user_vote)
            db.session.commit()
 
         voted=""
@@ -105,12 +105,12 @@ def votings_vote(voting_id):
         index = int(voted)-1
         op = data[index]
 
-        newVote = Vote(voting_id)
-        newVote.voting_id = int(voting_id)
+        new_vote = Vote(voting_id)
+        new_vote.voting_id = int(voting_id)
 
-        newVote.option_id = op.option_id
+        new_vote.option_id = op.option_id
 
-        db.session.add(newVote)
+        db.session.add(new_vote)
         db.session.commit()
 
 
@@ -153,16 +153,16 @@ def votings_show_this(voting_id):
         current = current_user.id
 
     name = Voting.query.get(voting_id)
-    userHasVoted = UserVoted.has_voted(current, voting_id)
+    user_has_voted = UserVoted.has_voted(current, voting_id)
 
-    countByHour = []
+    count_by_hour = []
 
     i = 0
     for i in range(24):
-        countByHour.append(Vote.get_votes_in_time(voting_id, i))
+        count_by_hour.append(Vote.get_votes_in_time(voting_id, i))
 
 
-    return render_template("votings/showVotingResults.html", voting=v, data=data, creator=creator, current=current, list=list, text=text, user_has_voted=userHasVoted, form=VoteForm(), time_count=countByHour)
+    return render_template("votings/showVotingResults.html", voting=v, data=data, creator=creator, current=current, list=list, text=text, user_has_voted=user_has_voted, form=VoteForm(), time_count=count_by_hour)
 
 
 
@@ -279,6 +279,12 @@ def votings_create():
 @login_required
 def votings_edit(voting_id):
 
+    v = Voting.query.get(voting_id)
+
+    if not current_user.is_admin:
+        if v.account_id != current_user.id:
+           return redirect(url_for("votings_index"))
+
 
     form = VotingForm(formdata=request.form)
     v = Voting.query.get(voting_id)
@@ -294,6 +300,19 @@ def votings_edit(voting_id):
     list.append(form.option2.data)
     list.append(form.option3.data)
 
+    if (len(form.option4.data)>0):
+        list.append(form.option4.data)
+
+    if (len(form.option5.data)>0):
+        list.append(form.option5.data)
+
+    if (len(form.option6.data)>0):
+        list.append(form.option6.data)
+
+
+    if(Voting.is_options_different(list) == False):
+          error = "Jokainen vaihtoehto pitää olla eri!"
+
     options = Option.query.filter(Option.voting_id == voting_id).all()
 
     o1 = options[0]
@@ -302,20 +321,27 @@ def votings_edit(voting_id):
 
 
     if request.method=="POST":
+       error = ""
+
+       if ((len(form.option5.data)!=0 and len(form.option4.data)==0) or (len(form.option6.data)!=0 and len(form.option4.data)==0) or
+       (len(form.option6.data)!=0 and len(form.option5.data)==0)):
+            error = "Täytäthän kysymyskentät järjestyksessä!"
+            return render_template("votings/edit.html", form=form, error=error, voting=v, options = options, current = current, creator = creator)
+
 
        if(Voting.is_options_different(list) == False):
-          error = "Jokainen vaihtoehto pitää olla eri!"
-          return render_template("votings/edit.html", form=form, error=error, voting=v, options = options, current = current, creator = creator)
+            error = "Jokainen vaihtoehto pitää olla eri!"
+            return render_template("votings/edit.html", form=form, error=error, voting=v, options = options, current = current, creator = creator)
 
        if Voting.is_voting_name_unique(name) == False and Voting.query.get(voting_id).name != request.form.get("name"):
-          error = "Tällä nimellä on jo äänestys!"
-          return render_template("votings/edit.html", form=form, error=error, voting = v, options = options, current = current, creator = creator)
+            error = "Tällä nimellä on jo äänestys!"
+            return render_template("votings/edit.html", form=form, error=error, voting = v, options = options, current = current, creator = creator)
 
        if not form.validate():
-          return render_template("votings/edit.html", form=form, error= error, voting= v, options= options, current = current, creator = creator)
+            return render_template("votings/edit.html", form=form, error= error, voting= v, options= options, current = current, creator = creator)
     
-
-       if not form.validate() or form.starting_time.data >= form.ending_time.data:
+     
+       if not form.validate() or form.starting_time.data >= form.ending_time.data or error=="Jokainen vaihtoehto pitää olla eri!":
 
            v = Voting(form.name.data)
 
@@ -329,8 +355,8 @@ def votings_edit(voting_id):
 
     if request.method == "POST" and form.validate():
 
-        newName = request.form.get("name")
-        v.name = newName
+        new_name = request.form.get("name")
+        v.name = new_name
         v.date_modified = datetime.now()
 
         v.show_result = form.results.data
@@ -340,26 +366,26 @@ def votings_edit(voting_id):
         v.ending_time = form.ending_time.data
         db.session.commit()
 
-        newOption1 = request.form.get("option1")
-        o1.name = newOption1
+        new_option_1 = request.form.get("option1")
+        o1.name = new_option_1
         o1.description = request.form.get('option1Description')
         db.session.commit()
 
-        newOption2 = request.form.get("option2")
-        o2.name = newOption2
+        new_option_2 = request.form.get("option2")
+        o2.name = new_option_2
         o2.description = request.form.get('option2Description')
         db.session.commit()
 
-        newOption3 = request.form.get("option3")
-        o3.name = newOption3
+        new_option_3 = request.form.get("option3")
+        o3.name = new_option_3
         o3.description = request.form.get('option3Description')
         db.session.commit()
 
         if (len(form.option4.data)>0):
             if (Option.count_options_from_voting(voting_id)>3):
                 o4 = options[3]
-                newOption4 = request.form.get("option4")
-                o4.name = newOption4
+                new_option_4 = request.form.get("option4")
+                o4.name = new_option_4
                 o4.description = request.form.get('option4Description')
             else:
                 o4 = Option(form.option4.data)
@@ -377,12 +403,11 @@ def votings_edit(voting_id):
                 db.session().commit()
 
 
-
         if (len(form.option5.data)>0):
             if (Option.count_options_from_voting(voting_id)>4):
                 o5 = options[4]
-                newOption5 = request.form.get("option5")
-                o5.name = newOption5
+                new_option_5 = request.form.get("option5")
+                o5.name = new_option_5
                 o5.description = request.form.get('option5Description')
             else:
                 o5 = Option(form.option5.data)
@@ -404,8 +429,8 @@ def votings_edit(voting_id):
         if (len(form.option6.data)>0):
             if  (Option.count_options_from_voting(voting_id)>5):
                 o6 = options[5]
-                newOption5 = request.form.get("option6")
-                o6.name = newOption6
+                new_option_6 = request.form.get("option6")
+                o6.name = new_option_6
                 o6.description = request.form.get('option6Description')
             else:
                 o6 = Option(form.option6.data)
@@ -422,7 +447,7 @@ def votings_edit(voting_id):
                 db.session.delete(opt)
                 db.session().commit()
 
-        if (v.account_id != current_user.id and current_user.role=="ADMIN"):
+        if (v.account_id != current_user.id and current_user.is_admin):
            return redirect(url_for("votings_list_all_votings"))
 
         else:
@@ -438,21 +463,29 @@ def votings_edit(voting_id):
 def votings_delete(voting_id):
 
     v = Voting.query.get(voting_id)
+
+    if not current_user.is_admin:
+        if v.account_id != current_user.id:
+           return redirect(url_for("votings_index"))
+
     db.session.delete(v)
     db.session().commit()
 
-    if (v.account_id != current_user.id and current_user.role=="ADMIN"):
+
+    if (v.account_id != current_user.id and current_user.is_admin):
         return redirect(url_for("votings_list_all_votings"))
 
     else:
         return redirect(url_for("votings_own"))
 
-    return redirect(url_for("votings_index"))
 
 
 @app.route("/votings/all")
 @login_required
 def votings_list_all_votings():
+
+    if not current_user.is_admin:
+        return redirect(url_for("votings_index"))
 
     votings = Voting.query.all()
 
@@ -463,30 +496,36 @@ def votings_list_all_votings():
 @login_required
 def votings_own():
 
+
     user_id = current_user.id
     votings = Voting.query.filter(Voting.account_id == user_id).all()
 
-    waitingVotings = Voting.get_own_waiting_votings(user_id)
-    startedVotings = Voting.get_own_started_votings(user_id)
-    endedVotings = Voting.get_own_ended_votings(user_id)
+    waiting_votings = Voting.get_own_waiting_votings(user_id)
+    started_votings = Voting.get_own_started_votings(user_id)
+    ended_votings = Voting.get_own_ended_votings(user_id)
 
-    return render_template("votings/ownVotings.html", waitingVotings = waitingVotings, startedVotings = startedVotings, endedVotings = endedVotings)
+    return render_template("votings/ownVotings.html", waitingVotings = waiting_votings, startedVotings = started_votings, endedVotings = ended_votings)
 
 @app.route("/votings/created_by/<user_id>")
 @login_required
 def votings_show_votings_by_id(user_id):
 
+
+    if not current_user.is_admin:
+        return redirect(url_for("votings_index"))
+
+
     votings = Voting.query.filter(Voting.account_id == user_id).all()
 
-    waitingVotings = Voting.get_own_waiting_votings(user_id)
-    startedVotings = Voting.get_own_started_votings(user_id)
-    endedVotings = Voting.get_own_ended_votings(user_id)
+    waiting_votings = Voting.get_own_waiting_votings(user_id)
+    started_votings = Voting.get_own_started_votings(user_id)
+    ended_votings = Voting.get_own_ended_votings(user_id)
 
     creator = user_id
     current = current_user.id
 
 
-    return render_template("votings/ownVotings.html", creator = creator, current = current, waitingVotings = waitingVotings, startedVotings = startedVotings, endedVotings = endedVotings)
+    return render_template("votings/ownVotings.html", creator = creator, current = current, waitingVotings = waiting_votings, startedVotings = started_votings, endedVotings = ended_votings)
 
 
 @app.route("/votings/not_voted")
@@ -494,11 +533,11 @@ def votings_show_votings_by_id(user_id):
 def votings_not_voted():
 
     user_id = current_user.id
-    votingsToVoteNow = Voting.get_votings_that_can_be_voted_now(user_id)
-    votingsToVoteLater = Voting.get_votings_that_can_be_voted_later(user_id)
+    votings_to_vote_now = Voting.get_votings_that_can_be_voted_now(user_id)
+    votings_to_vote_later = Voting.get_votings_that_can_be_voted_later(user_id)
 
 
-    return render_template("votings/votingsToVote.html", votingsNow=votingsToVoteNow, votingsLater=votingsToVoteLater)
+    return render_template("votings/votingsToVote.html", votingsNow=votings_to_vote_now, votingsLater=votings_to_vote_later)
 
 
 @app.route("/votings/voted")
@@ -512,24 +551,17 @@ def votings_voted():
 
 
 
-
-
 @app.route("/voting_search/")
 @login_required
 def votings_search():
 
     query = request.args['search']
 
-  #  queryset =[]
-  #  queries = query.split(" ")
-
     voting = Voting.query.filter(Voting.name == query).first()
     user_id = current_user.id
 
     if (voting == None):
         return redirect(redirect_url())
-
-        #return redirect(url_for("votings_index"))
 
 
     if (voting.account_id == user_id or UserVoted.has_voted(user_id, voting.id)):

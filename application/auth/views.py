@@ -5,6 +5,8 @@ from application import bcrypt, app, db, login_required
 from application.auth.models import User
 from application.auth.forms import LoginForm
 from application.auth.forms import CreateNewForm
+from flask_login import current_user
+
 
 
 @app.route("/auth/login", methods=["GET", "POST"])
@@ -15,16 +17,16 @@ def auth_login():
 
     form = LoginForm(request.form)
 
-    usernameError = ""
-    passwordError = ""
+    username_error = ""
+    password_error = ""
 
     user = User.query.filter_by(
         username=form.username.data).first()
 
     if (user == None):
 
-        usernameError = "Kyseisellä nimellä ei ole käyttäjää!"
-        return render_template("auth/loginform.html", form=form, usernameError=usernameError, passwordError = passwordError)
+        username_error = "Kyseisellä nimellä ei ole käyttäjää!"
+        return render_template("auth/loginform.html", form=form, usernameError=username_error, passwordError = password_error)
 
     else:
 
@@ -39,9 +41,9 @@ def auth_login():
 
         else :
             
-            passwordError = "Salasana väärin!"
+            password_error = "Salasana väärin!"
     
-    return render_template("auth/loginform.html", form=form, usernameError = usernameError, passwordError=passwordError)
+    return render_template("auth/loginform.html", form=form, usernameError = username_error, passwordError=password_error)
 
 
 
@@ -62,17 +64,17 @@ def auth_create():
         return render_template("/auth/createnewform.html", form=form)
 
     users = User.query.all()
-    userCount = len(users)
+    user_count = len(users)
 
-    isAdmin = False
+    is_admin = False
 
-    if userCount == 0:
-        isAdmin = True
+    if user_count == 0:
+        is_admin = True
 
     password = form.createNewPassword.data
-    pwHash = bcrypt.generate_password_hash(password).decode('utf-8')
+    pw_hash = bcrypt.generate_password_hash(password).decode('utf-8')
 
-    user = User(form.createNewName.data, form.createNewUsername.data, pwHash, isAdmin)
+    user = User(form.createNewName.data, form.createNewUsername.data, pw_hash, is_admin)
 
     db.session().add(user)
     db.session().commit()
@@ -91,6 +93,9 @@ def auth_logout():
 @login_required
 def auth_listall():
 
+    if not current_user.is_admin:
+        return redirect(url_for("votings_index"))
+
     data = User.query.all()
     return render_template("/auth/listall.html", data=data)
 
@@ -99,17 +104,20 @@ def auth_listall():
 @login_required
 def auth_edit(user_id):
 
+    if not current_user.is_admin:
+        return redirect(url_for("votings_index"))
+
     form = CreateNewForm(request.form)
     user = User.query.get(user_id)
 
     data = []
 
-    oldName = user.query.get(user_id).name
-    data.append(oldName)
-    oldUsername = user.query.get(user_id).username
-    data.append(oldUsername)
-    oldPassword = user.query.get(user_id).password
-    data.append(oldPassword)
+    old_name = user.query.get(user_id).name
+    data.append(old_name)
+    old_username = user.query.get(user_id).username
+    data.append(old_username)
+    old_password = user.query.get(user_id).password
+    data.append(old_password)
 
     u = User.query.filter(
         User.username == request.form.get("createNewUsername")).first()
@@ -122,14 +130,14 @@ def auth_edit(user_id):
 
     if request.method == "POST" and form.validate():
 
-        newName = request.form.get("createNewName")
-        user.name = newName
-        newUserName = request.form.get("createNewUsername")
-        user.username = newUserName
-        newPassword = request.form.get("createNewPassword")
+        new_name = request.form.get("createNewName")
+        user.name = new_name
+        new_username = request.form.get("createNewUsername")
+        user.username = new_username
+        new_password = request.form.get("createNewPassword")
 
-        pwHash = bcrypt.generate_password_hash(newPassword).decode('utf-8')
-        user.password = pwHash
+        pw_hash = bcrypt.generate_password_hash(new_password).decode('utf-8')
+        user.password = pw_hash
 
         db.session.commit()
 
@@ -143,6 +151,9 @@ def auth_edit(user_id):
 @app.route("/votings/del/<user_id>", methods=["POST", "GET"])
 @login_required
 def auth_delete(user_id):
+
+    if not current_user.is_admin:
+        return redirect(url_for("votings_index"))
 
     user = User.query.get(user_id)
     db.session.delete(user)

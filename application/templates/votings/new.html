@@ -33,6 +33,8 @@
       <tr>
         <th>
           {{ form.nameDescription(class="col-form-label col-form-label-sm",style="width: 400px;", placeholder=" Kuvaus (vapaaehtoinen)") }}
+        <th> {% for error in form.nameDescription.errors %} {{ error }}
+          {% endfor %} </th>
         </th>
       </tr>
 
@@ -64,6 +66,8 @@
       <tr>
         <th>
           {{ form.option1Description(class="col-form-label col-form-label-sm",style="width: 300px;", placeholder=" Kuvaus (vapaaehtoinen)") }}
+        <th> {% for error in form.option1Description.errors %} {{ error }}
+          {% endfor %} </th>
         </th>
       </tr>
 
@@ -95,6 +99,8 @@
       <tr>
         <th>
           {{ form.option2Description(class="col-form-label col-form-label-sm",style="width: 300px;", placeholder=" Kuvaus (vapaaehtoinen)") }}
+        <th> {% for error in form.option2Description.errors %} {{ error }}
+          {% endfor %} </th>
         </th>
       </tr>
       <tr>
@@ -125,8 +131,11 @@
       <tr>
         <th>
           {{ form.option3Description(class="col-form-label col-form-label-sm",style="width: 300px;", placeholder=" Kuvaus (vapaaehtoinen)") }}
-          <br>
-          <br>
+          <br><br> <br> </th>
+        <th> {% for error in form.option3Description.errors %} {{ error }}
+          {% endfor %} </th>
+
+        <br>
         </th>
       </tr>
 
@@ -150,14 +159,17 @@
 
       </script>
 
-      {%if form.option4.errors %}
-      <button class="btn btn-danger" onclick="addOption(); return false;">uusi vaihtoehto, VIRHE TÄÄLLÄ!</button>
+      {%if form.option4.errors or form.option5.errors or form.option6.errors%}
+      <button class="btn btn-danger" onclick="addOption(); return false;">Uusi vaihtoehto, VIRHE TÄÄLLÄ!</button>
 
-      {%elif form.option5.errors %}
-      <button class="btn btn-danger" onclick="addOption(); return false;">uusi vaihtoehto, VIRHE TÄÄLLÄ!</button>
+      {%elif error == "Jokainen vaihtoehto pitää olla eri!" %}
+      <button class="btn btn-outline-danger" onclick="addOption(); return false;">Jos yllä olevat vaihtoehdot olivat
+        erit, virhe on täällä</button>
 
-      {%elif form.option6.errors %}
-      <button class="btn btn-danger" onclick="addOption(); return false;">uusi vaihtoehto, VIRHE TÄÄLLÄ!</button>
+      {%elif form.option4Description.errors or form.option5Description.errors or form.option6Description.errors%}
+      <button class="btn btn-outline-danger" onclick="addOption(); return false;">Ops, täällä on liian pitkä
+        kuvaus</button>
+
       {%else%}
       <button class="btn btn-outline-primary" onclick="addOption(); return false;">uusi vaihtoehto</button>
       {% endif %}
@@ -200,6 +212,9 @@
             write.innerHTML += ' <br>'
 
             write.innerHTML += '<tr> {{ form.option4Description(class= "col-form-label col-form-label-sm",style="width: 300px;", placeholder = " Kuvaus (vapaaehtoinen)") }}</tr>';
+            write.innerHTML += '<th> {% for error in form.option4Description.errors %}'
+            write.innerHTML += ' {{ error }} '
+            write.innerHTML += '{% endfor %} </th>'
             write.innerHTML += '<br><br><br>';
 
           }
@@ -229,6 +244,9 @@
             write.innerHTML += ' <br>'
 
             write.innerHTML += ' <tr>{{ form.option5Description(class= "col-form-label col-form-label-sm",style="width: 300px;", placeholder = " Kuvaus (vapaaehtoinen)") }} </tr>';
+            write.innerHTML += '<th> {% for error in form.option5Description.errors %}'
+            write.innerHTML += ' {{ error }} '
+            write.innerHTML += '{% endfor %} </th>'
             write.innerHTML += '<br><br><br>';
 
 
@@ -256,8 +274,10 @@
 
 
             write.innerHTML += ' <tr> {{ form.option6Description(class= "col-form-label col-form-label-sm",style="width: 300px;", placeholder = " Kuvaus (vapaaehtoinen)") }} </tr>';
+            write.innerHTML += '<th> {% for error in form.option6Description.errors %}'
+            write.innerHTML += ' {{ error }} '
+            write.innerHTML += '{% endfor %} </th>'
             write.innerHTML += '<br><br><br>';
-
           }
 
           answers++;
