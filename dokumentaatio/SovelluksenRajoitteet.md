@@ -17,5 +17,7 @@ validoinnissa, jotta käyttäjä osaa klikata ne auki ja korjata kohdan.
 Toisena (rajoitteena?) näen datetimepickerin asetukset, sillä kalenterin päivät alkavat sunnuntaista, toisin kuin meillä Suomessa,
 jossa kalenterin viikot katsotaan alkavan aina maanantaista. Tätäkään ominaisuutta en saanut muokattua, vaikka yritin.
 
+Kolmantena rajoitteena on Äänestykset-dropdown-valikko. Jos käyttäjä on "Lisää uusi äänestys" -näkymässä ja painaa kyseistä dropdown valikkoa, ei se aina avaudu. Vasta kun käyttäjä siirtyy pois kyseisestä näkymästä, dropdown avautuu.
+
 
 
