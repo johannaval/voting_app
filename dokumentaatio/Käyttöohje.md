@@ -10,6 +10,17 @@ Käytössäsi on kaikki samat toiminnallisuudet, kuin tavallisellakin käyttäj�
 
 ### Käyttöohje tavalliselle käyttäjälle:
 
+#### Yksinkertaisesti:
+- Jos haluat katsella ja äänestää vain anonyymeissä äänestyksissä, paina "Aloitetaan". Täällä näet äänestyksiä, joita varten ei tarvitse kirjautua.
+- Jos haluat tehdä itse äänestyksiä tai äänestää kaikissa käynnissä olevissa änestyksissä, kirjaudu sisään tai luo käyttäjä.
+- Kun olet kirjautuneena, voit luoda uuden äänestyksen yläpalkin kohdasta "Luo uusi äänestys" ja täyttämällä tarvittavat tiedot.
+- Jos haluat selailla äänestyksiä, pääset sinne "Äänestykset"-dropdown valikon kautta. Siellä sinun on mahdollisuus valita, haluatko selailla omia äänestyksiäsi, äänestettävänä olevia äänestyksiä, vai äänestyksiä joissa olet jo äänestänyt.
+- Kun selailet omia äänestyksiäsi, näit äänestyksen senhetkiset tulokset, sekä diagrammin siitä, miten äänestysaktiviteetti on ajan suhteen jakautunut. Jos taas haluat äänestää muiden äänestyksissä, valitse itsellesi parhaiten sopiva vaihtoehto, ja paina "Äänestä!". Jos haluat selailla äänestyksien tuloksia, joissa olet jo äänestänyt, näet tulokset sen mukaan, mitä äänestyksen tekijä on halunnut tuloksista näyttää muille.
+<br>
+<br>
+<br>
+#### Yksityiskohtaisempana:
+<br>
 <img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2017-00-40.png" width="900" height="450">
 - Kun avaat sovelluksen, ensimmäisenä aukeaa aloitussivu. Jos et halua kirjautua tai tehdä tunnuksia sovellukseen, pääset selaamaan äänestyksiä, jotka eivät vaadi tunnuksia painamalla "Aloitetaan!"-napista. 
 <br>
