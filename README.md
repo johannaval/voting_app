@@ -24,6 +24,10 @@ Testitunnukset:
 
 [Käyttöohje:](https://github.com/johannaval/voting_app/blob/master/dokumentaatio/K%C3%A4ytt%C3%B6ohje.md)
 
+[Rajoitteet/Heikkoudet](https://github.com/johannaval/voting_app/blob/master/dokumentaatio/SovelluksenRajoitteet.md)
+
+[Omat kokemukset](https://github.com/johannaval/voting_app/blob/master/dokumentaatio/OmatKokemukset.md)
+
 
 ## Asennusohje:
 
