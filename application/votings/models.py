@@ -371,7 +371,7 @@ class Vote(db.Model):
         
         if os.environ.get("HEROKU"):
 
-            time_to = time_to - 9
+            time_to = time_to - 6
 
             if(time_to==-1):
                 time_to=23
@@ -385,12 +385,7 @@ class Vote(db.Model):
                 time_to=19
             if(time_to==-6):
                 time_to=18
-            if(time_to==-7):
-                time_to = 17
-            if (time_to ==-8):
-                time_to= 16
-            if(time_to == -9):
-                time_to = 15
+           
 
 
             time_to = time_to + 3
