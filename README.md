@@ -33,30 +33,30 @@ Testitunnukset:
 
 ### Paikallinen asennus:
 
-- Lataa sovellus koneellesi painamalla tämän repositorion vihreätä nappia, jossa lukee "Clone or download".
+1. Lataa sovellus koneellesi painamalla tämän repositorion vihreätä nappia, jossa lukee "Clone or download".
 
 - Paina "Download ZIP"
 
-- Luo uusi kansio tiedostoihisi, ja siirrä sekä pura lataamasi ZIP sinne.
+2. Luo uusi kansio tiedostoihisi, ja siirrä sekä pura lataamasi ZIP sinne.
 
-- Siirry ZIP:in luomaan kansioon 
+3. Siirry ZIP:in luomaan kansioon 
 
-- Asenna Python-virtuaaliympäristö samaan hakemistoon, missä sovellus on, komennolla:
+4. Asenna Python-virtuaaliympäristö samaan hakemistoon, missä sovellus on, komennolla:
 
 ``` python -m venv venv ```
 
 
-- Virtuaaliympäristön saa käyttöön:
+5. Virtuaaliympäristön saa käyttöön:
 
 ``` source venv/bin/activate ```
 
 
-- Asenna tarvittavat riippuvuudet:
+6. Asenna tarvittavat riippuvuudet:
 
 ``` pip install -r requirements.txt ```
 
 
-- Käynnistä ohjelma:
+7. Käynnistä ohjelma:
 
 ``` python run.py ```
 
@@ -65,61 +65,59 @@ Ja nyt ohjelmaa voi käyttää osoitteessa http://localhost:5000/ sekä http://1
 
 ### Herokuun asennus:
 
-- Paikallisen asennuksen jälkeen voi asentaa sovelluksen myös Herokuun.
-- Luo Githubiin repositorio
-- Saat mahdollisuuden projektin versiointiin sekä .git-nimisen kansion luomalla projektikansiolle git-versionhallinnan:
+Paikallisen asennuksen jälkeen voi asentaa sovelluksen myös Herokuun.
+1. Luo Githubiin repositorio
+2. Saat mahdollisuuden projektin versiointiin sekä .git-nimisen kansion luomalla projektikansiolle git-versionhallinnan:
 
 ``` git init ``` 
 <br>
 
-- Lisää GitHubissa oleva repositorio kansion paikallisen versionhallinnan etäpisteeksi. Löydät projektin nimen GitHubista, joka on muotoa: https://github.com/käyttäjätunnus/projektin-nimi.git. Syötä nyt komento:
+3. Lisää GitHubissa oleva repositorio kansion paikallisen versionhallinnan etäpisteeksi. Löydät projektin nimen GitHubista, joka on muotoa: https://github.com/käyttäjätunnus/projektin-nimi.git. Syötä nyt komento:
 
 ```git remote add origin github-projektin osoite ``` 
 
 <br>
 
-- Lisää tiedostot GitHubiin:
+4. Lisää tiedostot GitHubiin:
 
 ``` git add .``` (huomaa piste!)
 ``` git push -u origin master```
 
 <br>
 
-- Jäädytetään projektin tämän hetkiset riippuvuudet, jotta Heroku tietää mitä riippuvuuksia tulee asentaa.  
+5. Jäädytetään projektin tämän hetkiset riippuvuudet, jotta Heroku tietää mitä riippuvuuksia tulee asentaa.  
 
 ```pip freeze > requirements.txt ```
 
 <br>
 
-- Poista requirements.txt tiedostosta rivi: pkg-resources==0.0.0 (esim tekstieditorilla)
+6. Poista requirements.txt tiedostosta rivi: pkg-resources==0.0.0 (esim tekstieditorilla)
 <br>
 
-- Luo sovellukselle paikka Herokuun. Jotta paikan luominen onnistuu, ei saman nimistä sovellusta Herokussa saa olla.
+7. Luo sovellukselle paikka Herokuun. Jotta paikan luominen onnistuu, ei saman nimistä sovellusta Herokussa saa olla.
 Kokeile eri vaihtoehtoja, tai aja pelkkä "heroku create", jolloin Heroku valitsee projektille satunnaisen nimen.
 Valitsemallasi nimellä paikan luominen onnistuu komennolla: 
 
 ```heroku create sovelluksen_nimi ```  
 <br>
 
-- Lisää paikalliseen versionhallintaan tieto Herokusta.
+8. Lisää paikalliseen versionhallintaan tieto Herokusta.
 
 ```git remote add heroku https://git.heroku.com/sovelluksen_nimi.git```
 <br>
 
-- Lähetetään sovellus Herokuun komennoilla:
+9. Lähetetään sovellus Herokuun komennoilla:
 
 ```git add .``` Huom taas piste!
-
 ```git commit -m "Initial commit"```
-
 ```git push heroku master```
 
 <br>
 
-- Löydät sovelluksen nyt osoitteesta: https://sovelluksen_nimi.herokuapp.com/. Jossa sovelluksen_nimi on sille antamasi nimi.
+10. Löydät sovelluksen nyt osoitteesta: https://sovelluksen_nimi.herokuapp.com/. Jossa sovelluksen_nimi on sille antamasi nimi.
 <br>
 
-- Sovellus kannattaa päivittää GitHubiin, sillä  siihen on tullut päivityksiä: 
+11. Sovellus kannattaa päivittää GitHubiin, sillä  siihen on tullut päivityksiä: 
 
 ```git push origin master```
 <br>
