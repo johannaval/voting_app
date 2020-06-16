@@ -31,6 +31,29 @@ Testitunnukset:
 
 ## Asennusohje:
 
+##
+
+Ensin tarvitset:
+
+- Pythonin version  3.5. (Tai uudemman) [Linkki](https://www.python.org/downloads/)
+
+- Pythonin pip:in, jonka avulla saat ladattua apukirjastoja. Tämä asentuu oletuksena linkin takaa löytyvistä Python-versioista.
+
+- Pythonin venv-kirjaston. Tämä yleensä asentuu yllä mainitun Python-ympäristön mukana.
+
+- PostgreSQL-tietokannanhallintajärjestelmän. Tämän lisäksi voit myös ladata pgAdmin:in.
+
+- GIT:in, eli välineet git-repositorioiden käsittelyyn. [Linkki](https://git-scm.com/downloads)
+
+- Jos haluat ladata sovelluksen Herokuun, tarvitset tunnukset sinne sekä työvälineet sen käyttöön. [Linkki](https://devcenter.heroku.com/articles/heroku-cli)
+
+- Jos haluat tarkastella tai muokata koodia, esimerkiksi Visual Studio Code on hyvä vaihtoehto
+
+- Github-käyttäjätunnuksen
+
+
+
+
 ### Paikallinen asennus:
 
 - Lataa sovellus koneellesi painamalla tämän repositorion vihreätä nappia, jossa lukee "Clone or download".
