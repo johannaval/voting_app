@@ -5,23 +5,30 @@
 
 Kaaviota selkeyttämään pienet kuvaukset jokaista taulua kohti:
 
-Voting
+- #### Voting
 - Taulu, joka kuvaa yhtä äänestystä
 
-Vote
+<br>
+
+- #### Vote
 - Taulu, joka kuvaa yhtä annettua ääntä
 - Käyttäjä voi äänestää vain kerran per äänestys, ellei se oli anonyymi-äänestys
 - Ei tallenna ikinä tarkkaa tietoa, mitä käyttäjä on äänestänyt, vain tiedon missä äänestyksessä hän on äänestänyt
 - Tallentaa myös anonyyminä annetut äänet
 
-User_Voted
+<br>
+
+- #### User_Voted
 - Taulu, joka kuvaa äänestykset, missä käyttäjä on äänestänyt, ellei käyttäjä ole anonyymi
+<br>
 
-Option
+- #### Option
 - Taulu, joka kuvaa äänestyksen vaihtoehdon (Niitä on 3-6 per äänestys)
+<br>
 
-Account
+- #### Account
 - Taulu, joka kuvaa käyttäjän tietoja
+<br>
 
 
 ### SQL-schema:
