@@ -2,10 +2,16 @@ from flask import render_template, request, redirect, url_for
 from flask_login import current_user
 
 from application import app, db, login_required
-from application.votings.models import Voting, UserVoted, Vote, Option
+
+from application.votings.modelsOption import Option
+from application.votings.modelsUserVoted import UserVoted
+from application.votings.modelsVote import Vote
+from application.votings.modelsVoting import Voting
 from application.votings.forms import VotingForm
 from application.votings.forms import VoteForm
 from datetime import datetime
+
+
 
 @app.route("/votings", methods=["GET"])
 def votings_index():
@@ -21,11 +27,16 @@ def votings_index():
     return render_template("votings/list.html", votingsToVoteNow=votings_to_vote_now, votingsToVoteLater = votings_to_vote_later)
 
 
+
+
 @app.route("/votings/new/")
 @login_required
 def votings_form():
 
     return render_template("votings/new.html", form=VotingForm())
+
+
+
 
 
 @app.route("/votings/vote/<voting_id>/", methods=["GET", "POST"])
@@ -163,6 +174,7 @@ def votings_show_this(voting_id):
 
 
     return render_template("votings/showVotingResults.html", voting=v, data=data, creator=creator, current=current, list=list, text=text, user_has_voted=user_has_voted, form=VoteForm(), time_count=count_by_hour)
+
 
 
 
@@ -458,6 +470,7 @@ def votings_edit(voting_id):
         return render_template("votings/edit.html", voting=v, options=options, form=form, current = current, creator = creator)
 
 
+
 @app.route("/votings/delete/<voting_id>", methods=["POST", "GET"])
 @login_required
 def votings_delete(voting_id):
@@ -480,6 +493,7 @@ def votings_delete(voting_id):
 
 
 
+
 @app.route("/votings/all")
 @login_required
 def votings_list_all_votings():
@@ -490,6 +504,8 @@ def votings_list_all_votings():
     votings = Voting.query.all()
 
     return render_template("votings/listAllVotings.html", votings=votings)
+
+
 
 
 @app.route("/votings/own")
@@ -505,6 +521,8 @@ def votings_own():
     ended_votings = Voting.get_own_ended_votings(user_id)
 
     return render_template("votings/ownVotings.html", waitingVotings = waiting_votings, startedVotings = started_votings, endedVotings = ended_votings)
+
+
 
 @app.route("/votings/created_by/<user_id>")
 @login_required
@@ -528,6 +546,7 @@ def votings_show_votings_by_id(user_id):
     return render_template("votings/ownVotings.html", creator = creator, current = current, waitingVotings = waiting_votings, startedVotings = started_votings, endedVotings = ended_votings)
 
 
+
 @app.route("/votings/not_voted")
 @login_required
 def votings_not_voted():
@@ -540,6 +559,8 @@ def votings_not_voted():
     return render_template("votings/votingsToVote.html", votingsNow=votings_to_vote_now, votingsLater=votings_to_vote_later)
 
 
+
+
 @app.route("/votings/voted")
 @login_required
 def votings_voted():
@@ -548,6 +569,7 @@ def votings_voted():
     votings = UserVoted.get_voted_votings(user_id)
 
     return render_template("votings/votedVotings.html", votings=votings)
+
 
 
 
@@ -569,6 +591,8 @@ def votings_search():
 
 
     return redirect(url_for("votings_vote", voting_id = voting.id))
+
+
 
 
 def redirect_url(default='index'):

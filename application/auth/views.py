@@ -89,6 +89,8 @@ def auth_logout():
     return redirect(url_for("index"))
 
 
+
+
 @app.route("/auth/list_all")
 @login_required
 def auth_listall():
@@ -98,6 +100,8 @@ def auth_listall():
 
     data = User.query.all()
     return render_template("/auth/listall.html", data=data)
+
+
 
 
 @app.route("/auth/edit/<user_id>", methods=["POST", "GET"])
@@ -146,6 +150,8 @@ def auth_edit(user_id):
     else:
 
         return render_template("auth/editUser.html", user=user, data=data, form=form)
+
+
 
 
 @app.route("/votings/del/<user_id>", methods=["POST", "GET"])

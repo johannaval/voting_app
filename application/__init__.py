@@ -53,12 +53,13 @@ def login_required(_func=None, *, role="ANY"):
 
 
 from application import views
-from application.votings import models
+from application.votings import modelsOption
+from application.votings import modelsUserVoted
+from application.votings import modelsVote
+from application.votings import modelsVoting
 from application.votings import views
 from application.auth import models
 from application.auth import views
-
-
 from application.auth.models import User
 
 

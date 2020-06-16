@@ -9,7 +9,7 @@
     <h1 class="display-5"> Äänestykset, jotka eivät vaadi sisäänkirjautumista: </h1>
     <br>
     {% if votingsToVoteNow|length > 0 %}
-    <p>Käynnissä olevat äänestykset: </p>
+    <h4>Käynnissä olevat äänestykset: </h4>
     {% for voting in votingsToVoteNow %}
     <tr>
       <th>{{ voting.name }} &nbsp;&nbsp;</th>

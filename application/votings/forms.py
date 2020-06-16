@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, validators, IntegerField, RadioField, DateTimeField, BooleanField, SubmitField
 from datetime import datetime
-from application.votings.models import Voting
+from application.votings.modelsVoting import Voting
 from wtforms.validators import InputRequired
 
 class VotingForm(FlaskForm):
