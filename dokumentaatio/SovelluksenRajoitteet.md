@@ -10,13 +10,8 @@ Tämä ominaisuus toimii, mutta scriptin ja html kielten kanssa minulla on viel�
 hyödynnän innerHTML metodeja. Kuten kirjoitinkin jo itse sovellukseen kyseiseen kohtaan, kannattaa käyttäjän ensin
 valita oikea määrä vaihtoehtoja, ja vasta sen jälkeen täyttää kohdat tiedoilla. Jos täyttää ensin tiedot tähän lisävaihtoehtoon,
 ja vasta sitten haluaakin uuden vaihtoehdon, ei aiempi teksti jää talteen, vaan sen on kirjoitettava uudestaan.
-Jos käyttäjä painaa "Lisää", eikä kaikki kohdat validoitu, "piiloituu" lisävaihtoehdot ja ne pitää klikata uudelleen auki. Tätä kuitenkin
-koitin helpottaa, ja muuttaa vaihtoehtojen napin punaiseksi ja lisätä kuvaavan viestin siihen, mikäli virhe on sattunut näissä lisävaihtoehtojen
-validoinnissa, jotta käyttäjä osaa klikata ne auki ja korjata kohdan.
+Jos käyttäjä painaa "Lisää", eikä kaikki kohdat validoitu, "piiloituu" lisävaihtoehdot ja ne pitää klikata uudelleen auki jos muutoksia haluaa tehdä. Tätä kuitenkin
+koitin helpottaa, ja muuttaa "uusi vaihtoehto"-napin värin punaiseksi ja lisätä kuvaavan viestin siihen, mikäli virhe on sattunut näissä lisävaihtoehtojen validoinnissa, jotta käyttäjä osaa klikata ne auki ja korjata kohdan.
 
 Toisena heikkoutena näen datetimepickerin asetukset, sillä kalenterin päivät alkavat sunnuntaista, toisin kuin meillä Suomessa, jossa kalenterin viikot katsotaan alkavan aina maanantaista. Tätäkään ominaisuutta en saanut muokattua, vaikka yritin.
-
-Kolmantena rajoitteena on Äänestykset-dropdown-valikko. Jos käyttäjä on "Lisää uusi äänestys" -näkymässä ja painaa kyseistä dropdown valikkoa, ei se aina avaudu. Vasta kun käyttäjä siirtyy pois kyseisestä näkymästä, dropdown avautuu. Tämä on käytettävyyden kannalta harmi.
-
-
 
