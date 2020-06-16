@@ -41,15 +41,15 @@ Ensin tarvitset:
 
 - Pythonin venv-kirjaston. Tämä yleensä asentuu yllä mainitun Python-ympäristön mukana.
 
-- PostgreSQL-tietokannanhallintajärjestelmän. Tämän lisäksi voit myös ladata pgAdmin:in.
+- PostgreSQL-tietokannanhallintajärjestelmän [Linkki](https://www.postgresql.org/). Tämän lisäksi voit myös ladata pgAdmin:in. [Linkki](https://www.pgadmin.org/)
 
 - GIT:in, eli välineet git-repositorioiden käsittelyyn. [Linkki](https://git-scm.com/downloads)
 
-- Jos haluat ladata sovelluksen Herokuun, tarvitset tunnukset sinne sekä työvälineet sen käyttöön. [Linkki](https://devcenter.heroku.com/articles/heroku-cli)
+- Jos haluat ladata sovelluksen Herokuun, tarvitset tunnukset sinne [Linkki](https://www.heroku.com) sekä työvälineet sen käyttöön. [Linkki](https://devcenter.heroku.com/articles/heroku-cli)
 
-- Jos haluat tarkastella tai muokata koodia, esimerkiksi Visual Studio Code on hyvä vaihtoehto
+- Jos haluat tarkastella tai muokata koodia, esimerkiksi Visual Studio Code on hyvä vaihtoehto [Linkki](https://code.visualstudio.com/) 
 
-- Github-käyttäjätunnuksen
+- Github-käyttäjätunnuksen [Linkki](https://github.com/)
 
 
 
