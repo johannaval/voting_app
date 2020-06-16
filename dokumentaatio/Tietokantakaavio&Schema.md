@@ -1,7 +1,7 @@
 ### Tietokantakaavio: 
 
 
-<img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2020-05-20.png" width="950" height="600">
+<img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-16%2013-24-12.png" width="950" height="500">
 
 ### SQL-schema:
 
