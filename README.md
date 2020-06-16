@@ -56,71 +56,79 @@ Testitunnukset:
 
 - Asenna tarvittavat riippuvuudet:
 - ``` pip install -r requirements.txt ```
+<br>
 
 
 Käynnistä ohjelma:
 - ``` python run.py ```
+<br>
 
 
-Ja nyt ohjelmaa voi käyttää osoitteessa http://localhost:5000/ sekä http://127.0.0.1:5000/
+- Ja nyt ohjelmaa voi käyttää osoitteessa http://localhost:5000/ sekä http://127.0.0.1:5000/
+<br>
+<br>
 
 ### Herokuun asennus:
 
-Paikallisen asennuksen jälkeen voi asentaa sovelluksen myös Herokuun.
-Luo Githubiin repositorio
-Saat mahdollisuuden projektin versiointiin sekä .git-nimisen kansion luomalla projektikansiolle git-versionhallinnan:
-
-``` git init ``` 
+- Paikallisen asennuksen jälkeen voi asentaa sovelluksen myös Herokuun.
 <br>
 
-Lisää GitHubissa oleva repositorio kansion paikallisen versionhallinnan etäpisteeksi. Löydät projektin nimen GitHubista, joka on muotoa: https://github.com/käyttäjätunnus/projektin-nimi.git. Syötä nyt komento:
-
-```git remote add origin github-projektin osoite ``` 
-
+- Luo Githubiin repositorio
 <br>
 
-Lisää tiedostot GitHubiin:
+- Saat mahdollisuuden projektin versiointiin sekä .git-nimisen kansion luomalla projektikansiolle git-versionhallinnan:
 
-``` git add .``` (huomaa piste!)
-``` git push -u origin master```
+- ``` git init ``` 
+<br>
+
+- Lisää GitHubissa oleva repositorio kansion paikallisen versionhallinnan etäpisteeksi. Löydät projektin nimen GitHubista, joka on muotoa: https://github.com/käyttäjätunnus/projektin-nimi.git. Syötä nyt komento:
+
+- ```git remote add origin github-projektin osoite ``` 
 
 <br>
 
-Jäädytetään projektin tämän hetkiset riippuvuudet, jotta Heroku tietää mitä riippuvuuksia tulee asentaa.  
+- Lisää tiedostot GitHubiin:
 
-```pip freeze > requirements.txt ```
+- ``` git add .``` (huomaa piste!)
+- ``` git push -u origin master```
 
 <br>
 
-Poista requirements.txt tiedostosta rivi: pkg-resources==0.0.0 (esim tekstieditorilla)
+- Jäädytetään projektin tämän hetkiset riippuvuudet, jotta Heroku tietää mitä riippuvuuksia tulee asentaa.  
+
+- ```pip freeze > requirements.txt ```
+
 <br>
 
-Luo sovellukselle paikka Herokuun. Jotta paikan luominen onnistuu, ei saman nimistä sovellusta Herokussa saa olla.
+- Poista requirements.txt tiedostosta rivi: pkg-resources==0.0.0 (esim tekstieditorilla)
+<br>
+
+- Luo sovellukselle paikka Herokuun. Jotta paikan luominen onnistuu, ei saman nimistä sovellusta Herokussa saa olla.
 Kokeile eri vaihtoehtoja, tai aja pelkkä "heroku create", jolloin Heroku valitsee projektille satunnaisen nimen.
 Valitsemallasi nimellä paikan luominen onnistuu komennolla: 
 
-```heroku create sovelluksen_nimi ```  
+- ```heroku create sovelluksen_nimi ```  
 <br>
 
-Lisää paikalliseen versionhallintaan tieto Herokusta.
+- Lisää paikalliseen versionhallintaan tieto Herokusta.
 
-```git remote add heroku https://git.heroku.com/sovelluksen_nimi.git```
+- ```git remote add heroku https://git.heroku.com/sovelluksen_nimi.git```
 <br>
 
-Lähetetään sovellus Herokuun komennoilla:
+- Lähetetään sovellus Herokuun komennoilla:
 
-```git add .``` Huom taas piste!
-```git commit -m "Initial commit"```
-```git push heroku master```
+- ```git add .``` Huom taas piste!
+- ```git commit -m "Initial commit"```
+- ```git push heroku master```
 
 <br>
 
-Löydät sovelluksen nyt osoitteesta: https://sovelluksen_nimi.herokuapp.com/. Jossa sovelluksen_nimi on sille antamasi nimi.
+- Löydät sovelluksen nyt osoitteesta: https://sovelluksen_nimi.herokuapp.com/. Jossa sovelluksen_nimi on sille antamasi nimi.
 <br>
 
-Sovellus kannattaa päivittää GitHubiin, sillä  siihen on tullut päivityksiä: 
+- Sovellus kannattaa päivittää GitHubiin, sillä  siihen on tullut päivityksiä: 
 
-```git push origin master```
+- ```git push origin master```
 <br>
 
 
