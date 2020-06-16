@@ -3,6 +3,27 @@
 
 <img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-16%2013-24-12.png" width="950" height="500">
 
+Kaaviota selkeyttämään pienet kuvaukset jokaista taulua kohti:
+
+Voting
+- Taulu, joka kuvaa yhtä äänestystä
+
+Vote
+- Taulu, joka kuvaa yhtä annettua ääntä
+- Käyttäjä voi äänestää vain kerran per äänestys, ellei se oli anonyymi-äänestys
+- Ei tallenna ikinä tarkkaa tietoa, mitä käyttäjä on äänestänyt, vain tiedon missä äänestyksessä hän on äänestänyt
+- Tallentaa myös anonyyminä annetut äänet
+
+User_Voted
+- Taulu, joka kuvaa äänestykset, missä käyttäjä on äänestänyt, ellei käyttäjä ole anonyymi
+
+Option
+- Taulu, joka kuvaa äänestyksen vaihtoehdon (Niitä on 3-6 per äänestys)
+
+Account
+- Taulu, joka kuvaa käyttäjän tietoja
+
+
 ### SQL-schema:
 
 ```
