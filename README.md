@@ -33,35 +33,33 @@ Testitunnukset:
 
 ### Paikallinen asennus:
 
-Lataa sovellus koneellesi painamalla tämän repositorion vihreätä nappia, jossa lukee "Clone or download".
+- Lataa sovellus koneellesi painamalla tämän repositorion vihreätä nappia, jossa lukee "Clone or download".
 <br>
 
-Paina "Download ZIP"
+- Paina "Download ZIP"
 <br>
 
-Luo uusi kansio tiedostoihisi, ja siirrä sekä pura lataamasi ZIP sinne.
+- Luo uusi kansio tiedostoihisi, ja siirrä sekä pura lataamasi ZIP sinne.
 <br>
 
-Siirry ZIP:in luomaan kansioon 
+- Siirry ZIP:in luomaan kansioon 
 <br>
 
-Asenna Python-virtuaaliympäristö samaan hakemistoon, missä sovellus on, komennolla:
-``` python -m venv venv ```
+- Asenna Python-virtuaaliympäristö samaan hakemistoon, missä sovellus on, komennolla:
+- ``` python -m venv venv ```
 <br>
 
-Virtuaaliympäristön saa käyttöön:
-``` source venv/bin/activate ```
+- Virtuaaliympäristön saa käyttöön:
+- ``` source venv/bin/activate ```
 <br>
 
 
-Asenna tarvittavat riippuvuudet:
-
-``` pip install -r requirements.txt ```
+- Asenna tarvittavat riippuvuudet:
+- ``` pip install -r requirements.txt ```
 
 
 Käynnistä ohjelma:
-
-``` python run.py ```
+- ``` python run.py ```
 
 
 Ja nyt ohjelmaa voi käyttää osoitteessa http://localhost:5000/ sekä http://127.0.0.1:5000/
