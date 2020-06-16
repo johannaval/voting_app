@@ -68,68 +68,60 @@ Ja nyt ohjelmaa voi käyttää osoitteessa http://localhost:5000/ sekä http://1
 - Paikallisen asennuksen jälkeen voi asentaa sovelluksen myös Herokuun.
 - Luo Githubiin repositorio
 - Saat mahdollisuuden projektin versiointiin sekä .git-nimisen kansion luomalla projektikansiolle git-versionhallinnan:
+
 ``` git init ``` 
-<br>
 <br>
 
 - Lisää GitHubissa oleva repositorio kansion paikallisen versionhallinnan etäpisteeksi. Löydät projektin nimen GitHubista, joka on muotoa: https://github.com/käyttäjätunnus/projektin-nimi.git. Syötä nyt komento:
+
 ```git remote add origin github-projektin osoite ``` 
-<br>
+
 <br>
 
 - Lisää tiedostot GitHubiin:
+
 ``` git add .``` (huomaa piste!)
 ``` git push -u origin master```
-<br>
+
 <br>
 
 - Jäädytetään projektin tämän hetkiset riippuvuudet, jotta Heroku tietää mitä riippuvuuksia tulee asentaa.  
+
 ```pip freeze > requirements.txt ```
-<br>
+
 <br>
 
 - Poista requirements.txt tiedostosta rivi: pkg-resources==0.0.0 (esim tekstieditorilla)
-<br>
 <br>
 
 - Luo sovellukselle paikka Herokuun. Jotta paikan luominen onnistuu, ei saman nimistä sovellusta Herokussa saa olla.
 Kokeile eri vaihtoehtoja, tai aja pelkkä "heroku create", jolloin Heroku valitsee projektille satunnaisen nimen.
 Valitsemallasi nimellä paikan luominen onnistuu komennolla: 
+
 ```heroku create sovelluksen_nimi ```  
-<br>
 <br>
 
 - Lisää paikalliseen versionhallintaan tieto Herokusta.
+
 ```git remote add heroku https://git.heroku.com/sovelluksen_nimi.git```
-<br>
 <br>
 
 - Lähetetään sovellus Herokuun komennoilla:
+
 ```git add .``` Huom taas piste!
+
 ```git commit -m "Initial commit"```
+
 ```git push heroku master```
-<br>
+
 <br>
 
 - Löydät sovelluksen nyt osoitteesta: https://sovelluksen_nimi.herokuapp.com/. Jossa sovelluksen_nimi on sille antamasi nimi.
 <br>
-<br>
 
 - Sovellus kannattaa päivittää GitHubiin, sillä  siihen on tullut päivityksiä: 
+
 ```git push origin master```
 <br>
-<br>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
