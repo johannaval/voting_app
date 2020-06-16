@@ -34,20 +34,24 @@ Testitunnukset:
 ### Paikallinen asennus:
 
 Lataa sovellus koneellesi painamalla tämän repositorion vihreätä nappia, jossa lukee "Clone or download".
+<br>
 
-- Paina "Download ZIP"
+Paina "Download ZIP"
+<br>
 
 Luo uusi kansio tiedostoihisi, ja siirrä sekä pura lataamasi ZIP sinne.
+<br>
 
 Siirry ZIP:in luomaan kansioon 
+<br>
 
 Asenna Python-virtuaaliympäristö samaan hakemistoon, missä sovellus on, komennolla:
-
 ``` python -m venv venv ```
+<br>
 
 Virtuaaliympäristön saa käyttöön:
-
 ``` source venv/bin/activate ```
+<br>
 
 
 Asenna tarvittavat riippuvuudet:
