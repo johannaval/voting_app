@@ -1,7 +1,35 @@
 ### Tietokantakaavio: 
 
 
-<img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2020-05-20.png" width="950" height="600">
+<img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-16%2013-24-12.png" width="950" height="500">
+
+Kaaviota selkeyttämään pienet kuvaukset jokaista taulua kohti:
+
+- #### Voting
+- Taulu, joka kuvaa yhtä äänestystä
+
+<br>
+
+- #### Vote
+- Taulu, joka kuvaa yhtä annettua ääntä
+- Käyttäjä voi äänestää vain kerran per äänestys, ellei se oli anonyymi-äänestys
+- Ei tallenna ikinä tarkkaa tietoa, mitä käyttäjä on äänestänyt, vain tiedon missä äänestyksessä hän on äänestänyt
+- Tallentaa myös anonyyminä annetut äänet
+
+<br>
+
+- #### User_Voted
+- Taulu, joka kuvaa äänestykset, missä käyttäjä on äänestänyt, ellei käyttäjä ole anonyymi
+<br>
+
+- #### Option
+- Taulu, joka kuvaa äänestyksen vaihtoehdon (Niitä on 3-6 per äänestys)
+<br>
+
+- #### Account
+- Taulu, joka kuvaa käyttäjän tietoja
+<br>
+
 
 ### SQL-schema:
 
