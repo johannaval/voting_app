@@ -7,7 +7,7 @@ Sovelluksessa on myös mahdollisuus anonyymeille äänestyksille, jotka eivät v
 
 Admin-roolin käyttäjä:
 ``` käyttäjänimi: admin
-    salasana: testaaja 
+ salasana: testaaja 
  ``` 
   
 Tavallinen käyttäjä:
