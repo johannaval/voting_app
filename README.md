@@ -6,12 +6,14 @@ Sovelluksessa on myös mahdollisuus anonyymeille äänestyksille, jotka eivät v
 ##### Testitunnukset:
 
 Admin-roolin käyttäjä:
-``` käyttäjänimi: admin
- salasana: testaaja 
+``` 
+käyttäjänimi: admin
+salasana: testaaja 
  ``` 
   
 Tavallinen käyttäjä:
- ``` käyttäjänimi: tero
+ ``` 
+ käyttäjänimi: tero
  salasana: testaaja 
  ``` 
 
