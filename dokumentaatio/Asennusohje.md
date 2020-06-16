@@ -2,9 +2,7 @@
 
 ## Asennusohje:
 
-##
-
-Ensin tarvitset:
+## Ensin tarvitset:
 
 - Pythonin version  3.5. (Tai uudemman) [Linkki](https://www.python.org/downloads/)
 
