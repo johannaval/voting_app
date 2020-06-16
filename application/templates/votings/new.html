@@ -1,17 +1,13 @@
 {% extends "layout.html" %}
+
 {% block body %}
-<br>
 <br>
 <br>
 <div class="jumbotron">
   <form method="POST" action="{{ url_for('votings_create')}}">
-
     <h1 class="display-3"> Luo äänestys: </h1>
-
     <table>
-
       <br>
-
       <tr>
         <p> Kysymys: </p>
         {% if error == "Tällä nimellä on jo äänestys!" %}
@@ -342,11 +338,13 @@
           <th> {{ form.ending_time(class="form-control", id="ending_picker")}} </th>
 
         </div>
-
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="jquery.datetimepicker.full.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+      
         <script
           src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
         <script>
@@ -396,7 +394,6 @@
       <input type="submit" , class="btn btn-primary" , value="Lisää!">
     </td>
   </form>
-
 
 </div>
 {% endblock %}

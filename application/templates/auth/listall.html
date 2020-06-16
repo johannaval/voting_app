@@ -13,7 +13,7 @@
     <tr>
       <th>{{ user.username }}&nbsp;&nbsp; </th>
       <th>
-        <form method="POST" action="{{ url_for('auth_edit', user_id=user.id) }}">
+        <form method="GET" action="{{ url_for('auth_edit', user_id=user.id) }}">
           <input type="submit" , class="btn btn-outline-warning" , value="Muokkaa käyttäjän tietoja" />&nbsp;&nbsp;
         </form>
       </th>

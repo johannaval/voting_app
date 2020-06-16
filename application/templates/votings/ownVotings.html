@@ -19,7 +19,7 @@
         <tr>
             <th>{{ voting.name  }} &nbsp;&nbsp; </th>
             <th>
-                <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
+                <form method="GET" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
                     <input type="submit" , class="btn btn-outline-warning" , value="Muokkaa" />&nbsp;&nbsp;
                 </form>
             </th>
