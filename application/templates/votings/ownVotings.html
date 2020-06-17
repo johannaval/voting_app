@@ -5,7 +5,16 @@
 <br>
 <br>
 <div class="jumbotron">
-   
+
+    <head>
+        <style>
+            p.title {
+                font-size: 17px;
+            }
+        </style>
+    </head>
+
+
     {% if creator == current %}
     <h1 class="display-3">Äänestyksesi:</h1>
     {%endif%}
@@ -14,7 +23,7 @@
     {% if current_user.roles()=="ADMIN" or current == creator%}
 
     <table>
-        <p>Äänestykset, jotka eivät ole vielä alkaneet:</p>
+        <p class="title">Äänestykset, jotka eivät ole vielä alkaneet:</p>
         {% for voting in waitingVotings%}
         <tr>
             <th>{{ voting.name  }} &nbsp;&nbsp; </th>
@@ -41,14 +50,14 @@
     <hr class="my-4">
     <table>
 
-        <p>Käynnissä olevat äänestykset:</p>
+        <p class="title">Käynnissä olevat äänestykset:</p>
         {% for voting in startedVotings%}
         <tr>
             <th>{{ voting.name  }} &nbsp;&nbsp; </th>
 
             {% if current_user.roles()=="ADMIN"%}
             <th>
-                <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
+                <form method="GET" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
                     <input type="submit" , class="btn btn-outline-warning" , value="Muokkaa" />&nbsp;&nbsp;
                 </form>
             </th>
@@ -70,13 +79,13 @@
     </table>
     <hr class="my-4">
     <table>
-        <p>Loppuneet äänestykset:</p>
+        <p class="title">Loppuneet äänestykset:</p>
         {% for voting in endedVotings%}
         <tr>
             <th>{{ voting.name  }} &nbsp;&nbsp; </th>
             {% if current_user.roles()=="ADMIN"%}
             <th>
-                <form method="POST" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
+                <form method="GET" action="{{ url_for('votings_edit', voting_id=voting.id) }}">
                     <input type="submit" , class="btn btn-outline-warning" , value="Muokkaa" />&nbsp;&nbsp;
                 </form>
             </th>

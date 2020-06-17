@@ -1,8 +1,6 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import current_user
-
 from application import app, db, login_required
-
 from application.votings.modelsOption import Option
 from application.votings.modelsUserVoted import UserVoted
 from application.votings.modelsVote import Vote
@@ -23,8 +21,24 @@ def votings_index():
 
        votings_to_vote_now = Voting.get_anonymous_votings_that_can_be_voted_now()
        votings_to_vote_later = Voting.get_anonymous_votings_that_can_be_voted_later()
+    
+    top_votings = []
+    top_votings = Voting.get_top_3_votings_that_are_on()
 
-    return render_template("votings/list.html", votingsToVoteNow=votings_to_vote_now, votingsToVoteLater = votings_to_vote_later)
+    sum_of_this_user_has_voted  = 0
+    
+    if current_user.is_authenticated:
+        user_id = current_user.id
+        sum_of_this_user_has_voted = Voting.how_many_times_this_user_has_voted(current_user.id)
+
+    sum_of_voted_votings = Voting.how_many_times_users_have_voted()
+
+    get_most_voted_option = Voting.get_most_voted_options()
+    most_voted = get_most_voted_option[0]
+
+
+    return render_template("votings/list.html", votingsToVoteNow=votings_to_vote_now, votingsToVoteLater = votings_to_vote_later, top_votings=top_votings, 
+    sum_of_this_user_has_voted = sum_of_this_user_has_voted, whole_sum =sum_of_voted_votings, most_voted=most_voted)
 
 
 
@@ -145,16 +159,14 @@ def votings_show_this(voting_id):
 
     if v.show_result == 2 and v.account_id != current_user.id:
         text.append("Kolme eniten ääniä saanutta vaihtoehtoa: ")
-        count = "3"
-        list = Vote.return_votes_in_voting(voting_id, count)
+        list = Vote.return_top_3_votes_in_voting(voting_id)
 
     elif v.show_result == 1 and v.account_id != current_user.id:
         text.append("")
 
     elif v.show_result == 3 or v.account_id == current_user.id:
         text.append("Kaikki äänet: ")
-        count = "all"
-        list = Vote.return_votes_in_voting(voting_id, count)
+        list = Vote.return_votes_in_voting(voting_id)
 
   
     creator = v.account_id

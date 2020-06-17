@@ -22,9 +22,16 @@
 
 
         <p>&nbsp;</p>
-        <hr class="my-4">
+
+        {%if list|length==0%}
+
+        <p>Voi rähmä! Äänestyksen tekijä ei ole halunnut jakaa äänimääristä tietoa :( </p>
+        {%else%}
 
         <table>
+
+            <hr class="my-4">
+
             {%for t in text%}
             <tr>
                 <th>
@@ -54,7 +61,7 @@
             {% endfor %}
         </table>
 
-        {% if current_user.id == voting.account_id %}
+        {% if current_user.id == voting.account_id or current_user.roles()=="ADMIN" %}
 
         <input id="1" type="hidden" value={{time_count[0]}} />
         <input id="2" type="hidden" value={{time_count[1]}} />
@@ -144,6 +151,7 @@
             <div id="chartContainer" style="height: 370px; width: 100%;"></div>
             <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
         </body>
+        {%endif%}
         {%endif%}
 
         {%endif %}

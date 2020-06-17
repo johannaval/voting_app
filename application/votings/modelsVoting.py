@@ -224,3 +224,86 @@ class Voting(Base):
             list_all.append(row)
 
         return list_all
+
+
+
+
+    @staticmethod
+    def get_top_3_votings_that_are_on():
+
+        current_time = datetime.now()
+
+        stmt = text("SELECT Voting.name, COUNT(Vote.voting_id) FROM Voting "
+                    "LEFT JOIN Vote ON Voting.id = Vote.voting_id "
+                    "WHERE Voting.starting_time < :current_time "
+                    "AND Voting.ending_time > :current_time "
+                    "GROUP BY voting.id "
+                    "ORDER BY count(Vote.voting_id) DESC "
+                    "LIMIT 3").params(current_time=current_time)
+
+        res = db.engine.execute(stmt)
+        response = []
+
+        for row in res:
+            response.append(row)
+
+        return response
+
+
+    @staticmethod
+    def get_most_voted_options():
+
+        current_time = datetime.now()
+
+
+        stmt = text("SELECT Option.name, COUNT(Vote.vote_id) FROM Option "
+                    "LEFT JOIN Vote ON Option.option_id = Vote.option_id "
+                    "LEFT JOIN Voting ON Option.voting_id = Voting.id "
+                    "WHERE Voting.starting_time < :current_time "
+                    "AND Voting.ending_time > :current_time "
+                    "ORDER BY count(Vote.vote_id) DESC "
+                    "LIMIT 3").params(current_time=current_time)
+
+        res = db.engine.execute(stmt)
+        response = []
+
+        for row in res:
+            response.append(row)
+
+        return response
+
+
+    @staticmethod
+    def how_many_times_users_have_voted():
+
+        stmt = text("SELECT * FROM Vote GROUP BY vote_id")
+
+        res = db.engine.execute(stmt)
+        response = []
+
+        i = 0
+
+        for row in res:
+           i = i + 1
+
+        return i
+
+    @staticmethod
+    def how_many_times_this_user_has_voted(user_id):
+
+
+        stmt = text("SELECT * FROM User_Voted "
+                    "WHERE User_Voted.user_id = :user_id").params(user_id=user_id)
+
+        res = db.engine.execute(stmt)
+        response = []
+
+        i = 0
+
+        for row in res:
+            i = i +1
+
+        return i
+
+
+

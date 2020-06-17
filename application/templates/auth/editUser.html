@@ -26,16 +26,13 @@
 
                 {% if error|length != 0%}
                 <th> {{ form.createNewName(class="form-control is-invalid", placeholder=data[1]) }} </th>
-                {{error}}
+                <th>{{error}} </th>
                 {% else %}
                 {% if not form.createNewUsername.errors %}
                 <th> {{ form.createNewUsername(class="form-control", placeholder=data[1])}} </th>
                 {% else %}
                 <th> {{ form.createNewUsername(class="form-control is-invalid", placeholder=data[1]) }} </th>
                 <th> {% for error in form.createNewUsername.errors %} {{ error }}
-                    {% endfor %}
-                </th>
-                <th> {% for e in error %} {{ error }}
                     {% endfor %}
                 </th>
                 {% endif %}

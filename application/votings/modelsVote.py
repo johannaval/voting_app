@@ -19,29 +19,20 @@ class Vote(db.Model):
         self.voting_id = voting_id
 
     @staticmethod
-    def return_votes_in_voting(id, count):
+    def return_votes_in_voting(id):
 
-        if (count == "3"):
-
-            stmt = text("SELECT Option.name, COUNT(Vote.option_id) FROM Option "
-                        "LEFT JOIN Vote ON Vote.option_id = Option.option_id "
-                        "WHERE Option.voting_id = :id "
-                        "GROUP BY option.name "
-                        "ORDER BY count(Vote.option_id) DESC LIMIT 3").params(id=id)
-        else:
-            stmt = text("SELECT Option.name, COUNT(Vote.option_id) FROM Option "
-                        "LEFT JOIN Vote ON Vote.option_id = Option.option_id "
-                        "WHERE Option.voting_id = :id "
-                        "GROUP BY option.name "
-                        "ORDER BY count(Vote.option_id) DESC").params(id=id)
+    
+        stmt = text("SELECT Option.name, COUNT(Vote.option_id) FROM Option "
+                    "LEFT JOIN Vote ON Vote.option_id = Option.option_id "
+                    "WHERE Option.voting_id = :id "
+                    "GROUP BY option.name "
+                    "ORDER BY count(Vote.option_id) DESC").params(id=id)
 
         res = db.engine.execute(stmt)
         response = []
-        line = ""
 
         for row in res:
             response.append(row)
-            print(row)
 
         return response
 
@@ -68,8 +59,9 @@ class Vote(db.Model):
                 time_to=18
            
 
-
             time_to = time_to + 3
+
+            ##wtf
            
             stmt = text("SELECT * FROM VOTE "
                        "WHERE extract(hour from time) = :time_to "
@@ -93,4 +85,25 @@ class Vote(db.Model):
             i = i + 1
 
         return i
+
+
+    @staticmethod
+    def return_top_3_votes_in_voting(id):
+
+
+        stmt = text("SELECT Option.name, COUNT(Vote.option_id) FROM Option "
+                    "LEFT JOIN Vote ON Vote.option_id = Option.option_id "
+                    "WHERE Option.voting_id = :id "
+                    "GROUP BY option.name "
+                    "ORDER BY count(Vote.option_id) DESC LIMIT 3").params(id=id)
+     
+        res = db.engine.execute(stmt)
+        response = []
+
+        for row in res:
+            response.append(row)
+
+        return response
+
+
 

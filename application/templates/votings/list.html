@@ -4,12 +4,21 @@
 <br>
 <br>
 <div class="jumbotron">
+
+  <head>
+    <style>
+      p.title {
+        font-size: 18px;
+      }
+    </style>
+  </head>
+
   <table>
     {% if not current_user.is_authenticated%}
     <h1 class="display-5"> Äänestykset, jotka eivät vaadi sisäänkirjautumista: </h1>
     <br>
     {% if votingsToVoteNow|length > 0 %}
-    <h4>Käynnissä olevat äänestykset: </h4>
+    <p class="title">Käynnissä olevat äänestykset: </p>
     {% for voting in votingsToVoteNow %}
     <tr>
       <th>{{ voting.name }} &nbsp;&nbsp;</th>
@@ -21,8 +30,8 @@
     </tr>
     {% endfor %}
     {% else %}
-    <p>Valitettavasti yhtään äänestystä joka sallii äänestämisen ilman kirjautumista ei ole käynnissä,
-      luo tunnus tai kirjaudu sisään nähdäksesi äänestyksiä!
+    <p>Valitettavasti yhtään äänestystä, joka sallii äänestämisen ilman kirjautumista, ei ole käynnissä. :( </p>
+    <p> Luo tunnus tai kirjaudu sisään nähdäksesi kaikki käynnissä olevat äänestykset! </p>
     <p>
       {% endif %}
       </tr>
@@ -51,7 +60,33 @@
     </tr>
     </tr>
     {% else %}
-    <h4>Tervetuloa! </h4>
+    <h1 class="display-5"> Hei {{current_user.name}}! Kivaa että olet löytänyt tiesi tänne! </h1>
+    <p class="title">Toivottavasti tykkäät sovelluksesta :)</p>
+
+    <br>
+
+    <p class="title">Tiesitkö, että sovelluksessa on äänestetty yhteensä jopa {{whole_sum}} kertaa! Näistä äänistä on
+      {{sum_of_this_user_has_voted}} sinun!</p>
+
+    <p class="title">Käynnissä olevista äänestyksistä eniten ääniä on saanut vaihtoehto nimeltään: "{{most_voted[0]}}",
+      osaatko selvittää, mistä
+      äänestyksestä tämä vaihtoehto on?</p>
+
+    <br>
+    <br>
+
+    <p class="title">Tällä hetkellä suosituimmat käynnissä olevat äänestykset ovat: </p>
+
+    {%for voting in top_votings%}
+
+    <tr>
+      <td> Äänestys: &nbsp; {{voting[0]}} &nbsp;&nbsp;</td>
+      <td>Äänestäjiä yhteensä: &nbsp; {{voting[1]}} </td>
+    </tr>
+
+    {%endfor%}
+    </p>
+
     {% endif %}
   </table>
 </div>

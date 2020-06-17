@@ -27,3 +27,4 @@ class Option(db.Model):
             i = i + 1
 
         return i
+

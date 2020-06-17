@@ -21,7 +21,7 @@ class VotingForm(FlaskForm):
     option6Description = StringField("Kuvaus: (vapaaehtoinen)", [validators.Length(max=70, message='Kuvauksessa ei voi olla yli 70 merkkiä!')])
     starting_time = DateTimeField("Aloitusaika:", [validators.InputRequired(message='Valitsethan aloituspäivän ja ajan!')])
     ending_time = DateTimeField("Lopetusaika:", [validators.InputRequired(message='Valitsethan lopetuspäivän ja ajan!')])
-    results = RadioField('Mitä tuloksia haluat, että muut näkevät?', choices = [('1','Ei mitään'),('2','Vain kärjen'),('3','Kaikki äänet')], validators=[InputRequired()])
+    results = RadioField('Mitä tuloksia haluat, että muut näkevät?', choices = [('1','Ei mitään'),('2','Top 3 tulokset'),('3','Kaikki tulokset')], validators=[InputRequired()])
     anonymous = RadioField('Äänestys vain kirjautuneille käyttäjille? ', choices = [('1','Kyllä'),('2','Ei')], validators=[InputRequired()])
     
     class Meta:

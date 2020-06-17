@@ -4,6 +4,15 @@
 <br>
 <br>
 <div class="jumbotron">
+
+    <head>
+        <style>
+            p.title {
+                font-size: 20px;
+            }
+        </style>
+    </head>
+
     <form method="POST" action="{{ url_for('votings_vote', voting_id=voting.id) }}">
         <table>
             <h1 class="display-3"> {{ voting.name }} </h1>
@@ -28,9 +37,9 @@
                 <p></p>
             </tr>
             {% if not isOn %}
-            <h4>Äänestys avautuu:</h4>
+            <p class="title">Äänestys avautuu:</p>
             {% else %}
-            <h4>Äänestys päättyy:</h4>
+            <p class="title">Äänestys päättyy:</p>
             {% endif %}
 
             <input id="1" type="hidden" value={{separated_time[0]}} />
@@ -97,7 +106,9 @@
             {% if creator != current and user_has_voted == False and isOn == True %}
             <tr>
                 {%if data|length==3 %}
-                <th>{{ form.answer.label }} {{ form.answer }}</th>
+                <th>
+                    <p class="title"> {{ form.answer.label }} </p> {{ form.answer }}
+                </th>
                 <td colspan="4">
                     <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
                 <th> {% for e in error %} {{ e }}
@@ -108,7 +119,9 @@
 
             <tr>
                 {%if data|length==4 %}
-                <th>{{ form.answer.label }} {{ form.answer4 }}</th>
+                <th>
+                    <p class="title">{{ form.answer.label }}</p> {{ form.answer4 }}
+                </th>
                 <td colspan="4">
                     <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
                 <th> {% for e in error %} {{ e }}
@@ -120,7 +133,9 @@
 
             <tr>
                 {%if data|length==5 %}
-                <th>{{ form.answer.label }} {{ form.answer5 }}</th>
+                <th>
+                    <p class="title">{{ form.answer.label }}</p> {{ form.answer5 }}
+                </th>
                 <td colspan="4">
                     <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
                 <th> {% for e in error %} {{ e }}
@@ -132,7 +147,9 @@
 
             <tr>
                 {%if data|length==6 %}
-                <th>{{ form.answer.label }} {{ form.answer6 }}</th>
+                <th>
+                    <p class="title">{{ form.answer.label }}</p> {{ form.answer6 }}
+                </th>
                 <td colspan="4">
                     <input type="submit" , class="btn btn-primary" , value="Äänestä!" />
                 <th> {% for e in error %} {{ e }}
@@ -143,7 +160,7 @@
             {% endif %}
 
             {% if user_has_voted == True %}
-            <h4>Olet jo äänestänyt tässä äänestyksessä!</h4>
+            <p class="title">Olet jo äänestänyt tässä äänestyksessä!</p>
             {% endif %}
 
         </table>

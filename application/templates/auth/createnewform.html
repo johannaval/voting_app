@@ -24,10 +24,7 @@
             <tr>
                 <th> {{ form.createNewUsername.label }} </th>
 
-                {% if error|length != 0%}
-                <th> {{ form.createNewName(class="form-control is-invalid", placeholder="Nimi") }} </th>
-                {{error}}
-                {% else %}
+                {%if error|length == 0%}
                 {% if not form.createNewUsername.errors %}
                 <th> {{ form.createNewUsername(class="form-control", placeholder="Käyttäjänimi")}} </th>
                 {% else %}
@@ -36,8 +33,12 @@
                     {% endfor %}
                 </th>
                 {% endif %}
-                {% endif %}
+                {% else %}
+                <th> {{ form.createNewUsername(class="form-control is-invalid", placeholder="Käyttäjänimi") }} </th>
+                <th>{{error}} </th>
+                {%endif%}
             </tr>
+
 
             <tr>
                 <th> {{ form.createNewPassword.label }} </th>

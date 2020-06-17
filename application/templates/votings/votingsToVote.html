@@ -4,11 +4,20 @@
 <br>
 <br>
 <div class="jumbotron">
+
+    <head>
+        <style>
+            p.title {
+                font-size: 17px;
+            }
+        </style>
+    </head>
+
     <h5 class="display-4">Äänestykset, missä et ole vielä äänestänyt</h5>
     <table>
         <br>
         <tr>
-            <p>Käynnissä olevat äänestykset: </p>
+            <p class="title">Käynnissä olevat äänestykset: </p>
             {% if votingsNow|length > 0 %}
             {% for voting in votingsNow %}
         <tr>
@@ -26,7 +35,7 @@
     <hr class="my-4">
     <table>
         <tr>
-            <p>Äänestykset, jotka eivät ole vielä alkaneet:</p>
+            <p class="title">Äänestykset, jotka eivät ole vielä alkaneet:</p>
             {% if votingsLater|length > 0 %}
             {% for voting in votingsLater %}
         <tr>

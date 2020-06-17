@@ -15,9 +15,7 @@
                         <th> {{ form.username(class="form-control", placeholder="Käyttäjänimi")}} </th>
                         {% else %}
                         <th> {{ form.username(class="form-control is-invalid", placeholder="Käyttäjänimi") }} </th>
-                        <th> {% for error in usernameError %} {{ error }}
-                              {% endfor %}
-                        </th>
+                        <th> {{ usernameError }} </th>
                         {% endif %}
                   </tr>
 
@@ -27,9 +25,7 @@
                         <th> {{ form.password(class="form-control", placeholder="Salasana")}} </th>
                         {% else %}
                         <th> {{ form.password(class="form-control is-invalid", placeholder="Salasana") }} </th>
-                        <th> {% for error in passwordError %} {{ error }}
-                              {% endfor %}
-                        </th>
+                        <th> {{ passwordError }} </th>
                         {% endif %}
                   </tr>
                   <tr>
