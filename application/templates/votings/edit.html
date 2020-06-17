@@ -145,9 +145,11 @@
 
             {%if options|length>3 %}
 
-
             <tr>
                 <th>
+                    <br>
+                    <p>Jos et halua enempää kuin kolme vaihtoehtoa, voit jättää loput kentät tyhjiksi</p>
+
                     &nbsp;
                     <p class="title">Vaihtoehto 4.</p>
                 </th>
@@ -475,6 +477,12 @@
 
         <hr class="my-4">
 
+        <th> {% if timeError|length >0 %} </th>
+        <div class="alert alert-dismissible alert-danger">
+            <th> </a> Ops! Valitsethan alkamisajankohdan aiemmaksi kuin lopetusajan! </th>
+        </div>
+        {%endif%}
+
 
         <tr>
 
@@ -554,13 +562,6 @@
             </body>
 
         </tr>
-
-        {% if timeError|length > 0%}
-        <div class="alert alert-dismissible alert-danger">
-            <th> </a>{{ timeError }}</th>
-        </div>
-        {% endif %}
-
 
         <td colspan="3">
             <input type="submit" , class="btn btn-primary" , value="Lisää!" />

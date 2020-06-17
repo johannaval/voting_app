@@ -229,11 +229,12 @@ def votings_create():
         error = "Tällä nimellä on jo äänestys!"
         return render_template("votings/new.html", form=form, error=error)
 
+
     if not form.validate() or form.starting_time.data >= form.ending_time.data:
 
         v = Voting(form.name.data)
 
-        timeError=""
+        timeError= ""
 
         if(form.starting_time.data >= form.ending_time.data):
             timeError = "Ops! Valitsethan äänestyksen päättymisajaksi myöhemmän ajan kuin alkamisaika!"
@@ -334,14 +335,13 @@ def votings_edit(voting_id):
         list.append(form.option6.data)
 
 
-    if(Voting.is_options_different(list) == False):
-          error = "Jokainen vaihtoehto pitää olla eri!"
-
     options = Option.query.filter(Option.voting_id == voting_id).all()
 
     o1 = options[0]
     o2 = options[1]
     o3 = options[2]
+
+    timeError=""
 
 
     if request.method=="POST":
@@ -367,8 +367,7 @@ def votings_edit(voting_id):
      
        if not form.validate() or form.starting_time.data >= form.ending_time.data or error=="Jokainen vaihtoehto pitää olla eri!":
 
-           v = Voting(form.name.data)
-
+         #  v = Voting(form.name.data)
            timeError=""
 
            if(form.starting_time.data >= form.ending_time.data):
@@ -479,7 +478,7 @@ def votings_edit(voting_id):
 
     else:
 
-        return render_template("votings/edit.html", voting=v, options=options, form=form, current = current, creator = creator)
+        return render_template("votings/edit.html", voting=v, options=options, form=form, current = current, creator = creator, timeError = timeError)
 
 
 

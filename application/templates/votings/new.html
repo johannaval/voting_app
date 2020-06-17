@@ -319,6 +319,12 @@
 
     <hr class="my-4">
 
+    <th> {% if timeError|length >0 %} </th>
+    <div class="alert alert-dismissible alert-danger">
+      <th> </a> Ops! Valitsethan alkamisajankohdan aiemmaksi kuin lopetusajan! </th>
+    </div>
+    {%endif%}
+
     <tr>
 
       <head>
@@ -332,6 +338,8 @@
       <body>
         <div class="container mt-5 mb-5" style="width: 400px">
           <p class="title">Valitse aloituspäivä ja aika: </p>
+
+
           <th> {{ form.starting_time(class="form-control", id="starting_picker")}} </th>
           <br>
           <br>
@@ -387,6 +395,7 @@
           })
 
         </script>
+
     </tr>
 
     </body>
