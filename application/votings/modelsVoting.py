@@ -307,4 +307,21 @@ class Voting(Base):
         return i
 
 
+    @staticmethod
+    def get_all_votings_by_user_id(user_id):
+
+        stmt = text("SELECT id FROM Voting "
+                    "WHERE Account_id = :user_id "
+                    "GROUP BY id").params(user_id=user_id)
+
+        res = db.engine.execute(stmt)
+        response = []
+
+        for row in res:
+            response.append(row)
+
+        return response
+
+
+
 

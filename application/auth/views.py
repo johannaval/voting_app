@@ -162,6 +162,14 @@ def auth_delete(user_id):
         return redirect(url_for("votings_index"))
 
     user = User.query.get(user_id)
+    users_votings = Voting.get_all_votings_by_user_id(user_id)
+
+    for uv in users_votings:
+        v = Voting.query.get(uv)
+        db.session.delete(v)
+        db.session().commit()
+        
+
     db.session.delete(user)
     db.session().commit()
 

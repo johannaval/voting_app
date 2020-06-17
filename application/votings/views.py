@@ -367,7 +367,6 @@ def votings_edit(voting_id):
      
        if not form.validate() or form.starting_time.data >= form.ending_time.data or error=="Jokainen vaihtoehto pitää olla eri!":
 
-         #  v = Voting(form.name.data)
            timeError=""
 
            if(form.starting_time.data >= form.ending_time.data):
