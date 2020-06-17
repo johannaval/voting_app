@@ -1,5 +1,7 @@
 ## User stories:
 
+- Sovellukseen kuuluu kaksi käyttäjäryhmää, tavallinen käyttäjä ja Admin-käyttäjä. Adminilla on muuten tavallisen käyttäjän ominaisuudet, mutta tarpeen tullen Admin voi myös poistaa ja muokata epäsopivia äänestyksiä tai sääntöjä rikkovia käyttäjiä.
+
 - Admin-käyttäjänä haluan poistaa epäsopivia äänestyksiä
 
 ```
