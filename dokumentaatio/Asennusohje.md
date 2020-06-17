@@ -36,6 +36,9 @@
 - Jos taas haluat kloonata projektin, siirry komentokentän kautta uuteen kansioon ja kirjoita komento:
 - ``` git clone https://github.com/johannaval/voting_app.git``` 
 
+- Pääset projektikansioon
+- ``` cd tsoha``` 
+
 - Asenna Python-virtuaaliympäristö samaan hakemistoon, missä sovellus on, komennolla:
 - ``` python3 -m venv venv ```
 
