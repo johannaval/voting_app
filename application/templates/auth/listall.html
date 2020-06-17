@@ -18,6 +18,8 @@
     {% if current_user.roles()=="ADMIN"%}
     <h1 class="display-3">Käyttäjät:</h1>
     <p class="title">Hei Admin! Tässä lista käyttäjistä: &nbsp;&nbsp; </p>
+    <p>Olethan kuitenkin varovainen, ettet poista ketään turhaan! Ainakaan itseäsi!</p>
+
     {% for user in data %}
     <tr>
       <th>{{ user.username }}&nbsp;&nbsp; </th>

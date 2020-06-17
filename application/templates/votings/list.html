@@ -63,7 +63,8 @@
     <h1 class="display-5"> Hei {{current_user.name}}! Kivaa että olet löytänyt tiesi tänne! </h1>
     <p class="title">Toivottavasti tykkäät sovelluksesta :)</p>
 
-    <br>
+    <hr class="my-4">
+
 
     <p class="title">Tiesitkö, että sovelluksessa on äänestetty yhteensä jopa {{whole_sum}} kertaa! Näistä äänistä on
       {{sum_of_this_user_has_voted}} sinun!</p>
@@ -72,7 +73,7 @@
       osaatko selvittää, mistä
       äänestyksestä tämä vaihtoehto on?</p>
 
-    <br>
+    <hr class="my-4">
     <br>
 
     <p class="title">Tällä hetkellä suosituimmat käynnissä olevat äänestykset ovat: </p>
@@ -81,7 +82,7 @@
 
     <tr>
       <td> Äänestys: &nbsp; {{voting[0]}} &nbsp;&nbsp;</td>
-      <td>Äänestäjiä yhteensä: &nbsp; {{voting[1]}} </td>
+      <td>Ääniä yhteensä: &nbsp; {{voting[1]}} </td>
     </tr>
 
     {%endfor%}

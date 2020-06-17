@@ -7,6 +7,15 @@
 <div class="jumbotron">
     <h1 class="display-3"> {{ voting.name }} </h1>
 
+    <head>
+        <style>
+            p.title {
+                font-size: 22px;
+            }
+        </style>
+    </head>
+
+
 
     {% if current_user.roles()=="ADMIN" or user_has_voted == True or current==creator%}
 
@@ -25,7 +34,7 @@
 
         {%if list|length==0%}
 
-        <p>Voi rähmä! Äänestyksen tekijä ei ole halunnut jakaa äänimääristä tietoa :( </p>
+        <p class="title">Voi rähmä! Äänestyksen tekijä ei ole halunnut jakaa äänimääristä tietoa :( </p>
         {%else%}
 
         <table>
@@ -35,7 +44,7 @@
             {%for t in text%}
             <tr>
                 <th>
-                    <h3>{{t}}</h3>
+                    <h1>{{t}}</h1>
                     <br>
                 </th>
             </tr>
@@ -45,18 +54,19 @@
         <table>
             <tr>
                 <td>
-                    <h5>Vaihtoehto:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    </h5>
+                    <p class="title">
+                        Vaihtoehto:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </p>
                 </td>
                 <td>
-                    <h5>Äänet:</h5>
+                    <p class="title">Äänet:</p>
                 </td>
 
             </tr>
             {%for x in list%}
             <tr>
-                <td>{{x[0]}}</td>
-                <td>{{x[1]}}</td>
+                <td> {{x[0]}} </td>
+                <td> {{x[1]}} </td>
             </tr>
             {% endfor %}
         </table>
