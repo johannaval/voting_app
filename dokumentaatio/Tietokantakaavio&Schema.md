@@ -63,6 +63,9 @@ CREATE TABLE account (
 	PRIMARY KEY (id), 
 	CHECK (is_admin IN (0, 1))
 );
+CREATE INDEX ix_account_id ON account (id);
+CREATE UNIQUE INDEX ix_account_username ON account (username);
+
 CREATE TABLE voting (
 	id INTEGER NOT NULL, 
 	name VARCHAR(144) NOT NULL, 
@@ -77,4 +80,8 @@ CREATE TABLE voting (
 	PRIMARY KEY (id), 
 	FOREIGN KEY(account_id) REFERENCES account (id)
 );
+CREATE INDEX ix_voting_id ON voting (id);
+
 ```
+
+Indeksit lisätään automaattisesti Account taulun id:hen sekä Voting taulun id:hen
