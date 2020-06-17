@@ -1,7 +1,7 @@
 ## Voting_app
 
 Sovellus tarjoaa mahdollisuuden luoda äänestyksiä sekä osallistumaan itse muiden äänestyksiin. Äänestyksen tekijä saa itse määritellä, näkyykö äänestyksen tulokset muille. 
-Sovelluksessa on myös mahdollisuus anonyymeille äänestyksille, jotka eivät vaadi kirjautumista. Äänestyksen tekijä pääsee näkemään äänestyksen kaikki tulokset, sekä sen, miten äänestysaktiviteetti on ajan suhteen jakautunut.
+Sovelluksessa on myös mahdollisuus anonyymeille äänestyksille, jotka eivät vaadi kirjautumista. Äänestyksen tekijä pääsee näkemään äänestyksen kaikki tulokset, sekä sen, miten äänestysaktiviteetti on ajan suhteen jakautunut. Jokaisessa äänestyksessä kirjautunut käyttäjä voi äänestää vain kerran. Anonyymiäänestyksissä rajaa ei ole.
 
 ##### Testitunnukset:
 

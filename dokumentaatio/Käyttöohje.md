@@ -69,7 +69,8 @@ Käytössäsi on kaikki samat toiminnallisuudet, kuin tavallisellakin käyttäj�
 
   
   <img src="https://github.com/johannaval/voting_app/blob/master/dokumentaatio/Screenshot%20from%202020-06-14%2018-28-45.png" width="900" height="200">
-  - Jihuu! Nyt olet kirjautuneena sisään. Pääset lisäämään uuden äänestyksen yläreunassa olevan palkin kohdasta "Lisää uusi äänestys" ja täytä tarvittavat tiedot. 
+  - HUOM! Kyseinen näkymä on ohjelman lopullisessa versiossa hieman erilainen kuin tämän screenshotin otto hetkellä. Päädyt kuitenkin tähän pääsivuun, kun olet kirjautunut sisään. Otsikkona lukee "Hei _nimi_! Kivaa että olet löytänyt tiesi tänne!".  
+ Nytp pääset lisäämään uuden äänestyksen yläreunassa olevan palkin kohdasta "Lisää uusi äänestys" ja täytä tarvittavat tiedot. 
  <br>
 <br>
 <br>

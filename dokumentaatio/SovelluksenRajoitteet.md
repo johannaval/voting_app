@@ -6,11 +6,11 @@ esimerkiksi äänestyksen lopullista äänimäärää olisi voinut havainnollist
 
 Yhtenä rajoitteena pidän lisävaihtoehtojen antamista automaattisen kolmen vaihtoehdon jälkeen. En halunnut koodata vaihtoehtojen
 määrää automaattisesti johonkin lukuun, vaan halusin antaa myös käyttäjän päättää, mikäli hän haluaa enemmän vaihtoehtoja.
-Tämä ominaisuus toimii, mutta scriptin ja html kielten kanssa minulla on vielä vaikeuksia, juuri kuinka yhdistää tietoa. Nyt tähän lisävaihtoehtojen antamiseen käytän scriptiä, jossa
+Tämä ominaisuus toimii, mutta scriptin ja html kielten kanssa minulla on vielä vaikeuksia. Nyt tähän lisävaihtoehtojen antamiseen käytän scriptiä, jossa
 hyödynnän innerHTML metodeja. Kuten kirjoitinkin jo itse sovellukseen kyseiseen kohtaan, kannattaa käyttäjän ensin
 valita oikea määrä vaihtoehtoja, ja vasta sen jälkeen täyttää kohdat tiedoilla. Jos täyttää ensin tiedot tähän lisävaihtoehtoon,
-ja vasta sitten haluaakin uuden vaihtoehdon, ei aiempi teksti jää talteen, vaan sen on kirjoitettava uudestaan.
-Jos käyttäjä painaa "Lisää", eikä kaikki kohdat validoitu, "piiloituu" lisävaihtoehdot ja ne pitää klikata uudelleen auki jos muutoksia haluaa tehdä. Tätä kuitenkin
+ja vasta sitten haluaakin uuden vaihtoehdon, ei aiempi teksti jää talteen, vaan se on kirjoitettava uudestaan.
+Jos käyttäjä painaa "Lisää", eikä kaikki kohdat validoitu, "piiloituu" lisävaihtoehdot ja ne pitää klikata uudelleen auki jos muutoksia haluaa niihin vielä tehdä. Tätä kuitenkin
 koitin helpottaa, ja muuttaa "uusi vaihtoehto"-napin värin punaiseksi ja lisätä kuvaavan viestin siihen, mikäli virhe on sattunut näissä lisävaihtoehtojen validoinnissa, jotta käyttäjä osaa klikata ne auki ja korjata kohdan.
 
 Toisena heikkoutena näen datetimepickerin asetukset, sillä kalenterin päivät alkavat sunnuntaista, toisin kuin meillä Suomessa, jossa kalenterin viikot katsotaan alkavan aina maanantaista. Tätäkään ominaisuutta en saanut muokattua, vaikka yritin.

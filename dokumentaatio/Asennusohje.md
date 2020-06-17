@@ -27,16 +27,22 @@
 
 - Lataa sovellus koneellesi painamalla tämän repositorion vihreätä nappia, jossa lukee "Clone or download".
 
-- Paina "Download ZIP"
+- Paina "Download ZIP" tai jos haluat kloonata projektin itselleni, kopioi HTTPS linkki
 
-- Luo uusi kansio tiedostoihisi, ja siirrä sekä pura lataamasi ZIP sinne.
+- Luo uusi kansio tiedostoihisi.
 
-- Siirry ZIP:in luomaan kansioon 
+- Jos käytät ZIP:piä, siirrä sekä pura lataamasi ZIP tähän uuteen kansioon.
+
+- Jos taas haluat kloonata projektin, siirry komentokentän kautta uuteen kansioon ja kirjoita komento:
+- ``` git clone https://github.com/johannaval/voting_app.git``` 
+
+- Pääset projektikansioon
+- ``` cd tsoha``` 
 
 - Asenna Python-virtuaaliympäristö samaan hakemistoon, missä sovellus on, komennolla:
-- ``` python -m venv venv ```
+- ``` python3 -m venv venv ```
 
-- Virtuaaliympäristön saa käyttöön:
+- Virtuaaliympäristön saa käyttöön: (Komentojen eteen ilmestyy (venv))
 - ``` source venv/bin/activate ```
 
 - Asenna tarvittavat riippuvuudet:
@@ -47,6 +53,11 @@
 - ``` python run.py ```
 
 - Ja nyt ohjelmaa voi käyttää osoitteessa http://localhost:5000/ sekä http://127.0.0.1:5000/
+
+- Huomaa, että jos haluat käynnistää sovelluksen myöhemmin uudelleen, sinun pitää ensin käynnistää virtuaaliympäristössä aiemmin mainitulla koodilla:
+- ``` source venv/bin/activate.``` 
+
+- Ohjelman suorituksen saa lopetettua näppäimillä Ctrl + C.
 <br>
 <br>
 
@@ -99,5 +110,7 @@ Valitsemallasi nimellä paikan luominen onnistuu komennolla:
 - Sovellus kannattaa päivittää GitHubiin, sillä  siihen on tullut päivityksiä: 
 
 - ```git push origin master```
+
+- Sovelluksen latautumisessa Herokuun voi mennä pieni hetki. Kun se avautuu, voit kirjautua sisään READ.ME:ssä mainituilla tunnuksilla tai luoda kokonaan omat.
 
 
