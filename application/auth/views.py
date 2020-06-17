@@ -6,6 +6,8 @@ from application.auth.models import User
 from application.auth.forms import LoginForm
 from application.auth.forms import CreateNewForm
 from flask_login import current_user
+from application.votings.modelsVoting import Voting
+
 
 
 
