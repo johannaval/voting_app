@@ -261,6 +261,7 @@ class Voting(Base):
                     "LEFT JOIN Voting ON Option.voting_id = Voting.id "
                     "WHERE Voting.starting_time < :current_time "
                     "AND Voting.ending_time > :current_time "
+                    "GROUP BY Option.option_id "
                     "ORDER BY count(Vote.vote_id) DESC "
                     "LIMIT 3").params(current_time=current_time)
 
