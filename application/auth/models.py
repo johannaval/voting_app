@@ -5,7 +5,7 @@ class User(Base):
 
     __tablename__ = "account"
   
-    username = db.Column(db.String(144), nullable=False)
+    username = db.Column(db.String(144), index=True, unique=True, nullable=False)
     password = db.Column(db.String(144), nullable=False)
     is_admin = db.Column(db.Boolean, default=False, nullable=False)
 

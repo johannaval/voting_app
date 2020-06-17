@@ -34,7 +34,10 @@ def votings_index():
     sum_of_voted_votings = Voting.how_many_times_users_have_voted()
 
     get_most_voted_option = Voting.get_most_voted_options()
-    most_voted = get_most_voted_option[0]
+    if (len(get_most_voted_option)>0):
+        most_voted = get_most_voted_option[0]
+    else:
+        most_voted = ""
 
 
     return render_template("votings/list.html", votingsToVoteNow=votings_to_vote_now, votingsToVoteLater = votings_to_vote_later, top_votings=top_votings, 
