@@ -159,7 +159,7 @@ DELETE FROM voting WHERE voting.id = ?
 
 Lisäksi:
 - Käyttäjänä haluan, ettei tarkat äänestystietoni tallennu minnekkään. 
-Tähän ei tarvita SQL-kyselyä, vaan ominaisuus on rakennettu tietokantaan
+Tähän ei tarvita SQL-kyselyä, vaan tietokannan rakenne takaa tämän ominaisuuden.
 
 
 
