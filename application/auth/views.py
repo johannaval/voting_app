@@ -100,8 +100,25 @@ def auth_listall():
     if not current_user.is_admin:
         return redirect(url_for("votings_index"))
 
-    data = User.query.all()
-    return render_template("/auth/listall.html", data=data)
+
+    per_one_page = 5
+    page = 1
+
+    page = request.args.get('page', 1, type=int)
+    users = User.query.paginate(page, per_one_page, False)
+
+    next_page = None
+    previous_page = None
+
+    if users.has_prev:
+        previous_page = url_for('auth_listall', page=users.prev_num) \
+
+
+    if users.has_next:
+        next_page = url_for('auth_listall', page=users.next_num) \
+  
+
+    return render_template("auth/listall.html", data=users, next_url = next_page, prev_url=previous_page)
 
 
 

@@ -506,7 +506,6 @@ def votings_delete(voting_id):
 
 
 
-
 @app.route("/votings/all")
 @login_required
 def votings_list_all_votings():
@@ -514,9 +513,23 @@ def votings_list_all_votings():
     if not current_user.is_admin:
         return redirect(url_for("votings_index"))
 
-    votings = Voting.query.all()
+    per_one_page = 5
+    page = 1
 
-    return render_template("votings/listAllVotings.html", votings=votings)
+    page = request.args.get('page', 1, type=int)
+    votings = Voting.query.paginate(page, per_one_page, False)
+
+    next_page = None
+    previous_page = None
+
+    if votings.has_next:
+        next_page = url_for('votings_list_all_votings', page=votings.next_num) \
+  
+    if votings.has_prev:
+         previous_page = url_for('votings_list_all_votings', page=votings.prev_num) \
+
+
+    return render_template("votings/listAllVotings.html", votings=votings, next_url = next_page, prev_url=previous_page)
 
 
 

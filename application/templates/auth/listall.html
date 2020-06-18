@@ -20,7 +20,7 @@
     <p class="title">Hei Admin! Tässä lista käyttäjistä: &nbsp;&nbsp; </p>
     <p>Olethan kuitenkin varovainen, ettet poista ketään turhaan! Ainakaan itseäsi!</p>
 
-    {% for user in data %}
+    {% for user in data.items %}
     <tr>
       <th>{{ user.username }}&nbsp;&nbsp; </th>
       <th>
@@ -46,6 +46,17 @@
     {% endif %}
     {% endif %}
   </table>
+
+  <br>
+  <br>
+
+  {% if prev_url %}
+  <a href="{{ prev_url }}" class="btn btn-link">Aiempi sivu</a>
+  {% endif %}
+  {% if next_url %}
+  <a href="{{ next_url }}" class="btn btn-link">Seuraava sivu</a>
+  {% endif %}
+
 </div>
 
 {% endblock %}
