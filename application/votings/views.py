@@ -160,14 +160,14 @@ def votings_show_this(voting_id):
     text = []
     list = []
 
-    if v.show_result == 2 and v.account_id != current_user.id:
+    if v.show_result == 2 and v.account_id != current_user.id and not current_user.is_admin:
         text.append("Kolme eniten ääniä saanutta vaihtoehtoa: ")
         list = Vote.return_top_3_votes_in_voting(voting_id)
 
-    elif v.show_result == 1 and v.account_id != current_user.id:
+    elif v.show_result == 1 and v.account_id != current_user.id and not current_user.is_admin:
         text.append("")
 
-    elif v.show_result == 3 or v.account_id == current_user.id:
+    elif v.show_result == 3 or v.account_id == current_user.id or current_user.is_admin:
         text.append("Kaikki äänet: ")
         list = Vote.return_votes_in_voting(voting_id)
 
