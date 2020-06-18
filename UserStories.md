@@ -27,9 +27,13 @@ UPDATE option SET name=?, description=? WHERE option.option_id = ?
 <br>
 <br>
 
-- Admin-käyttäjän haluan mahdollisuuden poistaa käyttäjiä
+- Admin-käyttäjän haluan mahdollisuuden poistaa käyttäjiä (tällöin myös kyseisen käyttäjän luomat äänestykset poistetaan)
 
 ```
+SELECT voting.id AS voting_id, voting.name AS voting_name, voting.date_created AS voting_date_created, voting.date_modified AS voting_date_modified, voting.description AS voting_description, voting.account_id AS voting_account_id, voting.starting_time AS voting_starting_time, voting.ending_time AS voting_ending_time, voting.show_result AS voting_show_result, voting.anonymous AS voting_anonymous 
+FROM voting 
+WHERE voting.id = ?
+DELETE FROM voting WHERE voting.id = ?
 DELETE FROM account WHERE account.id = ?
 ```
 <br>
